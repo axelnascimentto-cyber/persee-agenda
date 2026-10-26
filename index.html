@@ -1219,6 +1219,10 @@
     .resident-tag.tag-jean-joel { background: rgba(0, 122, 255, 0.14); color: var(--apple-blue); }
     .resident-tag.tag-ariane { background: rgba(255, 149, 0, 0.16); color: #c86a00; }
     .resident-tag.tag-vincent { background: rgba(90, 200, 250, 0.22); color: #0077b6; }
+    .resident-tag.tag-adele { background: rgba(255, 45, 170, 0.16); color: #c2185b; }
+    .resident-tag.tag-roxane { background: rgba(108, 92, 231, 0.16); color: #574b90; }
+    .auth-avatar.niece1 { background: linear-gradient(135deg, #ff758c, #ff7eb3); }
+    .auth-avatar.niece2 { background: linear-gradient(135deg, #a18cd1, #6c5ce7); }
 
     /* EMPTY STATES */
     .empty-banner {
@@ -1431,6 +1435,7 @@
       <button class="user-session-pill" id="userSessionPill" onclick="promptSwitchUser()" title="Session Résident (Cliquer pour changer)">
         <!-- Injected via JS -->
       </button>
+      <button class="btn-circle" onclick="openFamilyDirectoryModal()" title="Répertoire Familial & Résidences (8 membres)">👥</button>
       <button class="btn-circle" id="micBtn" onclick="toggleVoiceInput()" title="Commande Vocale (Micro)">🎤</button>
       <button class="btn-circle" onclick="forceSync()" title="Synchroniser">↻</button>
       <button class="btn-add-primary" onclick="openCreateModal()">
@@ -1533,6 +1538,8 @@
         <button type="button" class="resident-tag tag-jean-joel" onclick="insertTagIntoPrompt('@Jean-Joël')">@Jean-Joël</button>
         <button type="button" class="resident-tag tag-ariane" onclick="insertTagIntoPrompt('@Ariane')">@Ariane</button>
         <button type="button" class="resident-tag tag-vincent" onclick="insertTagIntoPrompt('@Vincent')">@Vincent</button>
+        <button type="button" class="resident-tag tag-adele" onclick="insertTagIntoPrompt('@Adèle')">@Adèle</button>
+        <button type="button" class="resident-tag tag-roxane" onclick="insertTagIntoPrompt('@Roxane')">@Roxane</button>
       </div>
 
       <!-- MOBILE HORIZONTAL 7-DAYS STRIP -->
@@ -1695,6 +1702,8 @@
             <button type="button" class="resident-tag tag-jean-joel" onclick="insertTagIntoField('inEvTitle', '@Jean-Joël')">@Jean-Joël</button>
             <button type="button" class="resident-tag tag-ariane" onclick="insertTagIntoField('inEvTitle', '@Ariane')">@Ariane</button>
             <button type="button" class="resident-tag tag-vincent" onclick="insertTagIntoField('inEvTitle', '@Vincent')">@Vincent</button>
+            <button type="button" class="resident-tag tag-adele" onclick="insertTagIntoField('inEvTitle', '@Adèle')">@Adèle</button>
+            <button type="button" class="resident-tag tag-roxane" onclick="insertTagIntoField('inEvTitle', '@Roxane')">@Roxane</button>
           </div>
         </div>
         <div class="field-row">
@@ -1752,6 +1761,8 @@
             <button type="button" class="resident-tag tag-jean-joel" onclick="insertTagIntoField('inTaskTitle', '@Jean-Joël')">@Jean-Joël</button>
             <button type="button" class="resident-tag tag-ariane" onclick="insertTagIntoField('inTaskTitle', '@Ariane')">@Ariane</button>
             <button type="button" class="resident-tag tag-vincent" onclick="insertTagIntoField('inTaskTitle', '@Vincent')">@Vincent</button>
+            <button type="button" class="resident-tag tag-adele" onclick="insertTagIntoField('inTaskTitle', '@Adèle')">@Adèle</button>
+            <button type="button" class="resident-tag tag-roxane" onclick="insertTagIntoField('inTaskTitle', '@Roxane')">@Roxane</button>
           </div>
         </div>
         <div class="field-row">
@@ -1807,6 +1818,8 @@
             <button type="button" class="resident-tag tag-jean-joel" onclick="insertTagIntoField('inNoteContent', '@Jean-Joël')">@Jean-Joël</button>
             <button type="button" class="resident-tag tag-ariane" onclick="insertTagIntoField('inNoteContent', '@Ariane')">@Ariane</button>
             <button type="button" class="resident-tag tag-vincent" onclick="insertTagIntoField('inNoteContent', '@Vincent')">@Vincent</button>
+            <button type="button" class="resident-tag tag-adele" onclick="insertTagIntoField('inNoteContent', '@Adèle')">@Adèle</button>
+            <button type="button" class="resident-tag tag-roxane" onclick="insertTagIntoField('inNoteContent', '@Roxane')">@Roxane</button>
           </div>
         </div>
         <div class="field-box">
@@ -1940,54 +1953,102 @@
       currentViewMonth: new Date()
     };
 
-        const KNOWN_RESIDENTS = [
+            const KNOWN_RESIDENTS = [
+      {
+        fullName: "Axel Silva Nascimento",
+        aliases: ["axel silva nascimento", "axel nascimento", "axel"],
+        preferredName: "Axel",
+        nickname: "Axel",
+        role: "Parceiro de Jean-Étienne (PACS); genro de Nathalie e Jean-Joël; cunhado de Ariane e Vincent; tio por afinidade de Adèle e Roxane; Admin Persée",
+        phone: "",
+        emails: ["axelnascimento@gmail.com", "axelnascimentto@gmail.com"],
+        residence: "27 rue Poissonnière, Paris (Résidence 1)",
+        avatarClass: "admin",
+        avatarInit: "A"
+      },
+      {
+        fullName: "Jean-Étienne Griesbeck",
+        aliases: ["jean etienne griesbeck", "jean-etienne griesbeck", "etienne griesbeck", "jean-étienne griesbeck", "jet"],
+        preferredName: "Jean-Étienne",
+        nickname: "JET",
+        role: "Parceiro de Axel (PACS); filho de Nathalie e Jean-Joël; irmão de Ariane; tio de Adèle e Roxane",
+        phone: "+33 6 71 37 47 76",
+        emails: ["jet.griesbeck@gmail.com", "jacen57@gmail.com", "jgriesbeck@orange.fr"],
+        residence: "Dupla: 27 rue Poissonnière, Paris & Metz / Ancy-Dornot (Résidence 1 & 2)",
+        avatarClass: "son",
+        avatarInit: "JÉ"
+      },
       {
         fullName: "Nathalie Griesbeck",
-        aliases: ["nathalie griesbeck", "natalie griesbeck"],
+        aliases: ["nathalie griesbeck", "natalie griesbeck", "maminath", "nat"],
         preferredName: "Nathalie",
-        role: "Mère de famille / Épouse",
+        nickname: "Maminath / Nat",
+        role: "Sogra de Axel; mãe de Jean-Étienne e Ariane; companheira de Jean-Joël; avó de Adèle e Roxane",
+        phone: "",
+        emails: ["natguepratte@gmail.com", "nathalie.griesbeck@europarl.europa.eu"],
+        residence: "Metz / Ancy-Dornot, Moselle (Résidence 2)",
         avatarClass: "mother",
         avatarInit: "N"
       },
       {
         fullName: "Jean-Joël Griesbeck",
-        aliases: ["jean joel griesbeck", "jean-joel griesbeck", "joel griesbeck", "jean-joël griesbeck"],
+        aliases: ["jean joel griesbeck", "jean-joel griesbeck", "joel griesbeck", "jean-joël griesbeck", "gp", "papa"],
         preferredName: "Jean-Joël",
-        role: "Père de famille / Époux",
+        nickname: "GP / Papa",
+        role: "Sogro de Axel; pai de Jean-Étienne e Ariane; companheiro de Nathalie; avô de Adèle e Roxane",
+        phone: "",
+        emails: ["jjgriesbeck57@gmail.com", "jjgriesbeck1@orange.fr"],
+        residence: "Metz / Ancy-Dornot, Moselle (Résidence 2)",
         avatarClass: "father",
         avatarInit: "JJ"
       },
       {
-        fullName: "Jean-Étienne Griesbeck",
-        aliases: ["jean etienne griesbeck", "jean-etienne griesbeck", "etienne griesbeck", "jean-étienne griesbeck"],
-        preferredName: "Jean-Étienne",
-        role: "Fils / Époux d'Axel",
-        avatarClass: "son",
-        avatarInit: "JÉ"
-      },
-      {
-        fullName: "Axel Nascimento",
-        aliases: ["axel nascimento"],
-        preferredName: "Axel",
-        role: "Époux de Jean-Étienne / Admin Persée",
-        avatarClass: "admin",
-        avatarInit: "A"
-      },
-      {
         fullName: "Ariane Griesbeck",
-        aliases: ["ariane griesbeck"],
+        aliases: ["ariane griesbeck", "ariane"],
         preferredName: "Ariane",
-        role: "Fille / Épouse de Vincent",
+        nickname: "Ariane",
+        role: "Cunhada de Axel; irmã de Jean-Étienne; filha de Nathalie e Jean-Joël; companheira de Vincent; mãe de Adèle e Roxane",
+        phone: "+33 6 27 69 24 76",
+        emails: ["arianegriesbeck@gmail.com"],
+        residence: "8 rue Beauregard, Paris (Résidence 3)",
         avatarClass: "daughter",
         avatarInit: "Ar"
       },
       {
         fullName: "Vincent Bouvard",
-        aliases: ["vincent bouvard"],
+        aliases: ["vincent bouvard", "vincent"],
         preferredName: "Vincent",
-        role: "Gendre / Époux d'Ariane",
+        nickname: "Vincent",
+        role: "Concunhado de Axel; companheiro de Ariane; genro de Nathalie e Jean-Joël; pai de Adèle e Roxane",
+        phone: "",
+        emails: ["vincent.bouvard@socgen.com", "vincentbouvard@laposte.net", "vbouvard75@gmail.com"],
+        residence: "8 rue Beauregard, Paris (Résidence 3)",
         avatarClass: "soninlaw",
         avatarInit: "V"
+      },
+      {
+        fullName: "Adèle Bouvard Griesbeck",
+        aliases: ["adele bouvard griesbeck", "adèle bouvard griesbeck", "adele bouvard", "adèle bouvard", "adele griesbeck", "adèle griesbeck", "adele", "adèle"],
+        preferredName: "Adèle",
+        nickname: "Adèle",
+        role: "Sobrinha de Jean-Étienne e Axel; filha de Ariane e Vincent; neta de Nathalie e Jean-Joël; irmã de Roxane",
+        phone: "+33 7 49 81 83 53",
+        emails: [],
+        residence: "8 rue Beauregard, Paris (Résidence 3)",
+        avatarClass: "niece1",
+        avatarInit: "Ad"
+      },
+      {
+        fullName: "Roxane Bouvard Griesbeck",
+        aliases: ["roxane bouvard griesbeck", "roxane bouvard", "roxane griesbeck", "roxane"],
+        preferredName: "Roxane",
+        nickname: "Roxane",
+        role: "Sobrinha de Jean-Étienne e Axel; filha de Ariane e Vincent; neta de Nathalie e Jean-Joël; irmã de Adèle",
+        phone: "",
+        emails: [],
+        residence: "8 rue Beauregard, Paris (Résidence 3)",
+        avatarClass: "niece2",
+        avatarInit: "Ro"
       }
     ];
 
@@ -2055,6 +2116,70 @@
           errMsg.innerText = "Nom non reconnu ou non autorisé. Veuillez vérifier la saisie.";
         }
       }
+    }
+
+        // MODAL RÉPERTOIRE FAMILIAL (8 MEMBRES & 3 RÉSIDENCES)
+    function openFamilyDirectoryModal() {
+      const modal = document.getElementById('modalFamilyDirectory');
+      if (!modal) return;
+      renderFamilyDirectoryCards();
+      modal.style.display = 'flex';
+    }
+
+    function closeFamilyDirectoryModal() {
+      const modal = document.getElementById('modalFamilyDirectory');
+      if (modal) modal.style.display = 'none';
+    }
+
+    function renderFamilyDirectoryCards() {
+      const container = document.getElementById('familyDirectoryCards');
+      if (!container) return;
+      container.innerHTML = '';
+
+      KNOWN_RESIDENTS.forEach(m => {
+        const card = document.createElement('div');
+        card.style.cssText = 'background:#ffffff; border:1px solid var(--separator-subtle); border-radius:14px; padding:14px; display:flex; flex-direction:column; gap:8px; box-shadow:0 1px 4px rgba(0,0,0,0.04);';
+        
+        let emailsHtml = '—';
+        if (m.emails && m.emails.length > 0) {
+          emailsHtml = m.emails.map(em => `<a href="mailto:${em}" style="color:var(--apple-blue); text-decoration:none; font-weight:500;">✉️ ${escapeHtml(em)}</a>`).join('<br>');
+        }
+
+        let phoneHtml = '—';
+        if (m.phone) {
+          phoneHtml = `<a href="tel:${m.phone.replace(/\s+/g, '')}" style="color:var(--apple-blue); text-decoration:none; font-weight:600;">📞 ${escapeHtml(m.phone)}</a>`;
+        }
+
+        card.innerHTML = `
+          <div style="display:flex; align-items:center; justify-content:space-between; gap:10px;">
+            <div style="display:flex; align-items:center; gap:10px;">
+              <div class="auth-avatar ${m.avatarClass}" style="width:36px; height:36px; font-size:13px; font-weight:700;">${m.avatarInit}</div>
+              <div>
+                <div style="font-size:15px; font-weight:700; color:var(--text-primary); line-height:1.2;">
+                  ${escapeHtml(m.fullName)}
+                  ${m.nickname && m.nickname !== m.fullName ? `<span style="font-size:12px; font-weight:500; color:var(--text-secondary);">(${escapeHtml(m.nickname)})</span>` : ''}
+                </div>
+                <div style="font-size:12px; color:var(--text-secondary); margin-top:2px;">
+                  📍 ${escapeHtml(m.residence)}
+                </div>
+              </div>
+            </div>
+            <button type="button" class="btn-circle" style="width:32px; height:32px; font-size:12px;" onclick="closeFamilyDirectoryModal(); filterByPerson('${m.preferredName}');" title="Filtrer l'agenda pour ${m.preferredName}">
+              📅
+            </button>
+          </div>
+
+          <div style="font-size:12.5px; color:var(--text-primary); background:#f9f9fb; padding:8px 10px; border-radius:8px; line-height:1.4;">
+            <span style="font-weight:600; color:var(--text-secondary);">Rôle / Liens :</span> ${escapeHtml(m.role)}
+          </div>
+
+          <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(200px, 1fr)); gap:6px; font-size:12px;">
+            <div><span style="color:var(--text-secondary); font-weight:600;">Téléphone :</span> ${phoneHtml}</div>
+            <div><span style="color:var(--text-secondary); font-weight:600;">E-mails :</span> ${emailsHtml}</div>
+          </div>
+        `;
+        container.appendChild(card);
+      });
     }
 
     function promptSwitchUser() {
@@ -2673,6 +2798,8 @@
           else if (pref.includes('Axel')) { avClass = 'admin'; avInit = 'A'; }
           else if (pref.includes('Ariane')) { avClass = 'daughter'; avInit = 'Ar'; }
           else if (pref.includes('Vincent')) { avClass = 'soninlaw'; avInit = 'V'; }
+          else if (pref.includes('Adèle') || pref.includes('Adele')) { avClass = 'niece1'; avInit = 'Ad'; }
+          else if (pref.includes('Roxane')) { avClass = 'niece2'; avInit = 'Ro'; }
 
           let relParts = [];
           if (m.spouse) relParts.push(`<strong>Époux/se :</strong> ${escapeHtml(m.spouse)}`);
@@ -2720,6 +2847,8 @@
           else if (pref.includes('Axel')) { avClass = 'admin'; avInit = 'A'; }
           else if (pref.includes('Ariane')) { avClass = 'daughter'; avInit = 'Ar'; }
           else if (pref.includes('Vincent')) { avClass = 'soninlaw'; avInit = 'V'; }
+          else if (pref.includes('Adèle') || pref.includes('Adele')) { avClass = 'niece1'; avInit = 'Ad'; }
+          else if (pref.includes('Roxane')) { avClass = 'niece2'; avInit = 'Ro'; }
 
           const item = document.createElement('div');
           item.className = `sidebar-family-item ${state.filterPerson === pref ? 'active' : ''}`;
