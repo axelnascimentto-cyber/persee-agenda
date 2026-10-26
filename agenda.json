@@ -39,6 +39,12 @@
   ],
   "notes": [
     {
+      "id": 10,
+      "timestamp": "2026-10-26 09:19:59",
+      "content": "@Jean-Étienne",
+      "category": "Mémo Jean-Étienne"
+    },
+    {
       "id": 9,
       "timestamp": "2026-10-26 09:03:21",
       "content": "Est-ce que Jean-Joël a pris ses médicaments ?",
@@ -165,5 +171,5 @@
       "notes": "Nièce de la famille. S'adresser à elle avec tendresse, attention et bienveillance."
     }
   ],
-  "last_updated": "26/10/2026 09:12:06"
+  "last_updated": "26/10/2026 09:20:02"
 }
