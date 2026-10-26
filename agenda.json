@@ -31,12 +31,6 @@
   ],
   "notes": [
     {
-      "id": 4,
-      "timestamp": "2026-10-26 07:31:20",
-      "content": "STRUCTURE FAMILIALE DU FOYER :\nSTRUCTURE FAMILIALE DU FOYER :\n1. Nathalie Griesbeck : Épouse de Jean-Joël Griesbeck, Mère de Jean-Étienne et d'Ariane, Belle-mère d'Axel Nascimento et de Vincent Bouvard.\n2. Jean-Joël Griesbeck : Époux de Nathalie Griesbeck, Père de Jean-Étienne et d'Ariane, Beau-père d'Axel Nascimento et de Vincent Bouvard.\n3. Jean-Étienne Griesbeck : Fils de Nathalie et Jean-Joël, Époux d'Axel Nascimento, Frère d'Ariane, Beau-frère de Vincent Bouvard.\n4. Axel Nascimento : Époux de Jean-Étienne Griesbeck, Gendre de Nathalie et Jean-Joël, Beau-frère d'Ariane et de Vincent Bouvard.\n5. Ariane Griesbeck : Fille de Jean-Joël et Nathalie, Épouse de Vincent Bouvard, Sœur de Jean-Étienne, Belle-sœur d'Axel.\n6. Vincent Bouvard : Époux d'Ariane Griesbeck, Gendre de Jean-Joël et Nathalie, Beau-frère de Jean-Étienne et d'Axel.",
-      "category": "Famille"
-    },
-    {
       "id": 3,
       "timestamp": "2026-10-26 07:30:06",
       "content": "salut",
@@ -117,5 +111,5 @@
       "notes": "Époux d'Ariane. S'adresser à lui avec courtoisie et amabilité."
     }
   ],
-  "last_updated": "26/10/2026 07:42:54"
+  "last_updated": "26/10/2026 07:42:57"
 }
