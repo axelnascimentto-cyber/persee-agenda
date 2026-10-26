@@ -1100,6 +1100,152 @@
       flex-shrink: 0;
     }
 
+    /* USER SESSION BADGE IN HEADER */
+    .user-session-pill {
+      display: none;
+      align-items: center;
+      gap: 6px;
+      padding: 4px 10px;
+      border-radius: var(--radius-full);
+      background: #ffffff;
+      border: 1px solid var(--separator);
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--text-primary);
+      cursor: pointer;
+      box-shadow: var(--shadow-sm);
+      transition: all 0.15s ease;
+    }
+    .user-session-pill:hover {
+      background: var(--card-subtle);
+      border-color: var(--apple-blue);
+    }
+
+    /* RESIDENT AUTH OVERLAY */
+    .auth-overlay {
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(0, 0, 0, 0.5);
+      backdrop-filter: blur(25px);
+      -webkit-backdrop-filter: blur(25px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 9999;
+      padding: 16px;
+    }
+    .auth-card {
+      background: #ffffff;
+      border-radius: 22px;
+      max-width: 440px;
+      width: 100%;
+      padding: 26px 22px;
+      box-shadow: 0 24px 60px rgba(0,0,0,0.18), 0 4px 16px rgba(0,0,0,0.06);
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 12px;
+      animation: popIn 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    @keyframes popIn {
+      from { transform: scale(0.92); opacity: 0; }
+      to { transform: scale(1); opacity: 1; }
+    }
+    .auth-icon-badge {
+      font-size: 40px;
+      margin-bottom: 2px;
+    }
+    .auth-title {
+      font-size: 19px;
+      font-weight: 700;
+      color: var(--text-primary);
+    }
+    .auth-sub {
+      font-size: 13px;
+      color: var(--text-secondary);
+      line-height: 1.4;
+    }
+    .auth-residents-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 8px;
+      width: 100%;
+      margin: 8px 0;
+    }
+    .auth-resident-btn {
+      background: #f2f2f7;
+      border: 1px solid var(--separator-subtle);
+      border-radius: 12px;
+      padding: 8px 10px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      cursor: pointer;
+      text-align: left;
+      transition: all 0.15s ease;
+    }
+    .auth-resident-btn:hover, .auth-resident-btn.selected {
+      background: rgba(0, 122, 255, 0.1);
+      border-color: var(--apple-blue);
+    }
+    .auth-resident-btn.selected {
+      box-shadow: 0 0 0 2px var(--apple-blue);
+    }
+    .auth-avatar {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      color: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 11px;
+      font-weight: 700;
+      flex-shrink: 0;
+    }
+    .auth-avatar.mother { background: linear-gradient(135deg, #ff2d55, #ff375f); }
+    .auth-avatar.father { background: linear-gradient(135deg, #007aff, #0040dd); }
+    .auth-avatar.son { background: linear-gradient(135deg, #34c759, #30b0c7); }
+    .auth-avatar.admin { background: linear-gradient(135deg, #af52de, #5856d6); }
+    .auth-avatar.daughter { background: linear-gradient(135deg, #ff9500, #ff2d55); }
+    .auth-avatar.soninlaw { background: linear-gradient(135deg, #5ac8fa, #007aff); }
+    .auth-name {
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--text-primary);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    /* RESIDENT TAG BADGES */
+    .resident-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 3px;
+      font-size: 11px;
+      font-weight: 600;
+      padding: 3px 8px;
+      border-radius: var(--radius-full);
+      background: rgba(0, 122, 255, 0.1);
+      color: var(--apple-blue);
+      cursor: pointer;
+      border: none;
+      user-select: none;
+      transition: transform 0.12s ease, opacity 0.12s ease;
+    }
+    .resident-tag:hover {
+      transform: scale(1.05);
+      opacity: 0.9;
+    }
+    .resident-tag.tag-axel { background: rgba(175, 82, 222, 0.14); color: var(--apple-purple); }
+    .resident-tag.tag-jean-etienne { background: rgba(52, 199, 89, 0.16); color: #1e873b; }
+    .resident-tag.tag-nathalie { background: rgba(255, 45, 85, 0.14); color: #ff2d55; }
+    .resident-tag.tag-jean-joel { background: rgba(0, 122, 255, 0.14); color: var(--apple-blue); }
+    .resident-tag.tag-ariane { background: rgba(255, 149, 0, 0.16); color: #c86a00; }
+    .resident-tag.tag-vincent { background: rgba(90, 200, 250, 0.22); color: #0077b6; }
+
     /* EMPTY STATES */
     .empty-banner {
       width: 100%;
@@ -1308,7 +1454,10 @@
     </div>
 
     <div class="header-actions">
-      <button class="btn-circle" id="micBtn" onclick="toggleVoiceInput()" title="Commande Vocale">🎤</button>
+      <button class="user-session-pill" id="userSessionPill" onclick="promptSwitchUser()" title="Session Résident (Cliquer pour changer)">
+        <!-- Injected via JS -->
+      </button>
+      <button class="btn-circle" id="micBtn" onclick="toggleVoiceInput()" title="Commande Vocale (Micro)">🎤</button>
       <button class="btn-circle" onclick="forceSync()" title="Synchroniser">↻</button>
       <button class="btn-add-primary" onclick="openCreateModal()">
         <span>+</span>
@@ -1391,14 +1540,26 @@
         </div>
       </div>
 
-      <!-- INTERACTIVE SPOTLIGHT COMMAND BAR -->
+      <!-- INTERACTIVE SPOTLIGHT COMMAND BAR (TEXTE OU VOIX) -->
       <form class="agent-prompt-bar" onsubmit="handleAgentPromptSubmit(event)">
-        <input type="text" id="agentPromptInput" class="agent-prompt-input" placeholder="Demander à Persée (ex: « Rendez-vous demain 14h » ou « Rappelle-moi d'appeler Marc »)...">
+        <input type="text" id="agentPromptInput" class="agent-prompt-input" placeholder="Parler ou écrire à Persée (ex: « Rendez-vous demain 14h », « @Nathalie médecin »)...">
+        <button type="button" class="btn-circle" style="width:30px; height:30px; font-size:14px; margin-right:4px;" onclick="toggleVoiceInput()" title="Parler à l'oral (Micro)">🎤</button>
         <button type="submit" class="agent-prompt-btn">
           <span>Envoyer</span>
           <span>↵</span>
         </button>
       </form>
+
+      <!-- BARRE DE TAGS RAPIDES DES RÉSIDENTS -->
+      <div class="quick-tags-bar" style="display:flex; align-items:center; gap:6px; flex-wrap:wrap; margin:4px 0 10px 0; padding:0 2px;">
+        <span style="font-size:11px; font-weight:600; color:var(--text-secondary);">Taguer :</span>
+        <button type="button" class="resident-tag tag-axel" onclick="insertTagIntoPrompt('@Axel')">@Axel</button>
+        <button type="button" class="resident-tag tag-jean-etienne" onclick="insertTagIntoPrompt('@Jean-Étienne')">@Jean-Étienne</button>
+        <button type="button" class="resident-tag tag-nathalie" onclick="insertTagIntoPrompt('@Nathalie')">@Nathalie</button>
+        <button type="button" class="resident-tag tag-jean-joel" onclick="insertTagIntoPrompt('@Jean-Joël')">@Jean-Joël</button>
+        <button type="button" class="resident-tag tag-ariane" onclick="insertTagIntoPrompt('@Ariane')">@Ariane</button>
+        <button type="button" class="resident-tag tag-vincent" onclick="insertTagIntoPrompt('@Vincent')">@Vincent</button>
+      </div>
 
       <!-- MOBILE HORIZONTAL 7-DAYS STRIP -->
       <div class="mobile-week-strip" id="mobileWeekStrip"></div>
@@ -1552,6 +1713,15 @@
         <div class="field-box">
           <label class="field-label">Titre</label>
           <input type="text" id="inEvTitle" class="field-input" placeholder="Ex: Consultation médicale">
+          <div style="display:flex; flex-wrap:wrap; gap:4px; margin-top:6px;">
+            <span style="font-size:11px; color:var(--text-secondary); margin-right:2px; align-self:center;">Taguer :</span>
+            <button type="button" class="resident-tag tag-axel" onclick="insertTagIntoField('inEvTitle', '@Axel')">@Axel</button>
+            <button type="button" class="resident-tag tag-jean-etienne" onclick="insertTagIntoField('inEvTitle', '@Jean-Étienne')">@Jean-Étienne</button>
+            <button type="button" class="resident-tag tag-nathalie" onclick="insertTagIntoField('inEvTitle', '@Nathalie')">@Nathalie</button>
+            <button type="button" class="resident-tag tag-jean-joel" onclick="insertTagIntoField('inEvTitle', '@Jean-Joël')">@Jean-Joël</button>
+            <button type="button" class="resident-tag tag-ariane" onclick="insertTagIntoField('inEvTitle', '@Ariane')">@Ariane</button>
+            <button type="button" class="resident-tag tag-vincent" onclick="insertTagIntoField('inEvTitle', '@Vincent')">@Vincent</button>
+          </div>
         </div>
         <div class="field-row">
           <div class="field-box">
@@ -1600,6 +1770,15 @@
         <div class="field-box">
           <label class="field-label">Titre</label>
           <input type="text" id="inTaskTitle" class="field-input" placeholder="Ex: Répondre au courriel">
+          <div style="display:flex; flex-wrap:wrap; gap:4px; margin-top:6px;">
+            <span style="font-size:11px; color:var(--text-secondary); margin-right:2px; align-self:center;">Taguer :</span>
+            <button type="button" class="resident-tag tag-axel" onclick="insertTagIntoField('inTaskTitle', '@Axel')">@Axel</button>
+            <button type="button" class="resident-tag tag-jean-etienne" onclick="insertTagIntoField('inTaskTitle', '@Jean-Étienne')">@Jean-Étienne</button>
+            <button type="button" class="resident-tag tag-nathalie" onclick="insertTagIntoField('inTaskTitle', '@Nathalie')">@Nathalie</button>
+            <button type="button" class="resident-tag tag-jean-joel" onclick="insertTagIntoField('inTaskTitle', '@Jean-Joël')">@Jean-Joël</button>
+            <button type="button" class="resident-tag tag-ariane" onclick="insertTagIntoField('inTaskTitle', '@Ariane')">@Ariane</button>
+            <button type="button" class="resident-tag tag-vincent" onclick="insertTagIntoField('inTaskTitle', '@Vincent')">@Vincent</button>
+          </div>
         </div>
         <div class="field-row">
           <div class="field-box">
@@ -1646,11 +1825,72 @@
         <div class="field-box">
           <label class="field-label">Contenu</label>
           <textarea id="inNoteContent" class="field-input" rows="4" placeholder="Écrivez votre texte..."></textarea>
+          <div style="display:flex; flex-wrap:wrap; gap:4px; margin-top:6px;">
+            <span style="font-size:11px; color:var(--text-secondary); margin-right:2px; align-self:center;">Taguer :</span>
+            <button type="button" class="resident-tag tag-axel" onclick="insertTagIntoField('inNoteContent', '@Axel')">@Axel</button>
+            <button type="button" class="resident-tag tag-jean-etienne" onclick="insertTagIntoField('inNoteContent', '@Jean-Étienne')">@Jean-Étienne</button>
+            <button type="button" class="resident-tag tag-nathalie" onclick="insertTagIntoField('inNoteContent', '@Nathalie')">@Nathalie</button>
+            <button type="button" class="resident-tag tag-jean-joel" onclick="insertTagIntoField('inNoteContent', '@Jean-Joël')">@Jean-Joël</button>
+            <button type="button" class="resident-tag tag-ariane" onclick="insertTagIntoField('inNoteContent', '@Ariane')">@Ariane</button>
+            <button type="button" class="resident-tag tag-vincent" onclick="insertTagIntoField('inNoteContent', '@Vincent')">@Vincent</button>
+          </div>
         </div>
         <div class="field-box">
           <label class="field-label">Catégorie</label>
           <input type="text" id="inNoteCategory" class="field-input" placeholder="Général">
         </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL D'AUTHENTIFICATION RÉSIDENT (PREMIER ACCÈS / SESSIONS PERSISTANTES) -->
+  <div class="auth-overlay" id="authOverlay" style="display:none;">
+    <div class="auth-card">
+      <div class="auth-icon-badge">🏡</div>
+      <div class="auth-title">Résidence Griesbeck & Nascimento</div>
+      <div class="auth-sub">Veuillez renseigner votre nom complet pour déverrouiller l'accès à l'agenda familial et aux services de Persée.</div>
+
+      <div class="auth-residents-grid">
+        <button type="button" class="auth-resident-btn" onclick="selectAuthResident('Nathalie Griesbeck')">
+          <div class="auth-avatar mother">N</div>
+          <div class="auth-name">Nathalie Griesbeck</div>
+        </button>
+        <button type="button" class="auth-resident-btn" onclick="selectAuthResident('Jean-Joël Griesbeck')">
+          <div class="auth-avatar father">JJ</div>
+          <div class="auth-name">Jean-Joël Griesbeck</div>
+        </button>
+        <button type="button" class="auth-resident-btn" onclick="selectAuthResident('Jean-Étienne Griesbeck')">
+          <div class="auth-avatar son">JÉ</div>
+          <div class="auth-name">Jean-Étienne Griesbeck</div>
+        </button>
+        <button type="button" class="auth-resident-btn" onclick="selectAuthResident('Axel Nascimento')">
+          <div class="auth-avatar admin">A</div>
+          <div class="auth-name">Axel Nascimento</div>
+        </button>
+        <button type="button" class="auth-resident-btn" onclick="selectAuthResident('Ariane Griesbeck')">
+          <div class="auth-avatar daughter">Ar</div>
+          <div class="auth-name">Ariane Griesbeck</div>
+        </button>
+        <button type="button" class="auth-resident-btn" onclick="selectAuthResident('Vincent Bouvard')">
+          <div class="auth-avatar soninlaw">V</div>
+          <div class="auth-name">Vincent Bouvard</div>
+        </button>
+      </div>
+
+      <form onsubmit="handleAuthSubmit(event)" style="width:100%; display:flex; flex-direction:column; gap:10px;">
+        <div class="field-box" style="text-align:left;">
+          <label class="field-label">Nom complet (mot de passe d'accès)</label>
+          <input type="text" id="authNameInput" class="field-input" placeholder="Ex: Axel Nascimento" autocomplete="off" required>
+        </div>
+        <div id="authErrorMsg" style="color:var(--apple-red); font-size:12px; font-weight:600; display:none;">
+          Nom complet non reconnu dans la résidence. Veuillez vérifier l'orthographe.
+        </div>
+        <button type="submit" class="btn-add-primary" style="width:100%; height:44px; font-size:15px; border-radius:var(--radius-md); justify-content:center;">
+          Accéder à l'agenda
+        </button>
+      </form>
+      <div style="font-size:11px; color:var(--text-secondary); margin-top:4px;">
+        🔒 Votre session reste mémorisée sur cet appareil sans besoin de ressaisir.
       </div>
     </div>
   </div>
@@ -1744,6 +1984,7 @@
       tasks: [],
       notes: [],
       family: DEFAULT_FAMILY,
+      currentUser: null,
       filterEvent: 'all',
       filterTask: 'all',
       filterPerson: 'all',
@@ -1752,6 +1993,214 @@
       currentViewMonth: new Date()
     };
 
+    const KNOWN_RESIDENTS = [
+      {
+        fullName: "Nathalie Griesbeck",
+        aliases: ["nathalie griesbeck", "natalie griesbeck", "nathalie"],
+        preferredName: "Nathalie",
+        role: "Mère de famille / Épouse",
+        avatarClass: "mother",
+        avatarInit: "N"
+      },
+      {
+        fullName: "Jean-Joël Griesbeck",
+        aliases: ["jean joel griesbeck", "jean-joel griesbeck", "joel griesbeck", "jean joel", "jean-joël"],
+        preferredName: "Jean-Joël",
+        role: "Père de famille / Époux",
+        avatarClass: "father",
+        avatarInit: "JJ"
+      },
+      {
+        fullName: "Jean-Étienne Griesbeck",
+        aliases: ["jean etienne griesbeck", "jean-etienne griesbeck", "etienne griesbeck", "jean etienne", "jean-étienne"],
+        preferredName: "Jean-Étienne",
+        role: "Fils / Époux d'Axel",
+        avatarClass: "son",
+        avatarInit: "JÉ"
+      },
+      {
+        fullName: "Axel Nascimento",
+        aliases: ["axel nascimento", "axel"],
+        preferredName: "Axel",
+        role: "Époux de Jean-Étienne / Admin Persée",
+        avatarClass: "admin",
+        avatarInit: "A"
+      },
+      {
+        fullName: "Ariane Griesbeck",
+        aliases: ["ariane griesbeck", "ariane"],
+        preferredName: "Ariane",
+        role: "Fille / Épouse de Vincent",
+        avatarClass: "daughter",
+        avatarInit: "Ar"
+      },
+      {
+        fullName: "Vincent Bouvard",
+        aliases: ["vincent bouvard", "vincent"],
+        preferredName: "Vincent",
+        role: "Gendre / Époux d'Ariane",
+        avatarClass: "soninlaw",
+        avatarInit: "V"
+      }
+    ];
+
+    function normalizeAuthString(str) {
+      return (str || '')
+        .toLowerCase()
+        .normalize("NFD")
+        .replace(/[\u0300-\u036f]/g, "")
+        .replace(/[-_']/g, " ")
+        .replace(/\s+/g, " ")
+        .trim();
+    }
+
+    function checkResidentAuth(enteredName) {
+      const norm = normalizeAuthString(enteredName);
+      if (!norm) return null;
+      for (const res of KNOWN_RESIDENTS) {
+        if (normalizeAuthString(res.fullName) === norm) return res;
+        if (res.aliases && res.aliases.some(a => normalizeAuthString(a) === norm)) return res;
+      }
+      return null;
+    }
+
+    function initUserSession() {
+      try {
+        const saved = localStorage.getItem('persee_resident_session');
+        if (saved) {
+          const user = JSON.parse(saved);
+          if (user && user.fullName) {
+            state.currentUser = user;
+            updateUserSessionUI();
+            return true;
+          }
+        }
+      } catch(e) {}
+      
+      const overlay = document.getElementById('authOverlay');
+      if (overlay) overlay.style.display = 'flex';
+      return false;
+    }
+
+    function handleAuthSubmit(e) {
+      if (e) e.preventDefault();
+      const input = document.getElementById('authNameInput');
+      const val = input.value.trim();
+      const user = checkResidentAuth(val);
+
+      if (user) {
+        state.currentUser = user;
+        try {
+          localStorage.setItem('persee_resident_session', JSON.stringify(user));
+        } catch(e) {}
+        const errMsg = document.getElementById('authErrorMsg');
+        if (errMsg) errMsg.style.display = 'none';
+        const overlay = document.getElementById('authOverlay');
+        if (overlay) overlay.style.display = 'none';
+        updateUserSessionUI();
+        showToast(`✓ Bienvenue ${user.preferredName} !`);
+        speakPersée(`Bienvenue dans votre agenda, ${user.preferredName}.`);
+        updateAgentBriefingLocally();
+      } else {
+        const errMsg = document.getElementById('authErrorMsg');
+        if (errMsg) {
+          errMsg.style.display = 'block';
+          errMsg.innerText = "Nom complet non reconnu comme résident de la maison.";
+        }
+      }
+    }
+
+    function selectAuthResident(fullName) {
+      const input = document.getElementById('authNameInput');
+      if (input) input.value = fullName;
+      document.querySelectorAll('.auth-resident-btn').forEach(btn => {
+        const nameEl = btn.querySelector('.auth-name');
+        btn.classList.toggle('selected', nameEl && nameEl.innerText.trim() === fullName);
+      });
+      if (input) input.focus();
+    }
+
+    function promptSwitchUser() {
+      const cur = state.currentUser ? state.currentUser.fullName : 'Résident';
+      if (confirm(`Vous êtes connecté en tant que ${cur}. Voulez-vous changer d'utilisateur ?`)) {
+        try {
+          localStorage.removeItem('persee_resident_session');
+        } catch(e) {}
+        state.currentUser = null;
+        const input = document.getElementById('authNameInput');
+        if (input) input.value = '';
+        document.querySelectorAll('.auth-resident-btn').forEach(b => b.classList.remove('selected'));
+        updateUserSessionUI();
+        const overlay = document.getElementById('authOverlay');
+        if (overlay) overlay.style.display = 'flex';
+      }
+    }
+
+    function updateUserSessionUI() {
+      const pill = document.getElementById('userSessionPill');
+      if (!pill) return;
+      if (state.currentUser) {
+        pill.innerHTML = `
+          <span class="auth-avatar ${state.currentUser.avatarClass}" style="width:20px; height:20px; font-size:9px;">${state.currentUser.avatarInit}</span>
+          <span>${escapeHtml(state.currentUser.preferredName)}</span>
+        `;
+        pill.style.display = 'inline-flex';
+      } else {
+        pill.style.display = 'none';
+      }
+    }
+
+    function insertTagIntoField(fieldId, tag) {
+      const field = document.getElementById(fieldId);
+      if (!field) return;
+      if (!field.value.trim()) {
+        field.value = tag + ' ';
+      } else if (!field.value.includes(tag)) {
+        field.value = field.value.trim() + ' ' + tag;
+      }
+      field.focus();
+    }
+
+    function insertTagIntoPrompt(tag) {
+      const input = document.getElementById('agentPromptInput');
+      if (!input) return;
+      if (!input.value.trim()) {
+        input.value = tag + ' ';
+      } else if (!input.value.includes(tag)) {
+        input.value = input.value.trim() + ' ' + tag + ' ';
+      }
+      input.focus();
+    }
+
+    function speakPersée(text) {
+      if ('speechSynthesis' in window) {
+        try {
+          window.speechSynthesis.cancel();
+          const cleanText = text.replace(/[«»*#@]/g, '').trim();
+          const utter = new SpeechSynthesisUtterance(cleanText);
+          utter.lang = 'fr-FR';
+          utter.rate = 1.05;
+          utter.pitch = 1.0;
+          window.speechSynthesis.speak(utter);
+        } catch (e) {}
+      }
+    }
+
+    function formatResidentTagsHtml(text, personName) {
+      let tags = [];
+      const combined = ((text || '') + ' ' + (personName || '')).toLowerCase();
+      KNOWN_RESIDENTS.forEach(r => {
+        const pref = r.preferredName.toLowerCase();
+        const normPref = normalizeAuthString(pref);
+        const normCombined = normalizeAuthString(combined);
+        if (combined.includes('@' + pref) || normCombined.includes('@' + normPref) || (personName && normalizeAuthString(personName).includes(normPref))) {
+          const slug = normPref.replace(/[^a-z0-9]/g, '-');
+          tags.push(`<span class="resident-tag tag-${slug}" onclick="filterByPerson('${r.preferredName}')">@${r.preferredName}</span>`);
+        }
+      });
+      return tags.join(' ');
+    }
+
     const MONTH_NAMES = ["Janvier", "Février", "Mars", "Avril", "Mai", "Juin", "Juillet", "Août", "Septembre", "Octobre", "Novembre", "Décembre"];
     const MONTH_SHORT = ["JAN", "FÉV", "MAR", "AVR", "MAI", "JUIN", "JUIL", "AOÛT", "SEPT", "OCT", "NOV", "DÉC"];
     const DAY_NAMES = ["Dimanche", "Lundi", "Mardi", "Mercredi", "Jeudi", "Vendredi", "Samedi"];
@@ -1759,6 +2208,8 @@
 
     // 1. INITIALISATION
     function initApp() {
+      initUserSession();
+
       if (window.innerWidth < 900) {
         document.getElementById('mobileAgentCard').style.display = 'flex';
       }
@@ -1917,7 +2368,8 @@
       const urgentTasks = state.tasks.filter(t => t.status !== 'completed' && t.priority === 'urgente');
       const pendingTasks = state.tasks.filter(t => t.status !== 'completed');
 
-      let text = "Bonjour Axel ! ";
+      const userGreeting = (state.currentUser && state.currentUser.preferredName) ? state.currentUser.preferredName : "Axel";
+      let text = `Bonjour ${userGreeting} ! `;
       if (todayEvts.length > 0 && urgentTasks.length > 0) {
         text += `Vous avez ${todayEvts.length} rendez-vous aujourd'hui et ${urgentTasks.length} tâche(s) urgente(s).`;
       } else if (todayEvts.length > 0) {
@@ -1952,16 +2404,21 @@
 
       // Tente d'envoyer la commande à l'agent
       try {
+        const payload = {
+          text: commandText,
+          user: (state.currentUser && state.currentUser.preferredName) ? state.currentUser.preferredName : 'Axel'
+        };
         let res = await fetch(API_BASE + '/api/agent/command', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ text: commandText })
+          body: JSON.stringify(payload)
         });
         if (res.ok) {
           let data = await res.json();
           if (data && data.response) {
             applyBriefingText("« " + data.response + " »");
             showToast("Persée : " + data.response);
+            speakPersée(data.response);
             fetchAgenda();
             return;
           }
@@ -2129,6 +2586,7 @@
             <div class="event-tags">
               ${ev.location ? `<span>📍 ${escapeHtml(ev.location)}</span>` : ''}
               ${ev.person_name ? `<span>👤 ${escapeHtml(ev.person_name)}</span>` : ''}
+              ${formatResidentTagsHtml(ev.title + ' ' + (ev.description || ''), ev.person_name)}
             </div>
           </div>
           <button class="btn-delete" onclick="deleteItem('event', '${ev.id}')" title="Supprimer">✕</button>
@@ -2183,6 +2641,7 @@
               ${isUrgent ? `<span style="color:var(--apple-red); font-weight:600;">🚩 Urgent</span> • ` : ''}
               ${t.due_date ? `<span>Échéance: ${formatDateHuman(t.due_date)}</span>` : ''}
               ${t.category ? `<span>• ${escapeHtml(t.category)}</span>` : ''}
+              ${formatResidentTagsHtml(t.title, t.category)}
             </div>
           </div>
           <button class="btn-delete" onclick="deleteItem('task', '${t.id}')" title="Supprimer">✕</button>
@@ -2216,7 +2675,12 @@
             <button class="btn-delete" onclick="deleteItem('note', '${n.id}')" title="Supprimer">✕</button>
           </div>
           <div style="font-size:11px; color:var(--text-secondary);">${n.timestamp ? n.timestamp : 'Récent'} • ${escapeHtml(n.category || 'Général')}</div>
-          <div class="note-body">${escapeHtml(n.content)}</div>
+          <div class="note-body">
+            ${escapeHtml(n.content)}
+            <div style="margin-top:6px; display:flex; flex-wrap:wrap; gap:4px;">
+              ${formatResidentTagsHtml(n.content, n.category)}
+            </div>
+          </div>
         `;
         list.appendChild(item);
       });
@@ -2522,28 +2986,34 @@
           title: spokenText,
           date: todayIso,
           time: '',
-          person_name: '',
+          person_name: (state.currentUser && state.currentUser.preferredName) ? state.currentUser.preferredName : '',
           location: '',
-          description: 'Créé vocalement',
+          description: 'Créé via Persée',
           status: 'scheduled'
         };
         state.events.unshift(newEv);
         renderAll();
         autoSave("Rendez-vous vocal");
-        postToLocalApi('/api/event', { title: spokenText, date: todayIso });
+        postToLocalApi('/api/event', { title: spokenText, date: todayIso, person_name: newEv.person_name });
+        const reply = "Très bien, j'ai inscrit ce rendez-vous dans l'agenda : " + spokenText;
+        applyBriefingText("« " + reply + " »");
+        speakPersée(reply);
       } else {
         const newTask = {
           id: 'task_' + Date.now(),
           title: spokenText,
           priority: lower.includes("urgent") ? "urgente" : "normal",
           due_date: todayIso,
-          category: "Vocal",
+          category: (state.currentUser && state.currentUser.preferredName) ? state.currentUser.preferredName : "Général",
           status: "pending"
         };
         state.tasks.unshift(newTask);
         renderAll();
         autoSave("Rappel vocal");
-        postToLocalApi('/api/task', { title: spokenText, priority: newTask.priority, due_date: todayIso, category: "Vocal" });
+        postToLocalApi('/api/task', { title: spokenText, priority: newTask.priority, due_date: todayIso, category: newTask.category });
+        const reply = "C'est noté, j'ai ajouté ce rappel : " + spokenText;
+        applyBriefingText("« " + reply + " »");
+        speakPersée(reply);
       }
     }
 
