@@ -1,0 +1,1709 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Persée • Agenda & Hub Visuel</title>
+  
+  <!-- Favicon & PWA Theme -->
+  <meta name="theme-color" content="#070a13">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="Persée Agenda">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='25' fill='%236366f1'/><text y='70' x='25' font-size='65' font-family='sans-serif' font-weight='bold' fill='white'>P</text></svg>">
+
+  <!-- Google Fonts: Plus Jakarta Sans -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --bg: #070a13;
+      --card-bg: rgba(22, 30, 49, 0.65);
+      --card-border: rgba(255, 255, 255, 0.08);
+      --card-hover: rgba(30, 41, 67, 0.85);
+      --text: #f8fafc;
+      --text-muted: #94a3b8;
+      --primary: #6366f1;
+      --primary-hover: #4f46e5;
+      --primary-glow: rgba(99, 102, 241, 0.35);
+      --emerald: #10b981;
+      --emerald-glow: rgba(16, 185, 129, 0.25);
+      --amber: #f59e0b;
+      --amber-glow: rgba(245, 158, 11, 0.25);
+      --rose: #f43f5e;
+      --rose-glow: rgba(244, 63, 94, 0.25);
+      --radius-lg: 20px;
+      --radius-md: 14px;
+      --radius-sm: 10px;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    body {
+      background-color: var(--bg);
+      background-image: 
+        radial-gradient(at 0% 0%, rgba(99, 102, 241, 0.18) 0px, transparent 50%),
+        radial-gradient(at 100% 0%, rgba(244, 63, 94, 0.1) 0px, transparent 45%),
+        radial-gradient(at 50% 100%, rgba(16, 185, 129, 0.12) 0px, transparent 60%);
+      background-attachment: fixed;
+      color: var(--text);
+      min-height: 100vh;
+      padding-bottom: 95px;
+      overflow-x: hidden;
+    }
+
+    /* TOP HEADER */
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      backdrop-filter: blur(24px);
+      -webkit-backdrop-filter: blur(24px);
+      background: rgba(7, 10, 19, 0.85);
+      border-bottom: 1px solid var(--card-border);
+      padding: 14px 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .brand-logo {
+      width: 42px;
+      height: 42px;
+      border-radius: var(--radius-md);
+      background: linear-gradient(135deg, #6366f1, #3b82f6);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 0 24px var(--primary-glow);
+      font-weight: 800;
+      font-size: 22px;
+      color: #fff;
+    }
+
+    .brand-info {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .brand-title {
+      font-weight: 800;
+      font-size: 19px;
+      letter-spacing: -0.5px;
+      background: linear-gradient(135deg, #ffffff 40%, #a5b4fc);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .brand-sub {
+      font-size: 11px;
+      color: var(--text-muted);
+      font-weight: 500;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+
+    .sync-status {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      padding: 5px 11px;
+      border-radius: 20px;
+      font-size: 11px;
+      font-weight: 600;
+      border: 1px solid rgba(16, 185, 129, 0.3);
+      background: rgba(16, 185, 129, 0.1);
+      color: #34d399;
+      transition: all 0.3s;
+    }
+
+    .sync-status.offline {
+      border-color: rgba(245, 158, 11, 0.3);
+      background: rgba(245, 158, 11, 0.1);
+      color: #fbbf24;
+    }
+
+    .sync-status.syncing {
+      border-color: rgba(99, 102, 241, 0.3);
+      background: rgba(99, 102, 241, 0.1);
+      color: #a5b4fc;
+    }
+
+    .dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: currentColor;
+      box-shadow: 0 0 8px currentColor;
+    }
+
+    .header-actions {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .btn-icon {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid var(--card-border);
+      color: var(--text);
+      width: 38px;
+      height: 38px;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      font-size: 16px;
+      transition: all 0.2s;
+    }
+
+    .btn-icon:active {
+      transform: scale(0.92);
+      background: rgba(255, 255, 255, 0.12);
+    }
+
+    .btn-icon.spinning {
+      animation: spin 1s linear infinite;
+    }
+
+    @keyframes spin {
+      100% { transform: rotate(360deg); }
+    }
+
+    /* HERO BANNER */
+    .hero {
+      margin: 16px 20px 0;
+      padding: 18px 20px;
+      background: linear-gradient(135deg, rgba(99, 102, 241, 0.18), rgba(16, 185, 129, 0.1));
+      border: 1px solid rgba(99, 102, 241, 0.3);
+      border-radius: var(--radius-lg);
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.25);
+    }
+
+    .hero-date {
+      font-size: 12px;
+      font-weight: 700;
+      color: #818cf8;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .hero-title {
+      font-size: 21px;
+      font-weight: 800;
+      margin: 4px 0 10px;
+      line-height: 1.25;
+    }
+
+    .hero-summary {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 10px;
+    }
+
+    .hero-chip {
+      background: rgba(255, 255, 255, 0.07);
+      border: 1px solid var(--card-border);
+      padding: 6px 12px;
+      border-radius: 10px;
+      font-size: 12px;
+      font-weight: 600;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      text-decoration: none;
+      color: var(--text);
+    }
+
+    .hero-chip.active {
+      background: var(--primary);
+      border-color: var(--primary);
+      box-shadow: 0 4px 14px var(--primary-glow);
+    }
+
+    /* TABS */
+    .tab-view {
+      display: none;
+      padding: 20px;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    .tab-view.active {
+      display: block;
+      animation: tabFade 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    @keyframes tabFade {
+      from { opacity: 0; transform: translateY(8px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* SECTION BAR */
+    .section-bar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 16px;
+    }
+
+    .section-title {
+      font-size: 19px;
+      font-weight: 800;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .section-badge {
+      font-size: 11px;
+      font-weight: 700;
+      padding: 2px 8px;
+      border-radius: 20px;
+      background: rgba(255, 255, 255, 0.08);
+      color: var(--text-muted);
+    }
+
+    .btn-create {
+      background: linear-gradient(135deg, var(--primary), #3b82f6);
+      color: #fff;
+      border: none;
+      padding: 9px 16px;
+      border-radius: 12px;
+      font-size: 13px;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      cursor: pointer;
+      box-shadow: 0 4px 14px var(--primary-glow);
+      transition: all 0.2s;
+    }
+
+    .btn-create:active {
+      transform: scale(0.96);
+    }
+
+    /* FILTER BAR */
+    .filter-bar {
+      display: flex;
+      gap: 8px;
+      overflow-x: auto;
+      padding-bottom: 12px;
+      margin-bottom: 12px;
+      scrollbar-width: none;
+    }
+    .filter-bar::-webkit-scrollbar { display: none; }
+
+    .filter-pill {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid var(--card-border);
+      color: var(--text-muted);
+      padding: 6px 14px;
+      border-radius: 20px;
+      font-size: 12px;
+      font-weight: 600;
+      white-space: nowrap;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .filter-pill.active {
+      background: var(--primary);
+      border-color: var(--primary);
+      color: #fff;
+      box-shadow: 0 2px 10px var(--primary-glow);
+    }
+
+    /* CARDS */
+    .card {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border-radius: var(--radius-md);
+      padding: 16px;
+      margin-bottom: 12px;
+      position: relative;
+      transition: all 0.2s;
+    }
+
+    .card:hover {
+      border-color: rgba(255, 255, 255, 0.16);
+      background: var(--card-hover);
+    }
+
+    /* AGENDA ITEM */
+    .event-card {
+      border-left: 4px solid var(--primary);
+    }
+
+    .event-card.today {
+      border-left-color: var(--emerald);
+      background: linear-gradient(135deg, rgba(16, 185, 129, 0.08), var(--card-bg));
+    }
+
+    .event-meta {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 6px;
+    }
+
+    .time-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      background: rgba(99, 102, 241, 0.16);
+      color: #a5b4fc;
+      font-size: 12px;
+      font-weight: 700;
+      padding: 3px 9px;
+      border-radius: 8px;
+    }
+
+    .date-badge {
+      font-size: 12px;
+      color: var(--text-muted);
+      font-weight: 600;
+    }
+
+    .event-title {
+      font-size: 16px;
+      font-weight: 700;
+      margin-bottom: 6px;
+    }
+
+    .event-desc {
+      font-size: 13px;
+      color: #cbd5e1;
+      line-height: 1.4;
+      margin-bottom: 8px;
+    }
+
+    .tags-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+
+    .tag-chip {
+      font-size: 11px;
+      font-weight: 600;
+      padding: 3px 9px;
+      border-radius: 6px;
+      background: rgba(255, 255, 255, 0.06);
+      color: var(--text-muted);
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    /* TASK ITEM */
+    .task-card {
+      display: flex;
+      align-items: flex-start;
+      gap: 14px;
+      padding: 14px 16px;
+    }
+
+    .task-check {
+      width: 24px;
+      height: 24px;
+      min-width: 24px;
+      border-radius: 8px;
+      border: 2px solid rgba(255, 255, 255, 0.25);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-top: 2px;
+      transition: all 0.2s;
+    }
+
+    .task-check.done {
+      background: var(--emerald);
+      border-color: var(--emerald);
+      box-shadow: 0 0 12px var(--emerald-glow);
+    }
+
+    .task-check.done::after {
+      content: '✓';
+      color: #fff;
+      font-size: 14px;
+      font-weight: 900;
+    }
+
+    .task-body {
+      flex: 1;
+    }
+
+    .task-title {
+      font-size: 15px;
+      font-weight: 600;
+      line-height: 1.35;
+      transition: all 0.2s;
+    }
+
+    .task-title.done {
+      text-decoration: line-through;
+      color: var(--text-muted);
+      opacity: 0.7;
+    }
+
+    .task-footer {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-top: 6px;
+      flex-wrap: wrap;
+    }
+
+    .priority-pill {
+      font-size: 10px;
+      font-weight: 800;
+      text-transform: uppercase;
+      padding: 2px 8px;
+      border-radius: 6px;
+      letter-spacing: 0.5px;
+    }
+
+    .p-urgente { background: rgba(244, 63, 94, 0.2); color: #fb7185; border: 1px solid rgba(244, 63, 94, 0.35); }
+    .p-haute { background: rgba(245, 158, 11, 0.2); color: #fcd34d; border: 1px solid rgba(245, 158, 11, 0.35); }
+    .p-normal { background: rgba(99, 102, 241, 0.2); color: #a5b4fc; border: 1px solid rgba(99, 102, 241, 0.35); }
+    .p-basse { background: rgba(148, 163, 184, 0.15); color: #94a3b8; }
+
+    /* NOTES GRID */
+    .notes-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      gap: 12px;
+    }
+
+    .note-card {
+      border-top: 4px solid #3b82f6;
+    }
+
+    .note-card.pinned {
+      border-top-color: var(--amber);
+      background: linear-gradient(135deg, rgba(245, 158, 11, 0.08), var(--card-bg));
+    }
+
+    .note-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 8px;
+    }
+
+    .note-title {
+      font-size: 16px;
+      font-weight: 700;
+    }
+
+    .note-body {
+      font-size: 14px;
+      color: #cbd5e1;
+      line-height: 1.5;
+      white-space: pre-wrap;
+    }
+
+    /* PHOTOS GRID */
+    .photos-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+      gap: 14px;
+    }
+
+    .photo-card {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: var(--radius-md);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      transition: all 0.2s;
+    }
+
+    .photo-thumb {
+      width: 100%;
+      height: 130px;
+      background: #0f172a;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 34px;
+      color: #475569;
+      position: relative;
+      cursor: pointer;
+    }
+
+    .photo-info {
+      padding: 10px 12px;
+      flex: 1;
+    }
+
+    .photo-time {
+      font-size: 11px;
+      font-weight: 700;
+      color: #818cf8;
+      margin-bottom: 4px;
+    }
+
+    .photo-desc {
+      font-size: 12px;
+      color: var(--text-muted);
+      line-height: 1.3;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+
+    .photo-btn {
+      display: block;
+      text-align: center;
+      padding: 8px;
+      background: rgba(255, 255, 255, 0.04);
+      color: var(--text);
+      text-decoration: none;
+      font-size: 11px;
+      font-weight: 700;
+      border-top: 1px solid var(--card-border);
+    }
+
+    /* EMPTY STATES */
+    .empty-box {
+      text-align: center;
+      padding: 45px 20px;
+      color: var(--text-muted);
+    }
+    .empty-icon {
+      font-size: 46px;
+      margin-bottom: 12px;
+      opacity: 0.6;
+    }
+
+    /* BOTTOM NAV BAR */
+    nav.bottom-nav {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      z-index: 50;
+      height: 72px;
+      background: rgba(8, 12, 23, 0.94);
+      backdrop-filter: blur(24px);
+      -webkit-backdrop-filter: blur(24px);
+      border-top: 1px solid var(--card-border);
+      display: flex;
+      align-items: center;
+      justify-content: space-around;
+      padding: 0 10px;
+    }
+
+    .nav-btn {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 4px;
+      color: var(--text-muted);
+      font-size: 11px;
+      font-weight: 700;
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 8px 14px;
+      border-radius: var(--radius-sm);
+      transition: all 0.2s;
+    }
+
+    .nav-btn.active {
+      color: var(--primary);
+    }
+
+    .nav-icon {
+      font-size: 20px;
+    }
+
+    /* MODAL */
+    .modal-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.75);
+      backdrop-filter: blur(8px);
+      z-index: 100;
+      align-items: flex-end;
+      justify-content: center;
+    }
+
+    .modal-overlay.open {
+      display: flex;
+      animation: modalFade 0.2s ease-out;
+    }
+
+    @keyframes modalFade {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    .modal-panel {
+      background: #0f172a;
+      border-top: 1px solid var(--card-border);
+      border-radius: 24px 24px 0 0;
+      padding: 24px 20px 45px;
+      width: 100%;
+      max-width: 520px;
+      animation: slidePanel 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    @keyframes slidePanel {
+      from { transform: translateY(100%); }
+      to { transform: translateY(0); }
+    }
+
+    .modal-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 20px;
+    }
+
+    .modal-title {
+      font-size: 19px;
+      font-weight: 800;
+    }
+
+    .btn-close {
+      background: rgba(255, 255, 255, 0.08);
+      border: none;
+      color: var(--text);
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      cursor: pointer;
+      font-size: 16px;
+    }
+
+    .form-group {
+      margin-bottom: 14px;
+    }
+
+    .form-label {
+      display: block;
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--text-muted);
+      margin-bottom: 6px;
+    }
+
+    .input-field, .select-field, .textarea-field {
+      width: 100%;
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid var(--card-border);
+      border-radius: 12px;
+      padding: 12px 14px;
+      color: var(--text);
+      font-size: 15px;
+      outline: none;
+      transition: all 0.2s;
+    }
+
+    .input-field:focus, .select-field:focus, .textarea-field:focus {
+      border-color: var(--primary);
+      background: rgba(255, 255, 255, 0.09);
+    }
+
+    .textarea-field {
+      min-height: 90px;
+      resize: vertical;
+    }
+
+    .btn-submit {
+      width: 100%;
+      background: linear-gradient(135deg, var(--primary), #3b82f6);
+      color: #fff;
+      border: none;
+      padding: 14px;
+      border-radius: 14px;
+      font-size: 16px;
+      font-weight: 800;
+      cursor: pointer;
+      margin-top: 10px;
+      box-shadow: 0 4px 16px var(--primary-glow);
+    }
+
+    /* TOAST */
+    .toast-box {
+      position: fixed;
+      top: 75px;
+      left: 50%;
+      transform: translateX(-50%) translateY(-25px);
+      background: rgba(16, 185, 129, 0.95);
+      backdrop-filter: blur(12px);
+      color: #fff;
+      padding: 10px 22px;
+      border-radius: 30px;
+      font-size: 13px;
+      font-weight: 700;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+      opacity: 0;
+      pointer-events: none;
+      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+      z-index: 200;
+    }
+
+    .toast-box.show {
+      opacity: 1;
+      transform: translateX(-50%) translateY(0);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- TOP HEADER -->
+  <header>
+    <div class="brand">
+      <div class="brand-logo">P</div>
+      <div class="brand-info">
+        <div class="brand-title">Persée Hub</div>
+        <div class="brand-sub">
+          <span>Portal TV</span>
+          <span style="opacity:0.4;">•</span>
+          <span id="cacheIndicator">Cache Local (0 ms)</span>
+        </div>
+      </div>
+    </div>
+    <div class="header-actions">
+      <div id="statusBadge" class="sync-status">
+        <span class="dot"></span>
+        <span id="statusLabel">Connecté</span>
+      </div>
+      <button class="btn-icon" id="micBtn" onclick="toggleVoiceInput()" title="Commande Vocale">🎤</button>
+      <button class="btn-icon" id="syncBtn" onclick="forceSync()" title="Synchroniser">↻</button>
+    </div>
+  </header>
+
+  <!-- HERO BANNER -->
+  <div class="hero">
+    <div class="hero-date" id="heroDate">Lundi 26 Octobre 2026</div>
+    <div class="hero-title" id="heroTitle">Votre Journée en Direct (Local & Sans Drive)</div>
+    <div class="hero-summary">
+      <div class="hero-chip" id="summaryEvents">📅 0 rendez-vous</div>
+      <div class="hero-chip" id="summaryTasks">✅ 0 tâche en attente</div>
+      <button class="hero-chip" onclick="saveBackupToDrive()" style="cursor:pointer; background:rgba(16,185,129,0.2); border-color:#10b981; color:#fff;" title="Sauvegarde complète de l'agenda sur Google Drive">
+        ☁️ Backup no Google Drive
+      </button>
+      <a id="btnIcalExport" href="/api/ical" class="hero-chip active" download="persee_agenda.ics">
+        📅 Exporter Calendrier (.ics)
+      </a>
+    </div>
+  </div>
+
+  <!-- TAB 1: AGENDA -->
+  <div id="tab-agenda" class="tab-view active">
+    <div class="section-bar">
+      <div class="section-title">
+        <span>Agenda & Rendez-vous</span>
+        <span class="section-badge" id="eventBadge">0</span>
+      </div>
+      <button class="btn-create" onclick="openModal('modalEvent')">+ Nouveau</button>
+    </div>
+
+    <div class="filter-bar">
+      <button class="filter-pill active" onclick="filterEvents('all', this)">Tous</button>
+      <button class="filter-pill" onclick="filterEvents('today', this)">Aujourd'hui</button>
+      <button class="filter-pill" onclick="filterEvents('tomorrow', this)">Demain</button>
+      <button class="filter-pill" onclick="filterEvents('week', this)">7 Prochains Jours</button>
+    </div>
+
+    <div id="eventsContainer"></div>
+  </div>
+
+  <!-- TAB 2: TÂCHES -->
+  <div id="tab-tasks" class="tab-view">
+    <div class="section-bar">
+      <div class="section-title">
+        <span>To-Do List</span>
+        <span class="section-badge" id="taskBadge">0</span>
+      </div>
+      <button class="btn-create" onclick="openModal('modalTask')">+ Nouvelle Tâche</button>
+    </div>
+
+    <div class="filter-bar">
+      <button class="filter-pill active" onclick="filterTasks('all', this)">Toutes</button>
+      <button class="filter-pill" onclick="filterTasks('pending', this)">En cours</button>
+      <button class="filter-pill" onclick="filterTasks('urgent', this)">🔥 Urgentes</button>
+      <button class="filter-pill" onclick="filterTasks('completed', this)">✓ Terminées</button>
+    </div>
+
+    <div id="tasksContainer"></div>
+  </div>
+
+  <!-- TAB 3: NOTES -->
+  <div id="tab-notes" class="tab-view">
+    <div class="section-bar">
+      <div class="section-title">
+        <span>Mémos & Notes</span>
+        <span class="section-badge" id="noteBadge">0</span>
+      </div>
+      <button class="btn-create" onclick="openModal('modalNote')">+ Nouvelle Note</button>
+    </div>
+
+    <div class="form-group">
+      <input type="text" id="noteSearch" class="input-field" placeholder="🔍 Rechercher dans vos notes..." oninput="searchNotes(this.value)">
+    </div>
+
+    <div id="notesContainer" class="notes-grid"></div>
+  </div>
+
+  <!-- TAB 4: PHOTOS DRIVE -->
+  <div id="tab-photos" class="tab-view">
+    <div class="section-bar">
+      <div class="section-title">
+        <span>Photos CLOUD PORTAL</span>
+        <span class="section-badge" id="photoBadge">0</span>
+      </div>
+      <a href="https://drive.google.com/drive/folders/1MflKe8u6ygC7bV0dnHjgE0Sa41MaKWzm" target="_blank" class="hero-chip">
+        Ouvrir Drive ↗
+      </a>
+    </div>
+
+    <div id="photosContainer" class="photos-grid"></div>
+  </div>
+
+  <!-- BOTTOM NAVIGATION -->
+  <nav class="bottom-nav">
+    <button class="nav-btn active" onclick="switchTab('agenda')">
+      <span class="nav-icon">📅</span>
+      <span>Agenda</span>
+    </button>
+    <button class="nav-btn" onclick="switchTab('tasks')">
+      <span class="nav-icon">✅</span>
+      <span>Tâches</span>
+    </button>
+    <button class="nav-btn" onclick="switchTab('notes')">
+      <span class="nav-icon">📝</span>
+      <span>Notes</span>
+    </button>
+    <button class="nav-btn" onclick="switchTab('photos')">
+      <span class="nav-icon">📸</span>
+      <span>Photos</span>
+    </button>
+  </nav>
+
+  <!-- MODAL: AJOUT EVENT -->
+  <div id="modalEvent" class="modal-overlay">
+    <div class="modal-panel">
+      <div class="modal-head">
+        <div class="modal-title">Nouveau Rendez-vous</div>
+        <button class="btn-close" onclick="closeModal('modalEvent')">✕</button>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Titre du rendez-vous *</label>
+        <input type="text" id="inEvTitle" class="input-field" placeholder="Ex: Réunion client, Dentiste...">
+      </div>
+      <div style="display:flex; gap:10px;">
+        <div class="form-group" style="flex:1;">
+          <label class="form-label">Date *</label>
+          <input type="date" id="inEvDate" class="input-field">
+        </div>
+        <div class="form-group" style="flex:1;">
+          <label class="form-label">Heure</label>
+          <input type="text" id="inEvTime" class="input-field" placeholder="Ex: 14h30">
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Participant (Avec qui ?)</label>
+        <input type="text" id="inEvPerson" class="input-field" placeholder="Ex: Axel, Docteur Martin...">
+      </div>
+      <div class="form-group">
+        <label class="form-label">Lieu</label>
+        <input type="text" id="inEvLocation" class="input-field" placeholder="Ex: Salon, Paris, Visio...">
+      </div>
+      <div class="form-group">
+        <label class="form-label">Description</label>
+        <input type="text" id="inEvDesc" class="input-field" placeholder="Notes additionnelles...">
+      </div>
+      <button class="btn-submit" onclick="saveEvent()">Enregistrer dans l'agenda</button>
+    </div>
+  </div>
+
+  <!-- MODAL: AJOUT TÂCHE -->
+  <div id="modalTask" class="modal-overlay">
+    <div class="modal-panel">
+      <div class="modal-head">
+        <div class="modal-title">Nouvelle Tâche</div>
+        <button class="btn-close" onclick="closeModal('modalTask')">✕</button>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Description de la tâche *</label>
+        <input type="text" id="inTaskTitle" class="input-field" placeholder="Ex: Payer la facture, Commander le matériel...">
+      </div>
+      <div style="display:flex; gap:10px;">
+        <div class="form-group" style="flex:1;">
+          <label class="form-label">Priorité</label>
+          <select id="inTaskPriority" class="select-field">
+            <option value="normal">Normal</option>
+            <option value="haute">Haute</option>
+            <option value="urgente">Urgente 🔥</option>
+            <option value="basse">Basse</option>
+          </select>
+        </div>
+        <div class="form-group" style="flex:1;">
+          <label class="form-label">Échéance</label>
+          <input type="date" id="inTaskDate" class="input-field">
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Catégorie</label>
+        <input type="text" id="inTaskCategory" class="input-field" placeholder="Ex: Maison, Travail, Achats...">
+      </div>
+      <button class="btn-submit" onclick="saveTask()">Ajouter la tâche</button>
+    </div>
+  </div>
+
+  <!-- MODAL: AJOUT NOTE -->
+  <div id="modalNote" class="modal-overlay">
+    <div class="modal-panel">
+      <div class="modal-head">
+        <div class="modal-title">Nouveau Mémo</div>
+        <button class="btn-close" onclick="closeModal('modalNote')">✕</button>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Titre *</label>
+        <input type="text" id="inNoteTitle" class="input-field" placeholder="Ex: Idée projet, Note importante...">
+      </div>
+      <div class="form-group">
+        <label class="form-label">Contenu</label>
+        <textarea id="inNoteContent" class="textarea-field" placeholder="Écrivez votre note ici..."></textarea>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Catégorie</label>
+        <input type="text" id="inNoteCategory" class="input-field" placeholder="Général, Idées, Perso...">
+      </div>
+      <button class="btn-submit" onclick="saveNote()">Enregistrer la note</button>
+    </div>
+  </div>
+
+  <!-- TOAST -->
+  <div id="toastBox" class="toast-box">Action enregistrée</div>
+
+  <!-- JAVASCRIPT: MOTEUR DE CACHE PERSISTANT & API HYBRIDE LOCALE / CLOUD -->
+  <script>
+    // ENDPOINTS HYBRIDES : DIRECT PORTAL TV (LOCAL) OU CLOUD HUB (GITHUB PAGES / 4G / 5G)
+    const CLOUD_API_URL = "https://script.google.com/macros/s/AKfycby7C8aUmBSCqeqS73oTfFivghfyneTXkio_S2DXA4v5quvhyPTI38dcSW1I0eErkHj0XA/exec";
+    const IS_LOCAL_HOST = window.location.hostname === "192.168.1.36" || window.location.hostname === "localhost" || window.location.hostname === "127.0.0.1";
+    const LOCAL_PORTAL_IP = "http://192.168.1.36:8000";
+    const API_BASE = IS_LOCAL_HOST ? window.location.origin : LOCAL_PORTAL_IP;
+
+    // ÉTAT GLOBAL DE L'APPLICATION AVEC CACHE PERSISTANT
+    const STORAGE_KEY = "PERSEE_AGENDA_DATA_LOCAL_V1";
+    let state = {
+      events: [],
+      tasks: [],
+      notes: [],
+      photos: [],
+      last_sync: null
+    };
+
+    let eventFilter = "all";
+    let taskFilter = "all";
+
+    // 1. INITIALISATION INSTANTANÉE VIA LE CACHE LOCAL (0 ms)
+    function initApp() {
+      // Configuration dynamique du lien d'export iCal
+      const icalBtn = document.getElementById('btnIcalExport');
+      if (icalBtn) {
+        icalBtn.href = IS_LOCAL_HOST ? (API_BASE + "/api/ical") : (CLOUD_API_URL + "?api=ical");
+      }
+
+      loadFromCache();
+      updateDates();
+      renderAll();
+
+      // Synchronisation directe avec l'API REST locale de la Portal TV
+      syncWithLocalApi();
+
+      // Écoute des événements réseau
+      window.addEventListener('online', () => { updateNetworkStatus(true); syncWithLocalApi(); });
+      window.addEventListener('offline', () => { updateNetworkStatus(false); });
+
+      // Synchronisation périodique toutes les 30 secondes
+      setInterval(syncWithLocalApi, 30000);
+    }
+
+    function loadFromCache() {
+      try {
+        const raw = localStorage.getItem(STORAGE_KEY);
+        if (raw) {
+          const parsed = JSON.parse(raw);
+          state = Object.assign(state, parsed);
+          document.getElementById('cacheIndicator').innerText = "Cache Local Prêt (0 ms)";
+        }
+      } catch (e) {
+        console.warn("Erreur lecture cache:", e);
+      }
+    }
+
+    function saveToCache() {
+      try {
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+      } catch (e) {
+        console.warn("Erreur écriture cache:", e);
+      }
+    }
+
+    function updateDates() {
+      const now = new Date();
+      const options = { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' };
+      document.getElementById('heroDate').innerText = now.toLocaleDateString('fr-FR', options);
+
+      const todayIso = now.toISOString().split('T')[0];
+      document.getElementById('inEvDate').value = todayIso;
+      document.getElementById('inTaskDate').value = todayIso;
+    }
+
+    function updateNetworkStatus(isOnline) {
+      const badge = document.getElementById('statusBadge');
+      const label = document.getElementById('statusLabel');
+      if (isOnline) {
+        badge.className = "sync-status";
+        label.innerText = "Connecté (Portal TV)";
+      } else {
+        badge.className = "sync-status offline";
+        label.innerText = "Hors ligne (Cache Actif)";
+      }
+    }
+
+    // 2. SYNCHRONISATION HYBRIDE (DIRECT PORTAL TV OU CLOUD SYNC HORS DU DOMICILE)
+    async function syncWithLocalApi() {
+      const syncBtn = document.getElementById('syncBtn');
+      const badge = document.getElementById('statusBadge');
+      const label = document.getElementById('statusLabel');
+
+      try {
+        syncBtn.classList.add('spinning');
+        badge.className = "sync-status syncing";
+        label.innerText = "Sync...";
+
+        let data = null;
+
+        // Tentative 1 : Accès direct Portal TV
+        try {
+          const controller = new AbortController();
+          const toId = setTimeout(() => controller.abort(), 1800);
+          const res = await fetch(API_BASE + "/api/agenda", { cache: "no-store", signal: controller.signal });
+          clearTimeout(toId);
+          if (res.ok) {
+            data = await res.json();
+            if (data && data.status === "success") {
+              label.innerText = "Connecté (Portal TV)";
+            }
+          }
+        } catch(eLocal) {}
+
+        // Tentative 2 : Si hors domicile (GitHub Pages / 4G / 5G)
+        if (!data || data.status !== "success") {
+          try {
+            const resCloud = await fetch(CLOUD_API_URL + "?api=data");
+            if (resCloud.ok) {
+              const cloudItems = await resCloud.json();
+              data = {
+                status: "success",
+                events: cloudItems.events || [],
+                tasks: cloudItems.tasks || [],
+                notes: cloudItems.notes || []
+              };
+              label.innerText = "Connecté (Cloud Sync)";
+            }
+          } catch(eCloud) {}
+        }
+
+        if (data && data.status === "success") {
+          if (data.events) state.events = data.events;
+          if (data.tasks) state.tasks = data.tasks;
+          if (data.notes) state.notes = data.notes;
+          state.last_sync = new Date().toISOString();
+          saveToCache();
+          renderAll();
+          updateNetworkStatus(true);
+          return;
+        }
+
+        updateNetworkStatus(false);
+      } catch (err) {
+        console.log("Portal TV injoignable, bascule sur cache local:", err);
+        updateNetworkStatus(false);
+      } finally {
+        syncBtn.classList.remove('spinning');
+      }
+    }
+
+    async function forceSync() {
+      showToast("Actualisation locale...");
+      await syncWithLocalApi();
+      showToast("Données à jour !");
+    }
+
+    // 3. RENDUS VISUELS (AGENDA, TÂCHES, NOTES, PHOTOS)
+    function renderAll() {
+      renderEvents();
+      renderTasks();
+      renderNotes();
+      renderPhotos();
+      updateSummaryChips();
+    }
+
+    function updateSummaryChips() {
+      const pendingTasks = state.tasks.filter(t => t.status !== 'completed').length;
+      document.getElementById('summaryEvents').innerText = `📅 ${state.events.length} rendez-vous`;
+      document.getElementById('summaryTasks').innerText = `✅ ${pendingTasks} tâche(s) en attente`;
+    }
+
+    function renderEvents() {
+      const container = document.getElementById('eventsContainer');
+      const badge = document.getElementById('eventBadge');
+      const now = new Date();
+      const todayIso = now.toISOString().split('T')[0];
+      const tomorrowIso = new Date(now.getTime() + 86400000).toISOString().split('T')[0];
+
+      let list = state.events || [];
+
+      if (eventFilter === 'today') {
+        list = list.filter(e => e.date === todayIso);
+      } else if (eventFilter === 'tomorrow') {
+        list = list.filter(e => e.date === tomorrowIso);
+      } else if (eventFilter === 'week') {
+        const in7Days = new Date(now.getTime() + 7 * 86400000).toISOString().split('T')[0];
+        list = list.filter(e => e.date >= todayIso && e.date <= in7Days);
+      }
+
+      badge.innerText = list.length;
+
+      if (list.length === 0) {
+        container.innerHTML = `
+          <div class="empty-box">
+            <div class="empty-icon">📅</div>
+            <p>Aucun rendez-vous pour ce filtre.</p>
+            <p style="font-size:12px;margin-top:4px;">Appuyez sur + Nouveau pour ajouter un événement.</p>
+          </div>`;
+        return;
+      }
+
+      let html = '';
+      list.forEach(ev => {
+        const isToday = (ev.date === todayIso);
+        const timeLabel = ev.time || 'Journée entière';
+        const dObj = new Date(ev.date);
+        const dateStr = !isNaN(dObj.getTime()) ? dObj.toLocaleDateString('fr-FR', { weekday:'short', day:'numeric', month:'short' }) : ev.date;
+
+        html += `
+          <div class="card event-card ${isToday ? 'today' : ''}">
+            <div class="event-meta">
+              <span class="time-badge">⏰ ${escapeHtml(timeLabel)}</span>
+              <span class="date-badge">${isToday ? 'Aujourd\'hui • ' : ''}${escapeHtml(dateStr)}</span>
+            </div>
+            <div class="event-title">${escapeHtml(ev.title)}</div>
+            ${ev.description ? `<div class="event-desc">${escapeHtml(ev.description)}</div>` : ''}
+            <div class="tags-row">
+              ${ev.person_name ? `<span class="tag-chip">👤 ${escapeHtml(ev.person_name)}</span>` : ''}
+              ${ev.location ? `<span class="tag-chip">📍 ${escapeHtml(ev.location)}</span>` : ''}
+              <button onclick="deleteItem('event', '${ev.id}')" style="background:none;border:none;color:#94a3b8;font-size:11px;cursor:pointer;margin-left:auto;">🗑️ Supprimer</button>
+            </div>
+          </div>
+        `;
+      });
+      container.innerHTML = html;
+    }
+
+    function renderTasks() {
+      const container = document.getElementById('tasksContainer');
+      const badge = document.getElementById('taskBadge');
+
+      let list = state.tasks || [];
+      const pendingTotal = list.filter(t => t.status !== 'completed').length;
+      badge.innerText = `${pendingTotal} active(s)`;
+
+      if (taskFilter === 'pending') {
+        list = list.filter(t => t.status !== 'completed');
+      } else if (taskFilter === 'urgent') {
+        list = list.filter(t => (t.priority || '').toLowerCase() === 'urgente' && t.status !== 'completed');
+      } else if (taskFilter === 'completed') {
+        list = list.filter(t => t.status === 'completed');
+      }
+
+      if (list.length === 0) {
+        container.innerHTML = `
+          <div class="empty-box">
+            <div class="empty-icon">✅</div>
+            <p>Toutes les tâches sont terminées !</p>
+          </div>`;
+        return;
+      }
+
+      let html = '';
+      list.forEach(t => {
+        const isDone = (t.status === 'completed');
+        const pClass = 'p-' + (t.priority || 'normal').toLowerCase();
+
+        html += `
+          <div class="card task-card">
+            <div class="task-check ${isDone ? 'done' : ''}" onclick="toggleTaskStatus('${t.id}')"></div>
+            <div class="task-body">
+              <div class="task-title ${isDone ? 'done' : ''}">${escapeHtml(t.title)}</div>
+              <div class="task-footer">
+                <span class="priority-pill ${pClass}">${escapeHtml(t.priority || 'Normal')}</span>
+                ${t.category ? `<span class="tag-chip">🏷️ ${escapeHtml(t.category)}</span>` : ''}
+                ${t.due_date ? `<span class="tag-chip">📅 ${escapeHtml(t.due_date)}</span>` : ''}
+                <button onclick="deleteItem('task', '${t.id}')" style="background:none;border:none;color:#94a3b8;font-size:11px;cursor:pointer;margin-left:auto;">🗑️</button>
+              </div>
+            </div>
+          </div>
+        `;
+      });
+      container.innerHTML = html;
+    }
+
+    function renderNotes() {
+      const container = document.getElementById('notesContainer');
+      const badge = document.getElementById('noteBadge');
+      const notes = state.notes || [];
+      badge.innerText = notes.length;
+
+      if (notes.length === 0) {
+        container.innerHTML = `
+          <div class="empty-box" style="grid-column: 1 / -1;">
+            <div class="empty-icon">📝</div>
+            <p>Aucune note pour le moment.</p>
+          </div>`;
+        return;
+      }
+
+      let html = '';
+      notes.forEach(n => {
+        const isPinned = (n.pinned == 1);
+        html += `
+          <div class="card note-card ${isPinned ? 'pinned' : ''}">
+            <div class="note-header">
+              <div class="note-title">${isPinned ? '📌 ' : ''}${escapeHtml(n.title)}</div>
+              ${n.category ? `<span class="tag-chip">${escapeHtml(n.category)}</span>` : ''}
+            </div>
+            <div class="note-body">${escapeHtml(n.content || '')}</div>
+            <div style="display:flex; justify-content:flex-end; margin-top:8px;">
+              <button onclick="deleteItem('note', '${n.id}')" style="background:none;border:none;color:#94a3b8;font-size:11px;cursor:pointer;">🗑️ Supprimer</button>
+            </div>
+          </div>
+        `;
+      });
+      container.innerHTML = html;
+    }
+
+    function renderPhotos() {
+      const container = document.getElementById('photosContainer');
+      const badge = document.getElementById('photoBadge');
+      const photos = state.photos || [];
+      badge.innerText = photos.length;
+
+      if (photos.length === 0) {
+        container.innerHTML = `
+          <div class="empty-box" style="grid-column: 1 / -1;">
+            <div class="empty-icon">📸</div>
+            <p>Aucune photo récente dans CLOUD PORTAL.</p>
+            <p style="font-size:12px;margin-top:4px;">Persée capture et envoie les situations automatiquement.</p>
+          </div>`;
+        return;
+      }
+
+      let html = '';
+      photos.forEach(p => {
+        html += `
+          <div class="photo-card">
+            <div class="photo-thumb" onclick="window.open('${p.url}', '_blank')">📸</div>
+            <div class="photo-info">
+              <div class="photo-time">${escapeHtml(p.date)}</div>
+              <div class="photo-desc" title="${escapeHtml(p.description)}">${escapeHtml(p.description)}</div>
+            </div>
+            <a href="${p.url}" target="_blank" class="photo-btn">Ouvrir Drive ↗</a>
+          </div>
+        `;
+      });
+      container.innerHTML = html;
+    }
+
+    // 4. ACTIONS UTILISATEUR & GESTION DES MODALES
+    function switchTab(tabId) {
+      document.querySelectorAll('.tab-view').forEach(el => el.classList.remove('active'));
+      document.querySelectorAll('.nav-btn').forEach(el => el.classList.remove('active'));
+
+      const target = document.getElementById('tab-' + tabId);
+      if (target) target.classList.add('active');
+
+      const tabs = ['agenda', 'tasks', 'notes', 'photos'];
+      const idx = tabs.indexOf(tabId);
+      if (idx !== -1) {
+        document.querySelectorAll('.nav-btn')[idx].classList.add('active');
+      }
+    }
+
+    function openModal(id) {
+      document.getElementById(id).classList.add('open');
+    }
+    function closeModal(id) {
+      document.getElementById(id).classList.remove('open');
+    }
+
+    function filterEvents(type, btn) {
+      eventFilter = type;
+      btn.parentElement.querySelectorAll('.filter-pill').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      renderEvents();
+    }
+
+    function filterTasks(type, btn) {
+      taskFilter = type;
+      btn.parentElement.querySelectorAll('.filter-pill').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      renderTasks();
+    }
+
+    function searchNotes(query) {
+      const q = query.trim().toLowerCase();
+      const allNotes = state.notes || [];
+      const cards = document.querySelectorAll('.note-card');
+      cards.forEach((card, i) => {
+        const n = allNotes[i];
+        if (!n) return;
+        const match = n.title.toLowerCase().includes(q) || (n.content || '').toLowerCase().includes(q) || (n.category || '').toLowerCase().includes(q);
+        card.style.display = match ? 'block' : 'none';
+      });
+    }
+
+    // AJOUT COMPOSANTS AVEC PERSISTANCE IMMÉDIATE (LOCAL-FIRST)
+    function saveEvent() {
+      const title = document.getElementById('inEvTitle').value.trim();
+      const date = document.getElementById('inEvDate').value;
+      const time = document.getElementById('inEvTime').value.trim();
+      const person = document.getElementById('inEvPerson').value.trim();
+      const loc = document.getElementById('inEvLocation').value.trim();
+      const desc = document.getElementById('inEvDesc').value.trim();
+
+      if (!title || !date) {
+        alert("Veuillez indiquer un titre et une date.");
+        return;
+      }
+
+      const newEv = {
+        id: 'ev_' + Date.now(),
+        title: title,
+        date: date,
+        time: time,
+        person_name: person,
+        location: loc,
+        description: desc,
+        status: 'scheduled'
+      };
+
+      state.events.unshift(newEv);
+      saveToCache();
+      renderEvents();
+      updateSummaryChips();
+      closeModal('modalEvent');
+      showToast("Rendez-vous enregistré !");
+
+      // Push vers l'API locale en arrière-plan
+      postToLocalApi('/api/event', { title, date, time, person, location, description });
+
+      document.getElementById('inEvTitle').value = '';
+      document.getElementById('inEvDesc').value = '';
+    }
+
+    function saveTask() {
+      const title = document.getElementById('inTaskTitle').value.trim();
+      const priority = document.getElementById('inTaskPriority').value;
+      const dueDate = document.getElementById('inTaskDate').value;
+      const category = document.getElementById('inTaskCategory').value.trim();
+
+      if (!title) {
+        alert("Veuillez donner un titre à la tâche.");
+        return;
+      }
+
+      const newTask = {
+        id: 'task_' + Date.now(),
+        title: title,
+        priority: priority,
+        due_date: dueDate,
+        category: category || 'général',
+        status: 'pending'
+      };
+
+      state.tasks.unshift(newTask);
+      saveToCache();
+      renderTasks();
+      updateSummaryChips();
+      closeModal('modalTask');
+      showToast("Tâche ajoutée !");
+
+      postToLocalApi('/api/task', { title, priority, due_date: dueDate, category });
+      document.getElementById('inTaskTitle').value = '';
+    }
+
+    function toggleTaskStatus(id) {
+      let taskTitle = "";
+      state.tasks.forEach(t => {
+        if (String(t.id) === String(id)) {
+          t.status = (t.status === 'completed') ? 'pending' : 'completed';
+          taskTitle = t.title;
+        }
+      });
+      saveToCache();
+      renderTasks();
+      updateSummaryChips();
+      showToast("Statut mis à jour !");
+
+      postToLocalApi('/api/task/toggle', { title: taskTitle });
+    }
+
+    function saveNote() {
+      const title = document.getElementById('inNoteTitle').value.trim();
+      const content = document.getElementById('inNoteContent').value.trim();
+      const category = document.getElementById('inNoteCategory').value.trim();
+
+      if (!title) {
+        alert("Veuillez indiquer un titre pour la note.");
+        return;
+      }
+
+      const newNote = {
+        id: 'note_' + Date.now(),
+        title: title,
+        content: content,
+        category: category || 'général',
+        pinned: 0
+      };
+
+      state.notes.unshift(newNote);
+      saveToCache();
+      renderNotes();
+      closeModal('modalNote');
+      showToast("Note enregistrée !");
+
+      postToLocalApi('/api/note', { title, content, category });
+      document.getElementById('inNoteTitle').value = '';
+      document.getElementById('inNoteContent').value = '';
+    }
+
+    function deleteItem(type, id) {
+      if (!confirm("Voulez-vous supprimer cet élément ?")) return;
+
+      let itemTitle = "";
+      if (type === 'event') {
+        const item = state.events.find(x => String(x.id) === String(id));
+        if (item) itemTitle = item.title;
+        state.events = state.events.filter(x => String(x.id) !== String(id));
+      }
+      if (type === 'task') {
+        state.tasks = state.tasks.filter(x => String(x.id) !== String(id));
+      }
+      if (type === 'note') {
+        state.notes = state.notes.filter(x => String(x.id) !== String(id));
+      }
+
+      saveToCache();
+      renderAll();
+      showToast("Élément supprimé !");
+
+      postToLocalApi('/api/delete', { type: type, id: id, title: itemTitle });
+    }
+
+    async function postToLocalApi(endpoint, payload) {
+      let sentLocal = false;
+      try {
+        const controller = new AbortController();
+        const toId = setTimeout(() => controller.abort(), 1800);
+        let res = await fetch(API_BASE + endpoint, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload),
+          signal: controller.signal
+        });
+        clearTimeout(toId);
+        if (res.ok) sentLocal = true;
+      } catch (e) {
+        sentLocal = false;
+      }
+
+      // Si pas sur le réseau local ou en déplacement, synchronisation vers le Cloud
+      if (!sentLocal) {
+        try {
+          let cloudAction = "";
+          if (endpoint === "/api/event") cloudAction = "add_event";
+          if (endpoint === "/api/task") cloudAction = "add_task";
+          if (endpoint === "/api/task/toggle") cloudAction = "toggle_task";
+          if (endpoint === "/api/note") cloudAction = "add_note";
+          if (endpoint === "/api/delete") cloudAction = "delete_item";
+          if (cloudAction) {
+            let cloudPayload = Object.assign({}, payload, { action: cloudAction });
+            await fetch(CLOUD_API_URL, {
+              method: 'POST',
+              body: JSON.stringify(cloudPayload)
+            });
+          }
+        } catch(e2) {
+          console.warn("Conservé en cache local:", e2);
+        }
+      }
+    }
+
+    async function saveBackupToDrive() {
+      showToast("☁️ Sauvegarde sur Google Drive en cours...");
+      try {
+        // Tentative 1: via l'API locale Portal TV
+        let res = await fetch(API_BASE + "/api/backup_to_drive", { method: 'POST' });
+        if (res.ok) {
+          let data = await res.json();
+          if (data && data.success) {
+            showToast("✓ Backup complet enregistré sur Google Drive !");
+            return;
+          }
+        }
+      } catch (e) {
+        console.log("Passage par endpoint direct Google Apps Script:", e);
+      }
+
+      // Tentative 2: directement vers le Webhook Google Apps Script
+      try {
+        const backupPayload = {
+          action: "backup_agenda",
+          events: state.events,
+          tasks: state.tasks,
+          notes: state.notes
+        };
+        let res2 = await fetch("https://script.google.com/macros/s/AKfycby7C8aUmBSCqeqS73oTfFivghfyneTXkio_S2DXA4v5quvhyPTI38dcSW1I0eErkHj0XA/exec", {
+          method: 'POST',
+          body: JSON.stringify(backupPayload)
+        });
+        if (res2.ok) {
+          let d2 = await res2.json();
+          showToast("✓ Backup Google Drive réussi (" + (d2.filename || "Drive") + ") !");
+          return;
+        }
+      } catch (err2) {
+        console.error("Erreur backup Drive:", err2);
+      }
+      showToast("Échec de la sauvegarde sur Drive.");
+    }
+
+    // 5. COMMANDE VOCALE NAVIGATEUR (WEB SPEECH API)
+    function toggleVoiceInput() {
+      const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+      if (!SpeechRecognition) {
+        alert("La reconnaissance vocale Web n'est pas disponible sur ce navigateur. Utilisez Chrome ou Safari.");
+        return;
+      }
+
+      const recognition = new SpeechRecognition();
+      recognition.lang = 'fr-FR';
+      recognition.interimResults = false;
+      recognition.maxAlternatives = 1;
+
+      const micBtn = document.getElementById('micBtn');
+      micBtn.style.color = '#ef4444';
+      showToast("Parlez maintenant (Ex: « Rendez-vous demain 14h » ou « Tâche acheter pain »)...");
+
+      recognition.start();
+
+      recognition.onresult = function(event) {
+        const text = event.results[0][0].transcript;
+        micBtn.style.color = '';
+        showToast(`Compris : « ${text} »`);
+        parseVoiceIntent(text);
+      };
+
+      recognition.onerror = function() {
+        micBtn.style.color = '';
+      };
+
+      recognition.onend = function() {
+        micBtn.style.color = '';
+      };
+    }
+
+    function parseVoiceIntent(spokenText) {
+      const lower = spokenText.toLowerCase();
+      const todayIso = new Date().toISOString().split('T')[0];
+
+      if (lower.includes("rendez-vous") || lower.includes("réunion") || lower.includes("agenda") || lower.includes("dentiste") || lower.includes("médecin")) {
+        const newEv = {
+          id: 'ev_' + Date.now(),
+          title: spokenText,
+          date: todayIso,
+          time: '',
+          person_name: '',
+          location: '',
+          description: 'Créé par commande vocale web',
+          status: 'scheduled'
+        };
+        state.events.unshift(newEv);
+        saveToCache();
+        renderEvents();
+        showToast("Événement ajouté à l'agenda !");
+        postToLocalApi('/api/event', { title: spokenText, date: todayIso });
+      } else {
+        const newTask = {
+          id: 'task_' + Date.now(),
+          title: spokenText,
+          priority: lower.includes("urgent") ? "urgente" : "normal",
+          due_date: todayIso,
+          category: "vocal",
+          status: "pending"
+        };
+        state.tasks.unshift(newTask);
+        saveToCache();
+        renderTasks();
+        showToast("Tâche ajoutée à la to-do list !");
+        postToLocalApi('/api/task', { title: spokenText, priority: newTask.priority, due_date: todayIso, category: "vocal" });
+      }
+    }
+
+    function showToast(msg) {
+      const box = document.getElementById('toastBox');
+      box.innerText = msg;
+      box.classList.add('show');
+      setTimeout(() => box.classList.remove('show'), 2600);
+    }
+
+    function escapeHtml(str) {
+      if (!str) return '';
+      return String(str)
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#039;');
+    }
+
+    window.onload = initApp;
+  </script>
+</body>
+</html>
