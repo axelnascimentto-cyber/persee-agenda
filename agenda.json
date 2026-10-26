@@ -31,12 +31,6 @@
   ],
   "notes": [
     {
-      "id": 3,
-      "timestamp": "2026-10-26 07:30:06",
-      "content": "salut",
-      "category": "Mémo Persée"
-    },
-    {
       "id": 2,
       "timestamp": "2026-10-26 07:30:01",
       "content": "po",
@@ -111,5 +105,5 @@
       "notes": "Époux d'Ariane. S'adresser à lui avec courtoisie et amabilité."
     }
   ],
-  "last_updated": "26/10/2026 07:42:59"
+  "last_updated": "26/10/2026 07:43:02"
 }
