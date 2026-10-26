@@ -45,6 +45,15 @@
       "description": "RDV médical pour Jean-Joël à Metz (Lieu: Metz)",
       "person_name": "Jean-Étienne, Nathalie, Jean-Joël",
       "status": "scheduled"
+    },
+    {
+      "id": 10,
+      "title": "Consultation Neurologie Jean-Joël",
+      "date": "2026-12-15",
+      "time": "11:00",
+      "description": "Bilan semestriel avec Dr Lemoine (Lieu: CHU de Nancy)",
+      "person_name": "Jean-Étienne, Nathalie, Jean-Joël",
+      "status": "scheduled"
     }
   ],
   "tasks": [
@@ -213,26 +222,5 @@
       "notes": "Nièce de la famille. S'adresser à elle avec tendresse, attention et bienveillance."
     }
   ],
-  "medications": [
-    {
-      "dose_id": "matin",
-      "label": "🌅 Petit-déjeuner",
-      "scheduled_time": "08:30",
-      "taken": true,
-      "taken_at": "09:39",
-      "taken_by": "Axel",
-      "notes": "",
-      "detail": "Au petit-déjeuner (Neuro-protecteur cognitif + vitamines)"
-    },
-    {
-      "dose_id": "soir",
-      "label": "🌇 Dîner",
-      "scheduled_time": "19:30",
-      "taken": true,
-      "taken_at": "09:39",
-      "taken_by": "Axel",
-      "notes": "",
-      "detail": "Au dîner (Régulateur d'humeur & bien-être)"
-    }
-  ]
+  "last_updated": "26/10/2026 10:22:04"
 }
