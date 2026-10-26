@@ -39,6 +39,12 @@
   ],
   "notes": [
     {
+      "id": 11,
+      "timestamp": "2026-10-26 09:20:07",
+      "content": "@Jean-Joël",
+      "category": "Mémo Jean-Joël"
+    },
+    {
       "id": 10,
       "timestamp": "2026-10-26 09:19:59",
       "content": "@Jean-Étienne",
@@ -171,5 +177,5 @@
       "notes": "Nièce de la famille. S'adresser à elle avec tendresse, attention et bienveillance."
     }
   ],
-  "last_updated": "26/10/2026 09:20:05"
+  "last_updated": "26/10/2026 09:20:10"
 }
