@@ -55,7 +55,14 @@
       "status": "completed"
     }
   ],
-  "notes": [],
+  "notes": [
+    {
+      "id": 8,
+      "timestamp": "2026-10-26 08:42:41",
+      "content": "Bonjour Persée",
+      "category": "Mémo Axel"
+    }
+  ],
   "family": [
     {
       "full_name": "Nathalie Griesbeck",
@@ -170,5 +177,5 @@
       "notes": "Nièce de la famille. S'adresser à elle avec tendresse, attention et bienveillance."
     }
   ],
-  "last_updated": "26/10/2026 08:30:49"
+  "last_updated": "26/10/2026 08:42:44"
 }
