@@ -36,6 +36,24 @@
       "description": "TEST (Lieu: MAISON)",
       "person_name": "Jean-Étienne, Nathalie, Jean-Joël",
       "status": "scheduled"
+    },
+    {
+      "id": 8,
+      "title": "RDV Médical Jean-Joël (Metz)",
+      "date": "2026-11-25",
+      "time": "15:00",
+      "description": "RDV médical pour Jean-Joël à Metz (Lieu: Metz)",
+      "person_name": "Jean-Étienne, Nathalie, Jean-Joël",
+      "status": "scheduled"
+    },
+    {
+      "id": 9,
+      "title": "RDV Médical Jean-Joël (Metz)",
+      "date": "2026-11-25",
+      "time": "15:00",
+      "description": "Planifié par Persée : adicioone rdv medial para jean joel dia 25 de novembro, 15:00 a metz, @Jean-Étienne @Nathalie (Lieu: Metz)",
+      "person_name": "Jean-Étienne, Nathalie, Jean-Joël",
+      "status": "scheduled"
     }
   ],
   "tasks": [
@@ -65,12 +83,6 @@
     }
   ],
   "notes": [
-    {
-      "id": 12,
-      "timestamp": "2026-10-26 09:41:58",
-      "content": "adicioone rdv medial para jean joel dia 25 de novembro, 15:00 a metz, @Jean-Étienne @Nathalie",
-      "category": "Mémo Nathalie"
-    },
     {
       "id": 11,
       "timestamp": "2026-10-26 09:20:07",
@@ -210,5 +222,5 @@
       "notes": "Nièce de la famille. S'adresser à elle avec tendresse, attention et bienveillance."
     }
   ],
-  "last_updated": "26/10/2026 09:43:07"
+  "last_updated": "26/10/2026 10:11:10"
 }
