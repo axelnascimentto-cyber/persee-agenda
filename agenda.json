@@ -31,6 +31,12 @@
   ],
   "notes": [
     {
+      "id": 3,
+      "timestamp": "2026-10-26 07:30:06",
+      "content": "salut",
+      "category": "Mémo Persée"
+    },
+    {
       "id": 2,
       "timestamp": "2026-10-26 07:30:01",
       "content": "po",
@@ -43,5 +49,5 @@
       "category": "système"
     }
   ],
-  "last_updated": "26/10/2026 07:30:05"
+  "last_updated": "26/10/2026 07:30:08"
 }
