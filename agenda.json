@@ -1,0 +1,40 @@
+{
+  "status": "success",
+  "events": [
+    {
+      "id": 1,
+      "title": "Rendez-vous V3 Persée",
+      "date": "2026-10-26",
+      "time": "16:30",
+      "description": "Validation du déploiement Version 3 Google Apps Script (Lieu: Bureau Portal TV)",
+      "person_name": "Axel",
+      "status": "scheduled"
+    }
+  ],
+  "tasks": [
+    {
+      "id": 2,
+      "title": "Tester accès mobile agenda via Web App V3",
+      "category": "test",
+      "priority": "urgente",
+      "due_date": "2026-10-26",
+      "status": "pending"
+    },
+    {
+      "id": 1,
+      "title": "Tester agenda local sans drive",
+      "category": "général",
+      "priority": "urgente",
+      "due_date": "",
+      "status": "completed"
+    }
+  ],
+  "notes": [
+    {
+      "id": 1,
+      "timestamp": "2026-10-26 06:28:16",
+      "content": "Validation intégrale Version 3 Google Apps Script - Backup JSON Google Drive 100% opérationnel.",
+      "category": "système"
+    }
+  ]
+}
