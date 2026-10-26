@@ -31,6 +31,14 @@
   ],
   "tasks": [
     {
+      "id": 3,
+      "title": "Tester agenda local sans drive",
+      "category": "général",
+      "priority": "urgente",
+      "due_date": "",
+      "status": "pending"
+    },
+    {
       "id": 2,
       "title": "Tester accès mobile agenda via Web App V3",
       "category": "test",
@@ -48,6 +56,12 @@
     }
   ],
   "notes": [
+    {
+      "id": 6,
+      "timestamp": "2026-10-26 08:08:33",
+      "content": "Renew",
+      "category": "Mémo Jean-Étienne"
+    },
     {
       "id": 2,
       "timestamp": "2026-10-26 07:30:01",
@@ -123,5 +137,5 @@
       "notes": "Époux d'Ariane. S'adresser à lui avec courtoisie et amabilité."
     }
   ],
-  "last_updated": "26/10/2026 07:51:26"
+  "last_updated": "26/10/2026 08:08:37"
 }
