@@ -1741,6 +1741,28 @@
             <button class="filter-btn" onclick="filterEvents('week', this)">7 Jours</button>
           </div>
 
+        <!-- CARTE DE SUIVI MÉDICAL & MÉDICAMENTS (JEAN-JOËL / ALZHEIMER) -->
+        <div class="med-tracker-card" id="medTrackerCard">
+          <div class="med-tracker-header">
+            <div>
+              <div class="med-tracker-title">
+                <span>💊 Traitement & Médicaments Jean-Joël (GP)</span>
+                <span id="medOverallBadge" class="med-badge-pending">1/4 pris</span>
+              </div>
+              <div class="med-tracker-sub" id="medTrackerSubtitle">
+                Suivi quotidien en temps réel partagé • Metz & Paris
+              </div>
+            </div>
+            <button type="button" class="btn-circle" style="width:30px; height:30px; font-size:12px;" onclick="refreshMedications()" title="Actualiser les médicaments">
+              🔄
+            </button>
+          </div>
+          <div class="med-doses-grid" id="medDosesGrid">
+            <!-- 4 prises quotidiennes générées dynamiquement -->
+          </div>
+        </div>
+
+
           <button class="btn-add-primary" onclick="openCreateModal('event')" style="height:32px; padding:0 12px; font-size:12px; margin-left:auto;">
             + Rendez-vous
           </button>
@@ -1782,7 +1804,8 @@
           <!-- COMMUTATEUR SOUS-VUES BIBLIOTHÈQUE -->
           <div class="agenda-subview-switch">
             <button type="button" class="agenda-subview-btn active" id="btnLibNotes" onclick="setLibrarySubView('notes')">📝 Notes & Mémos (<span id="badgeNotes">0</span>)</button>
-            <button type="button" class="agenda-subview-btn" id="btnLibFamily" onclick="setLibrarySubView('family')">👥 Famille & 3 Résidences (8)</button>
+            <button type="button" class="agenda-subview-btn" id="btnLibFamily" onclick="setLibrarySubView('family')">👥 Famille (8)</button>
+            <button type="button" class="agenda-subview-btn" id="btnLibHealth" onclick="setLibrarySubView('health')">🩺 Fiche Santé Jean-Joël</button>
           </div>
 
           <button class="btn-add-primary" onclick="openCreateModal('note')" style="height:32px; padding:0 12px; font-size:12px; margin-left:auto;" id="btnLibAddNote">
@@ -1831,7 +1854,112 @@
             </div>
             <div id="libraryFamilyCards" style="display:flex; flex-direction:column; gap:10px;"></div>
           </div>
+        
+
+        <!-- SOUS-VUE 3: FICHE SANTÉ & PROTOCOLE MÉDICAL JEAN-JOËL (ALZHEIMER) -->
+        <div id="libraryHealthView" style="display:none; flex-direction:column; gap:14px; width:100%;">
+          <!-- FICHE PATIENT & DIAGNOSTIC -->
+          <div style="background:#ffffff; border-radius:14px; padding:14px 16px; border:1px solid var(--separator-subtle); border-left:5px solid #0071e3; box-shadow:0 1px 4px rgba(0,0,0,0.04);">
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px; flex-wrap:wrap; gap:6px;">
+              <div style="font-size:16px; font-weight:700; color:var(--text-primary); display:flex; align-items:center; gap:8px;">
+                <span>🩺 Jean-Joël Griesbeck (GP / Papa)</span>
+                <span style="font-size:11px; font-weight:700; padding:2px 8px; border-radius:10px; background:#e0f2fe; color:#0369a1;">Patient Référent</span>
+              </div>
+              <div style="font-size:12px; color:var(--text-secondary); font-weight:500;">
+                📍 Résidence principale : Metz / Ancy-Dornot
+              </div>
+            </div>
+            <div style="font-size:13px; color:var(--text-primary); line-height:1.45; background:#f9f9fb; padding:10px 12px; border-radius:10px;">
+              <div style="font-weight:600; color:var(--text-secondary); margin-bottom:2px;">Diagnostic & Suivi Clinique :</div>
+              <div>• Diagnostic : <strong>Maladie d'Alzheimer</strong> (troubles de la mémoire immédiate et de l'orientation temporelle).</div>
+              <div>• Accompagnement quotidien : Nathalie Griesbeck (épouse) & Jean-Étienne (fils, double résidence) et toute la famille.</div>
+              <div>• Besoins essentiels : Repères temporels réguliers, calme, bienveillance continue et prise de médicaments à heure fixe.</div>
+            </div>
+          </div>
+
+          <!-- ÉQUIPE MÉDICALE ET SOIGNANTS -->
+          <div>
+            <div style="font-size:13px; font-weight:700; color:var(--text-primary); margin-bottom:8px; text-transform:uppercase; letter-spacing:0.5px;">
+              👨‍⚕️ Équipe Médicale & Soignants (Metz)
+            </div>
+            <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(220px, 1fr)); gap:10px;">
+              <div style="background:#ffffff; border-radius:12px; padding:12px; border:1px solid var(--separator-subtle); box-shadow:0 1px 3px rgba(0,0,0,0.04);">
+                <div style="font-size:11px; font-weight:700; color:#0071e3; text-transform:uppercase;">Neurologue & Consultation Mémoire</div>
+                <div style="font-size:14px; font-weight:600; margin:2px 0;">Suivi Neurologique Spécialisé</div>
+                <div style="font-size:12px; color:var(--text-secondary);">CHU de Metz / Hôpital de Mercy</div>
+                <div style="margin-top:6px; font-size:12px; color:var(--apple-blue); font-weight:600;">📞 Bilan & Rendez-vous semestriels</div>
+              </div>
+
+              <div style="background:#ffffff; border-radius:12px; padding:12px; border:1px solid var(--separator-subtle); box-shadow:0 1px 3px rgba(0,0,0,0.04);">
+                <div style="font-size:11px; font-weight:700; color:#10b981; text-transform:uppercase;">Médecin Traitant</div>
+                <div style="font-size:14px; font-weight:600; margin:2px 0;">Cabinet Médical Généraliste</div>
+                <div style="font-size:12px; color:var(--text-secondary);">Metz / Ancy-Dornot</div>
+                <div style="margin-top:6px; font-size:12px; color:var(--apple-blue); font-weight:600;">📞 Ordonnances & Contrôle général</div>
+              </div>
+
+              <div style="background:#ffffff; border-radius:12px; padding:12px; border:1px solid var(--separator-subtle); box-shadow:0 1px 3px rgba(0,0,0,0.04);">
+                <div style="font-size:11px; font-weight:700; color:#8b5cf6; text-transform:uppercase;">Pharmacie Référente</div>
+                <div style="font-size:14px; font-weight:600; margin:2px 0;">Pharmacie d'Ancy-Dornot</div>
+                <div style="font-size:12px; color:var(--text-secondary);">Délivrance mensuelle & Pilulier hebdomadaire</div>
+                <div style="margin-top:6px; font-size:12px; color:var(--apple-purple); font-weight:600;">💊 Préparation des traitements</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- PROTOCOLE DE MÉDICATION DU PILULIER -->
+          <div style="background:#ffffff; border-radius:14px; padding:14px 16px; border:1px solid var(--separator-subtle); box-shadow:0 1px 3px rgba(0,0,0,0.04);">
+            <div style="font-size:13px; font-weight:700; color:var(--text-primary); margin-bottom:10px; text-transform:uppercase; letter-spacing:0.5px;">
+              💊 Protocole Quotidien du Pilulier (4 Prises)
+            </div>
+            <div style="display:flex; flex-direction:column; gap:8px;">
+              <div style="display:flex; justify-content:space-between; align-items:center; background:#f0fdf4; padding:8px 12px; border-radius:8px; border:1px solid #bbf7d0;">
+                <div>
+                  <div style="font-weight:700; font-size:13px; color:#166534;">🌅 MATIN (08:30) • Au petit-déjeuner</div>
+                  <div style="font-size:11.5px; color:#15803d;">Traitement neuro-protecteur cognitif + vitamines + équilibre tensionnel (avec grand verre d'eau).</div>
+                </div>
+                <span style="font-weight:700; font-size:12px; color:#166534; background:#dcfce7; padding:3px 8px; border-radius:6px;">08h30</span>
+              </div>
+
+              <div style="display:flex; justify-content:space-between; align-items:center; background:#fefce8; padding:8px 12px; border-radius:8px; border:1px solid #fef08a;">
+                <div>
+                  <div style="font-weight:700; font-size:13px; color:#854d0e;">☀️ MIDI (12:30) • Au déjeuner</div>
+                  <div style="font-size:11.5px; color:#a16207;">Compléments nutritionnels & protection digestive pendant le repas.</div>
+                </div>
+                <span style="font-weight:700; font-size:12px; color:#854d0e; background:#fef9c3; padding:3px 8px; border-radius:6px;">12h30</span>
+              </div>
+
+              <div style="display:flex; justify-content:space-between; align-items:center; background:#faf5ff; padding:8px 12px; border-radius:8px; border:1px solid #e9d5ff;">
+                <div>
+                  <div style="font-weight:700; font-size:13px; color:#6b21a8;">🌇 SOIR (19:30) • Au dîner</div>
+                  <div style="font-size:11.5px; color:#7e22ce;">Régulateur d'humeur & bien-être de fin de journée.</div>
+                </div>
+                <span style="font-weight:700; font-size:12px; color:#6b21a8; background:#f3e8ff; padding:3px 8px; border-radius:6px;">19h30</span>
+              </div>
+
+              <div style="display:flex; justify-content:space-between; align-items:center; background:#eff6ff; padding:8px 12px; border-radius:8px; border:1px solid #bfdbfe;">
+                <div>
+                  <div style="font-weight:700; font-size:13px; color:#1e40af;">🌙 COUCHER (21:30) • Au coucher</div>
+                  <div style="font-size:11.5px; color:#1d4ed8;">Aide au sommeil paisible et prévention des agitations nocturnes.</div>
+                </div>
+                <span style="font-weight:700; font-size:12px; color:#1e40af; background:#dbeafe; padding:3px 8px; border-radius:6px;">21h30</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- CONSEILS & BIENVEILLANCE FAMILIALE -->
+          <div style="background:#ffffff; border-radius:14px; padding:14px 16px; border:1px solid var(--separator-subtle); border-left:5px solid #ff9500; box-shadow:0 1px 3px rgba(0,0,0,0.04);">
+            <div style="font-size:13px; font-weight:700; color:#d97706; margin-bottom:6px; text-transform:uppercase; letter-spacing:0.4px;">
+              💡 Guide & Conseils d'Accompagnement Bienveillant (Famille)
+            </div>
+            <div style="font-size:12.5px; color:var(--text-primary); line-height:1.5;">
+              <div>• <strong>Rassurer avant tout :</strong> En cas de désorientation, rappeler calmement à Jean-Joël qu'il est en sécurité chez lui à Metz avec Nathalie.</div>
+              <div>• <strong>Ne jamais contredire frontalement :</strong> Valider le sentiment exprimé plutôt que de chercher à corriger une erreur de mémoire.</div>
+              <div>• <strong>Validation en 1 clic :</strong> Chaque fois que Jean-Joël prend ses médicaments, cliquez sur le bouton correspondant pour que les proches à Paris sachent qu'il est à jour.</div>
+              <div>• <strong>Persée en soutien :</strong> Persée veille également et peut à tout moment donner l'heure, la date ou rassurer Jean-Joël vocalement avec douceur.</div>
+            </div>
+          </div>
         </div>
+</div>
       </div>
 
       <!-- TAB 4: AGENT HUB -->
@@ -2538,6 +2666,7 @@
     // 1. INITIALISATION
     function initApp() {
       initUserSession();
+      initMedications();
       setupMentionAutocomplete('agentPromptInput');
       setupMentionAutocomplete('inEvTitle');
       setupMentionAutocomplete('inTaskTitle');
@@ -2873,16 +3002,24 @@
       state.librarySubView = view;
       const btnNotes = document.getElementById('btnLibNotes');
       const btnFam = document.getElementById('btnLibFamily');
+      const btnHealth = document.getElementById('btnLibHealth');
       if (btnNotes) btnNotes.classList.toggle('active', view === 'notes');
       if (btnFam) btnFam.classList.toggle('active', view === 'family');
+      if (btnHealth) btnHealth.classList.toggle('active', view === 'health');
+
       const notesView = document.getElementById('libraryNotesView');
       const famView = document.getElementById('libraryFamilyView');
+      const healthView = document.getElementById('libraryHealthView');
       const addBtn = document.getElementById('btnLibAddNote');
+
       if (notesView) notesView.style.display = (view === 'notes') ? 'flex' : 'none';
       if (famView) famView.style.display = (view === 'family') ? 'flex' : 'none';
+      if (healthView) healthView.style.display = (view === 'health') ? 'flex' : 'none';
       if (addBtn) addBtn.style.display = (view === 'notes') ? 'inline-flex' : 'none';
+
       if (view === 'notes') renderNotes();
-      else renderLibraryFamily();
+      else if (view === 'family') renderLibraryFamily();
+      else if (view === 'health') renderMedicationTracker();
     }
 
     function toggleMobileFab() {
@@ -3132,6 +3269,147 @@
           </div>
         `;
         list.appendChild(row);
+      });
+    }
+
+    
+    // SUIVI DES MÉDICAMENTS (JEAN-JOËL / ALZHEIMER)
+    function initMedications() {
+      state.medications = [
+        { dose_id: 'matin', label: '🌅 Matin', scheduled_time: '08:30', detail: 'Au petit-déjeuner (Neuro-protecteur + vitamines)', taken: false, taken_at: null, taken_by: null },
+        { dose_id: 'midi', label: '☀️ Midi', scheduled_time: '12:30', detail: 'Au déjeuner (Compléments & tension)', taken: false, taken_at: null, taken_by: null },
+        { dose_id: 'soir', label: '🌇 Soir', scheduled_time: '19:30', detail: 'Au dîner (Régulateur d\'humeur)', taken: false, taken_at: null, taken_by: null },
+        { dose_id: 'coucher', label: '🌙 Coucher', scheduled_time: '21:30', detail: 'Au coucher (Sommeil paisible)', taken: false, taken_at: null, taken_by: null }
+      ];
+
+      // Charger depuis le cache local du jour si disponible
+      const todayIso = new Date().toISOString().split('T')[0];
+      try {
+        const cached = localStorage.getItem('persee_meds_' + todayIso);
+        if (cached) {
+          state.medications = JSON.parse(cached);
+        }
+      } catch(e) {}
+
+      // Tenter de charger depuis l'API locale
+      fetchMedications();
+    }
+
+    async function fetchMedications() {
+      try {
+        const res = await fetch('/api/medications', { cache: 'no-store' });
+        if (res.ok) {
+          const data = await res.json();
+          if (data && data.medications && data.medications.length > 0) {
+            state.medications = data.medications;
+            const todayIso = new Date().toISOString().split('T')[0];
+            localStorage.setItem('persee_meds_' + todayIso, JSON.stringify(state.medications));
+            renderMedicationTracker();
+          }
+        }
+      } catch(e) {
+        renderMedicationTracker();
+      }
+    }
+
+    function refreshMedications() {
+      showToast("Actualisation des médicaments...");
+      fetchMedications();
+    }
+
+    async function toggleMedicationDose(doseId) {
+      const idx = state.medications.findIndex(m => m.dose_id === doseId);
+      if (idx === -1) return;
+
+      const current = state.medications[idx];
+      const newTaken = !current.taken;
+      const userName = (state.currentUser && state.currentUser.preferredName) ? state.currentUser.preferredName : 'Famille';
+      const nowTime = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+
+      state.medications[idx].taken = newTaken;
+      state.medications[idx].taken_at = newTaken ? nowTime : null;
+      state.medications[idx].taken_by = newTaken ? userName : null;
+
+      const todayIso = new Date().toISOString().split('T')[0];
+      localStorage.setItem('persee_meds_' + todayIso, JSON.stringify(state.medications));
+      renderMedicationTracker();
+
+      if (newTaken) {
+        showToast(`✓ Médicament du ${current.label} validé pour Jean-Joël !`);
+      } else {
+        showToast(`Médicament du ${current.label} remis en attente`);
+      }
+
+      // Synchroniser avec l'API locale
+      try {
+        await postToLocalApi('/api/medications/toggle', {
+          dose_id: doseId,
+          taken: newTaken,
+          taken_by: userName
+        });
+      } catch(e) {}
+    }
+
+    function renderMedicationTracker() {
+      const container = document.getElementById('medDosesGrid');
+      if (!container) return;
+      container.innerHTML = '';
+
+      if (!state.medications || state.medications.length === 0) {
+        initMedications();
+      }
+
+      const total = state.medications.length;
+      const takenCount = state.medications.filter(m => m.taken).length;
+
+      const badge = document.getElementById('medOverallBadge');
+      if (badge) {
+        if (takenCount === total) {
+          badge.className = 'med-badge-all';
+          badge.innerText = `✓ Tous pris (${takenCount}/${total})`;
+        } else {
+          badge.className = 'med-badge-pending';
+          badge.innerText = `${takenCount}/${total} pris`;
+        }
+      }
+
+      const sub = document.getElementById('medTrackerSubtitle');
+      if (sub) {
+        const lastTaken = state.medications.filter(m => m.taken).pop();
+        if (lastTaken && lastTaken.taken_by) {
+          sub.innerText = `Dernière validation : ${lastTaken.label} à ${lastTaken.taken_at || ''} par ${lastTaken.taken_by} • Partagé Metz & Paris`;
+        } else {
+          sub.innerText = `Suivi quotidien en temps réel partagé • Metz & Paris`;
+        }
+      }
+
+      state.medications.forEach(m => {
+        const card = document.createElement('div');
+        card.className = `med-dose-card ${m.taken ? 'taken' : ''}`;
+
+        const validationInfo = m.taken
+          ? `<div class="med-dose-validation-text">✓ Validé à ${m.taken_at || m.scheduled_time} (${escapeHtml(m.taken_by || 'Famille')})</div>`
+          : '';
+
+        const btnClass = m.taken ? 'btn-taken' : 'btn-to-take';
+        const btnText = m.taken ? '✓ Pris (Modifier)' : `Prendre (${m.scheduled_time})`;
+
+        card.innerHTML = `
+          <div>
+            <div class="med-dose-head">
+              <span class="med-dose-label">${m.label}</span>
+              <span class="med-dose-time">${m.scheduled_time}</span>
+            </div>
+            <div class="med-dose-detail">${escapeHtml(m.detail || '')}</div>
+          </div>
+          <div>
+            <button type="button" class="med-dose-btn ${btnClass}" onclick="toggleMedicationDose('${m.dose_id}')">
+              ${btnText}
+            </button>
+            ${validationInfo}
+          </div>
+        `;
+        container.appendChild(card);
       });
     }
 
