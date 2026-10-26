@@ -2,15 +2,6 @@
   "status": "success",
   "events": [
     {
-      "id": 2,
-      "title": "Résume mon agenda pour aujourd'hui",
-      "date": "2026-10-26",
-      "time": "",
-      "description": "Créé via interaction Persée",
-      "person_name": "",
-      "status": "scheduled"
-    },
-    {
       "id": 4,
       "title": "Résume mon agenda pour aujourd'hui",
       "date": "2026-10-26",
@@ -183,5 +174,5 @@
       "notes": "Nièce de la famille. S'adresser à elle avec tendresse, attention et bienveillance."
     }
   ],
-  "last_updated": "26/10/2026 09:07:50"
+  "last_updated": "26/10/2026 09:07:53"
 }
