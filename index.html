@@ -1224,6 +1224,181 @@
     .auth-avatar.niece1 { background: linear-gradient(135deg, #ff758c, #ff7eb3); }
     .auth-avatar.niece2 { background: linear-gradient(135deg, #a18cd1, #6c5ce7); }
 
+    
+    /* CARD ACTIONS (EDIT & DELETE) */
+    .card-actions-group {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      margin-left: auto;
+      flex-shrink: 0;
+    }
+    .btn-card-action {
+      width: 32px;
+      height: 32px;
+      border-radius: 8px;
+      border: 1px solid var(--separator-subtle);
+      background: #f2f2f7;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 13px;
+      cursor: pointer;
+      transition: all 0.15s ease;
+      touch-action: manipulation;
+    }
+    .btn-card-action:hover {
+      transform: scale(1.08);
+    }
+    .btn-card-action.btn-edit:hover {
+      background: rgba(0, 122, 255, 0.12);
+      border-color: var(--apple-blue);
+      color: var(--apple-blue);
+    }
+    .btn-card-action.btn-delete:hover {
+      background: rgba(255, 59, 48, 0.12);
+      border-color: var(--apple-red);
+      color: var(--apple-red);
+    }
+
+    /* AGENDA SUBVIEW SWITCH */
+    .agenda-subview-switch {
+      display: inline-flex;
+      background: #e5e5ea;
+      border-radius: 9px;
+      padding: 2px;
+      gap: 2px;
+    }
+    .agenda-subview-btn {
+      border: none;
+      background: transparent;
+      padding: 5px 12px;
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--text-secondary);
+      border-radius: 7px;
+      cursor: pointer;
+      transition: all 0.15s ease;
+    }
+    .agenda-subview-btn.active {
+      background: #ffffff;
+      color: var(--text-primary);
+      box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+    }
+
+    /* FLOATING ACTION BUTTON (MOBILE FAB) */
+    .mobile-fab-container {
+      position: fixed;
+      right: 18px;
+      bottom: 74px;
+      z-index: 100;
+      display: none;
+    }
+    @media (max-width: 899px) {
+      .mobile-fab-container {
+        display: block;
+      }
+      .app-main {
+        padding-bottom: 96px !important;
+      }
+      .btn-card-action {
+        width: 38px;
+        height: 38px;
+        font-size: 15px;
+      }
+    }
+    .mobile-fab-btn {
+      width: 52px;
+      height: 52px;
+      border-radius: 50%;
+      background: var(--apple-blue);
+      color: #fff;
+      border: none;
+      box-shadow: 0 4px 14px rgba(0, 122, 255, 0.4);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 26px;
+      font-weight: 300;
+      cursor: pointer;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+    .mobile-fab-btn:active {
+      transform: scale(0.92);
+    }
+    .mobile-fab-menu {
+      position: absolute;
+      bottom: 62px;
+      right: 0;
+      background: rgba(255, 255, 255, 0.96);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border: 1px solid var(--separator-subtle);
+      border-radius: 14px;
+      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
+      padding: 6px;
+      display: none;
+      flex-direction: column;
+      gap: 4px;
+      min-width: 190px;
+      animation: popIn 0.18s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .mobile-fab-item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 10px 12px;
+      border-radius: 10px;
+      border: none;
+      background: transparent;
+      color: var(--text-primary);
+      font-size: 13px;
+      font-weight: 600;
+      text-align: left;
+      cursor: pointer;
+      width: 100%;
+    }
+    .mobile-fab-item:hover, .mobile-fab-item:active {
+      background: #f2f2f7;
+    }
+
+    /* MENTION POPOVER */
+    .mention-popover {
+      position: absolute;
+      background: rgba(255, 255, 255, 0.96);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border: 1px solid var(--separator-subtle);
+      border-radius: 12px;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.14);
+      padding: 6px;
+      display: none;
+      flex-direction: column;
+      gap: 2px;
+      max-height: 230px;
+      overflow-y: auto;
+      z-index: 1000;
+      width: 270px;
+    }
+    .mention-item {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 10px;
+      border-radius: 8px;
+      border: none;
+      background: transparent;
+      cursor: pointer;
+      text-align: left;
+      width: 100%;
+      font-size: 13px;
+      transition: background 0.12s ease;
+    }
+    .mention-item:hover, .mention-item:active {
+      background: rgba(0, 122, 255, 0.1);
+    }
+    .tab-link.active[data-tab="library"] { color: #5856d6; }
+
     /* EMPTY STATES */
     .empty-banner {
       width: 100%;
@@ -1425,10 +1600,10 @@
 
     <!-- TOP SEGMENTED TABS (DESKTOP) -->
     <div class="segmented-control desktop-only" style="display:none;">
-      <button class="segment-btn active" onclick="switchTab('agenda')">📅 Agenda</button>
-      <button class="segment-btn" onclick="switchTab('tasks')">✓ Rappels</button>
-      <button class="segment-btn" onclick="switchTab('notes')">📝 Notes</button>
-      <button class="segment-btn" onclick="switchTab('agent')">🤖 Assistant IA</button>
+      <button class="segment-btn active" data-tab="agenda" onclick="switchTab('agenda')">📅 Agenda</button>
+      <button class="segment-btn" data-tab="tasks" onclick="switchTab('tasks')">✓ Rappels</button>
+      <button class="segment-btn" data-tab="library" onclick="switchTab('library')">📚 Bibliothèque</button>
+      <button class="segment-btn" data-tab="agent" onclick="switchTab('agent')">🤖 Persée IA</button>
     </div>
 
     <div class="header-actions">
@@ -1465,7 +1640,7 @@
       </div>
 
       <!-- MINI CALENDAR -->
-      <div class="card-white">
+      <div class="card-white" id="calContainerBlock">
         <div class="cal-header-row">
           <div class="cal-month-title" id="calMonthYear">Octobre 2026</div>
           <div class="cal-arrows">
@@ -1547,18 +1722,28 @@
 
       <!-- TAB 1: AGENDA -->
       <div class="tab-view active" id="tab-agenda">
-        <div class="section-bar">
+        <div class="section-bar" style="flex-wrap:wrap; gap:8px;">
           <div class="section-title">
             <span>Agenda</span>
             <span style="font-size:12px; font-weight:600; color:var(--text-secondary); background:rgba(118,118,128,0.12); padding:2px 8px; border-radius:10px;" id="badgeEvents">0</span>
           </div>
 
-          <div class="filter-pills">
+          <!-- COMMUTATEUR VUE CALENDRIER / LISTE -->
+          <div class="agenda-subview-switch">
+            <button type="button" class="agenda-subview-btn active" id="btnAgendaCalendar" onclick="setAgendaSubView('calendar')">📅 Calendrier</button>
+            <button type="button" class="agenda-subview-btn" id="btnAgendaList" onclick="setAgendaSubView('list')">📋 Liste</button>
+          </div>
+
+          <div class="filter-pills" id="agendaFilterPills">
             <button class="filter-btn active" onclick="filterEvents('all', this)">Tous</button>
             <button class="filter-btn" onclick="filterEvents('today', this)">Aujourd'hui</button>
             <button class="filter-btn" onclick="filterEvents('tomorrow', this)">Demain</button>
             <button class="filter-btn" onclick="filterEvents('week', this)">7 Jours</button>
           </div>
+
+          <button class="btn-add-primary" onclick="openCreateModal('event')" style="height:32px; padding:0 12px; font-size:12px; margin-left:auto;">
+            + Rendez-vous
+          </button>
         </div>
 
         <div style="display:flex; flex-direction:column; gap:8px; width:100%;" id="eventsList"></div>
@@ -1566,7 +1751,7 @@
 
       <!-- TAB 2: RAPPELS -->
       <div class="tab-view" id="tab-tasks">
-        <div class="section-bar">
+        <div class="section-bar" style="flex-wrap:wrap; gap:8px;">
           <div class="section-title">
             <span>Rappels</span>
             <span style="font-size:12px; font-weight:600; color:var(--text-secondary); background:rgba(118,118,128,0.12); padding:2px 8px; border-radius:10px;" id="badgeTasks">0</span>
@@ -1578,21 +1763,75 @@
             <button class="filter-btn" onclick="filterTasks('urgent', this)">🚩 Urgents</button>
             <button class="filter-btn" onclick="filterTasks('completed', this)">Terminés</button>
           </div>
+
+          <button class="btn-add-primary" onclick="openCreateModal('task')" style="height:32px; padding:0 12px; font-size:12px; margin-left:auto;">
+            + Rappel
+          </button>
         </div>
 
         <div class="reminders-col" id="tasksList"></div>
       </div>
 
-      <!-- TAB 3: NOTES -->
-      <div class="tab-view" id="tab-notes">
-        <div class="section-bar">
+      <!-- TAB 3: BIBLIOTHÈQUE & RÉPERTOIRE FAMILIAL -->
+      <div class="tab-view" id="tab-library">
+        <div class="section-bar" style="flex-wrap:wrap; gap:8px;">
           <div class="section-title">
-            <span>Notes & Mémos</span>
-            <span style="font-size:12px; font-weight:600; color:var(--text-secondary); background:rgba(118,118,128,0.12); padding:2px 8px; border-radius:10px;" id="badgeNotes">0</span>
+            <span>📚 Bibliothèque</span>
           </div>
+
+          <!-- COMMUTATEUR SOUS-VUES BIBLIOTHÈQUE -->
+          <div class="agenda-subview-switch">
+            <button type="button" class="agenda-subview-btn active" id="btnLibNotes" onclick="setLibrarySubView('notes')">📝 Notes & Mémos (<span id="badgeNotes">0</span>)</button>
+            <button type="button" class="agenda-subview-btn" id="btnLibFamily" onclick="setLibrarySubView('family')">👥 Famille & 3 Résidences (8)</button>
+          </div>
+
+          <button class="btn-add-primary" onclick="openCreateModal('note')" style="height:32px; padding:0 12px; font-size:12px; margin-left:auto;" id="btnLibAddNote">
+            + Note
+          </button>
         </div>
 
-        <div class="notes-layout" id="notesList"></div>
+        <!-- SOUS-VUE 1: NOTES & MÉMOS -->
+        <div id="libraryNotesView" style="display:flex; flex-direction:column; gap:10px; width:100%;">
+          <div style="width:100%;">
+            <input type="text" id="notesSearchInput" class="field-input" placeholder="🔍 Rechercher dans les notes ou filtrer par personne..." oninput="renderNotes()">
+          </div>
+          <div class="notes-layout" id="notesList"></div>
+        </div>
+
+        <!-- SOUS-VUE 2: RÉPERTOIRE DES 8 MEMBRES ET 3 RÉSIDENCES -->
+        <div id="libraryFamilyView" style="display:none; flex-direction:column; gap:16px; width:100%;">
+          <!-- LES 3 RÉSIDENCES -->
+          <div>
+            <div style="font-size:13px; font-weight:700; color:var(--text-primary); margin-bottom:8px; text-transform:uppercase; letter-spacing:0.5px;">
+              📍 Organisation par Résidence (3 Lieux)
+            </div>
+            <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(220px, 1fr)); gap:10px;">
+              <div style="background:#ffffff; border-radius:12px; padding:12px; border:1px solid var(--separator-subtle); border-left:4px solid var(--apple-purple); box-shadow:0 1px 3px rgba(0,0,0,0.04);">
+                <div style="font-size:11px; font-weight:700; color:var(--apple-purple); text-transform:uppercase;">Résidence 1 — Paris</div>
+                <div style="font-size:13px; font-weight:600; margin:2px 0;">27 rue Poissonnière, Paris</div>
+                <div style="font-size:12px; color:var(--text-secondary);">Axel Silva Nascimento & Jean-Étienne Griesbeck</div>
+              </div>
+              <div style="background:#ffffff; border-radius:12px; padding:12px; border:1px solid var(--separator-subtle); border-left:4px solid var(--apple-blue); box-shadow:0 1px 3px rgba(0,0,0,0.04);">
+                <div style="font-size:11px; font-weight:700; color:var(--apple-blue); text-transform:uppercase;">Résidence 2 — Moselle</div>
+                <div style="font-size:13px; font-weight:600; margin:2px 0;">Metz / Ancy-Dornot, Moselle</div>
+                <div style="font-size:12px; color:var(--text-secondary);">Nathalie Griesbeck, Jean-Joël Griesbeck & Jean-Étienne Griesbeck (double résidence)</div>
+              </div>
+              <div style="background:#ffffff; border-radius:12px; padding:12px; border:1px solid var(--separator-subtle); border-left:4px solid #ff9500; box-shadow:0 1px 3px rgba(0,0,0,0.04);">
+                <div style="font-size:11px; font-weight:700; color:#ff9500; text-transform:uppercase;">Résidence 3 — Paris</div>
+                <div style="font-size:13px; font-weight:600; margin:2px 0;">8 rue Beauregard, Paris</div>
+                <div style="font-size:12px; color:var(--text-secondary);">Ariane Griesbeck, Vincent Bouvard, Adèle Bouvard Griesbeck & Roxane Bouvard Griesbeck</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- LES 8 MEMBRES -->
+          <div>
+            <div style="font-size:13px; font-weight:700; color:var(--text-primary); margin-bottom:8px; text-transform:uppercase; letter-spacing:0.5px;">
+              👥 Fiches des 8 Membres de la Famille
+            </div>
+            <div id="libraryFamilyCards" style="display:flex; flex-direction:column; gap:10px;"></div>
+          </div>
+        </div>
       </div>
 
       <!-- TAB 4: AGENT HUB -->
@@ -1659,6 +1898,24 @@
         </div>
       </div>
 
+          <!-- MOBILE FLOATING ACTION BUTTON (FAB) -->
+      <div class="mobile-fab-container">
+        <div class="mobile-fab-menu" id="mobileFabMenu">
+          <button type="button" class="mobile-fab-item" onclick="toggleMobileFab(); openCreateModal('event');">
+            <span>📅</span> <span>Nouveau Rendez-vous</span>
+          </button>
+          <button type="button" class="mobile-fab-item" onclick="toggleMobileFab(); openCreateModal('task');">
+            <span>✓</span> <span>Nouveau Rappel</span>
+          </button>
+          <button type="button" class="mobile-fab-item" onclick="toggleMobileFab(); openCreateModal('note');">
+            <span>📝</span> <span>Nouvelle Note</span>
+          </button>
+        </div>
+        <button type="button" class="mobile-fab-btn" onclick="toggleMobileFab()" title="Ajouter rapide">+</button>
+      </div>
+
+      <!-- POPOVER @ MENTION PERSONNES -->
+      <div class="mention-popover" id="mentionPopover"></div>
     </main>
   </div>
 
@@ -1672,9 +1929,9 @@
       <div class="tab-icon">✓</div>
       <div>Rappels</div>
     </button>
-    <button class="tab-link" data-tab="notes" onclick="switchTab('notes')">
-      <div class="tab-icon">📝</div>
-      <div>Notes</div>
+    <button class="tab-link" data-tab="library" onclick="switchTab('library')">
+      <div class="tab-icon">📚</div>
+      <div>Bibliothèque</div>
     </button>
     <button class="tab-link" data-tab="agent" onclick="switchTab('agent')">
       <div class="tab-icon">🤖</div>
@@ -1685,10 +1942,11 @@
   <!-- MODALS -->
   <div class="sheet-backdrop" id="modalEvent">
     <div class="sheet-panel">
+      <input type="hidden" id="editEvId" value="">
       <div class="sheet-title-bar">
         <button class="sheet-btn" onclick="closeModal('modalEvent')">Annuler</button>
-        <span style="font-size:16px; font-weight:600;">Nouveau Rendez-vous</span>
-        <button class="sheet-btn bold" onclick="saveEvent()">Ajouter</button>
+        <span style="font-size:14.5px; font-weight:600; text-align:center; flex:1;" id="modalEventTitle">Nouveau Rendez-vous</span>
+        <button class="sheet-btn bold" id="modalEventSaveBtn" onclick="saveEvent()">Ajouter</button>
       </div>
       <div class="sheet-fields">
         <div class="field-box">
@@ -1727,6 +1985,8 @@
               <button type="button" class="pill-btn" onclick="selectEvParticipant('Jean-Joël')">Jean-Joël</button>
               <button type="button" class="pill-btn" onclick="selectEvParticipant('Ariane')">Ariane</button>
               <button type="button" class="pill-btn" onclick="selectEvParticipant('Vincent')">Vincent</button>
+              <button type="button" class="pill-btn" onclick="selectEvParticipant('Adèle')">Adèle</button>
+              <button type="button" class="pill-btn" onclick="selectEvParticipant('Roxane')">Roxane</button>
             </div>
           </div>
           <div class="field-box">
@@ -1744,10 +2004,11 @@
 
   <div class="sheet-backdrop" id="modalTask">
     <div class="sheet-panel">
+      <input type="hidden" id="editTaskId" value="">
       <div class="sheet-title-bar">
         <button class="sheet-btn" onclick="closeModal('modalTask')">Annuler</button>
-        <span style="font-size:16px; font-weight:600;">Nouveau Rappel</span>
-        <button class="sheet-btn bold" onclick="saveTask()">Ajouter</button>
+        <span style="font-size:14.5px; font-weight:600; text-align:center; flex:1;" id="modalTaskTitle">Nouveau Rappel</span>
+        <button class="sheet-btn bold" id="modalTaskSaveBtn" onclick="saveTask()">Ajouter</button>
       </div>
       <div class="sheet-fields">
         <div class="field-box">
@@ -1789,6 +2050,8 @@
             <button type="button" class="pill-btn" onclick="selectTaskParticipant('Jean-Joël')">Jean-Joël</button>
             <button type="button" class="pill-btn" onclick="selectTaskParticipant('Ariane')">Ariane</button>
             <button type="button" class="pill-btn" onclick="selectTaskParticipant('Vincent')">Vincent</button>
+            <button type="button" class="pill-btn" onclick="selectTaskParticipant('Adèle')">Adèle</button>
+            <button type="button" class="pill-btn" onclick="selectTaskParticipant('Roxane')">Roxane</button>
           </div>
         </div>
       </div>
@@ -1797,10 +2060,11 @@
 
   <div class="sheet-backdrop" id="modalNote">
     <div class="sheet-panel">
+      <input type="hidden" id="editNoteId" value="">
       <div class="sheet-title-bar">
         <button class="sheet-btn" onclick="closeModal('modalNote')">Annuler</button>
-        <span style="font-size:16px; font-weight:600;">Nouvelle Note</span>
-        <button class="sheet-btn bold" onclick="saveNote()">Enregistrer</button>
+        <span style="font-size:14.5px; font-weight:600; text-align:center; flex:1;" id="modalNoteTitle">Nouvelle Note</span>
+        <button class="sheet-btn bold" id="modalNoteSaveBtn" onclick="saveNote()">Enregistrer</button>
       </div>
       <div class="sheet-fields">
         <div class="field-box">
@@ -2073,6 +2337,7 @@
     }
 
     function initUserSession() {
+      const overlay = document.getElementById('authOverlay');
       try {
         const saved = localStorage.getItem('persee_resident_session');
         if (saved) {
@@ -2080,12 +2345,12 @@
           if (user && user.fullName) {
             state.currentUser = user;
             updateUserSessionUI();
+            if (overlay) overlay.style.display = 'none';
             return true;
           }
         }
       } catch(e) {}
       
-      const overlay = document.getElementById('authOverlay');
       if (overlay) overlay.style.display = 'flex';
       return false;
     }
@@ -2273,6 +2538,11 @@
     // 1. INITIALISATION
     function initApp() {
       initUserSession();
+      setupMentionAutocomplete('agentPromptInput');
+      setupMentionAutocomplete('inEvTitle');
+      setupMentionAutocomplete('inTaskTitle');
+      setupMentionAutocomplete('inNoteContent');
+
 
       if (window.innerWidth < 900) {
         document.getElementById('mobileAgentCard').style.display = 'flex';
@@ -2583,6 +2853,95 @@
     }
 
     // 6. VIEWS RENDERING
+        // SOUS-VUES AGENDA ET BIBLIOTHÈQUE
+    function setAgendaSubView(view) {
+      state.agendaSubView = view;
+      const btnCal = document.getElementById('btnAgendaCalendar');
+      const btnList = document.getElementById('btnAgendaList');
+      if (btnCal) btnCal.classList.toggle('active', view === 'calendar');
+      if (btnList) btnList.classList.toggle('active', view === 'list');
+      const calBlock = document.getElementById('calContainerBlock');
+      if (calBlock) calBlock.style.display = (view === 'calendar') ? 'block' : 'none';
+      const weekStrip = document.getElementById('mobileWeekStrip');
+      if (weekStrip) weekStrip.style.display = (view === 'calendar') ? 'flex' : 'none';
+      const pills = document.getElementById('agendaFilterPills');
+      if (pills) pills.style.display = (view === 'calendar') ? 'flex' : 'none';
+      renderEvents();
+    }
+
+    function setLibrarySubView(view) {
+      state.librarySubView = view;
+      const btnNotes = document.getElementById('btnLibNotes');
+      const btnFam = document.getElementById('btnLibFamily');
+      if (btnNotes) btnNotes.classList.toggle('active', view === 'notes');
+      if (btnFam) btnFam.classList.toggle('active', view === 'family');
+      const notesView = document.getElementById('libraryNotesView');
+      const famView = document.getElementById('libraryFamilyView');
+      const addBtn = document.getElementById('btnLibAddNote');
+      if (notesView) notesView.style.display = (view === 'notes') ? 'flex' : 'none';
+      if (famView) famView.style.display = (view === 'family') ? 'flex' : 'none';
+      if (addBtn) addBtn.style.display = (view === 'notes') ? 'inline-flex' : 'none';
+      if (view === 'notes') renderNotes();
+      else renderLibraryFamily();
+    }
+
+    function toggleMobileFab() {
+      const menu = document.getElementById('mobileFabMenu');
+      if (!menu) return;
+      const isOpen = (menu.style.display === 'flex');
+      menu.style.display = isOpen ? 'none' : 'flex';
+    }
+
+    // MODAL EDIT OPENERS
+    function openEditEventModal(id) {
+      const ev = state.events.find(x => String(x.id) === String(id));
+      if (!ev) return;
+      const idInp = document.getElementById('editEvId');
+      if (idInp) idInp.value = ev.id;
+      const titleEl = document.getElementById('modalEventTitle');
+      if (titleEl) titleEl.innerText = "✏️ Modifier le rendez-vous";
+      const saveBtn = document.getElementById('modalEventSaveBtn');
+      if (saveBtn) saveBtn.innerText = "Enregistrer";
+      document.getElementById('inEvTitle').value = ev.title || '';
+      document.getElementById('inEvDate').value = ev.date || '';
+      document.getElementById('inEvTime').value = ev.time || '';
+      document.getElementById('inEvPerson').value = ev.person_name || '';
+      document.getElementById('inEvLocation').value = ev.location || '';
+      document.getElementById('inEvDesc').value = ev.description || '';
+      openModal('modalEvent');
+    }
+
+    function openEditTaskModal(id) {
+      const tk = state.tasks.find(x => String(x.id) === String(id));
+      if (!tk) return;
+      const idInp = document.getElementById('editTaskId');
+      if (idInp) idInp.value = tk.id;
+      const titleEl = document.getElementById('modalTaskTitle');
+      if (titleEl) titleEl.innerText = "✏️ Modifier le rappel";
+      const saveBtn = document.getElementById('modalTaskSaveBtn');
+      if (saveBtn) saveBtn.innerText = "Enregistrer";
+      document.getElementById('inTaskTitle').value = tk.title || '';
+      document.getElementById('inTaskDate').value = tk.due_date || '';
+      document.getElementById('inTaskPriority').value = tk.priority || 'normal';
+      document.getElementById('inTaskCategory').value = tk.category || '';
+      openModal('modalTask');
+    }
+
+    function openEditNoteModal(id) {
+      const n = state.notes.find(x => String(x.id) === String(id));
+      if (!n) return;
+      const idInp = document.getElementById('editNoteId');
+      if (idInp) idInp.value = n.id;
+      const titleEl = document.getElementById('modalNoteTitle');
+      if (titleEl) titleEl.innerText = "✏️ Modifier la note";
+      const saveBtn = document.getElementById('modalNoteSaveBtn');
+      if (saveBtn) saveBtn.innerText = "Enregistrer";
+      document.getElementById('inNoteTitle').value = n.title || '';
+      document.getElementById('inNoteContent').value = n.content || '';
+      document.getElementById('inNoteCategory').value = n.category || '';
+      openModal('modalNote');
+    }
+
     function renderAll() {
       renderEvents();
       renderTasks();
@@ -2594,25 +2953,20 @@
 
     function renderEvents() {
       const list = document.getElementById('eventsList');
+      if (!list) return;
       list.innerHTML = '';
 
       const todayIso = new Date().toISOString().split('T')[0];
       const tomorrow = new Date();
       tomorrow.setDate(tomorrow.getDate() + 1);
       const tomorrowIso = tomorrow.toISOString().split('T')[0];
-
       const nextWeek = new Date();
       nextWeek.setDate(nextWeek.getDate() + 7);
       const nextWeekIso = nextWeek.toISOString().split('T')[0];
 
-      let filtered = state.events.filter(ev => {
-        if (state.filterEvent === 'today') return ev.date === todayIso;
-        if (state.filterEvent === 'tomorrow') return ev.date === tomorrowIso;
-        if (state.filterEvent === 'week') return ev.date >= todayIso && ev.date <= nextWeekIso;
-        if (state.filterEvent.startsWith('date:')) return ev.date === state.filterEvent.replace('date:', '');
-        return true;
-      });
+      let filtered = state.events.slice();
 
+      // Person filter
       if (state.filterPerson && state.filterPerson !== 'all') {
         const fp = state.filterPerson.toLowerCase();
         filtered = filtered.filter(ev => {
@@ -2623,19 +2977,76 @@
         });
       }
 
+      // If in Calendar mode, apply period filters
+      if (state.agendaSubView === 'calendar') {
+        filtered = filtered.filter(ev => {
+          if (state.filterEvent === 'today') return ev.date === todayIso;
+          if (state.filterEvent === 'tomorrow') return ev.date === tomorrowIso;
+          if (state.filterEvent === 'week') return ev.date >= todayIso && ev.date <= nextWeekIso;
+          if (state.filterEvent.startsWith('date:')) return ev.date === state.filterEvent.replace('date:', '');
+          return true;
+        });
+      }
+
       filtered.sort((a, b) => (a.date + ' ' + (a.time || '')) > (b.date + ' ' + (b.time || '')) ? 1 : -1);
 
       if (filtered.length === 0) {
         list.innerHTML = `
           <div class="empty-banner">
-            <div style="font-size:26px;">📅</div>
-            <div style="font-weight:600; color:var(--text-primary);">Aucun rendez-vous</div>
-            <div style="font-size:12px;">Aucun événement planifié pour cette période.</div>
+            <div style="font-size:28px;">📅</div>
+            <div style="font-weight:600; color:var(--text-primary); font-size:15px;">Aucun rendez-vous</div>
+            <div style="font-size:12px;">Aucun événement planifié pour cette sélection.</div>
+            <button type="button" class="btn-add-primary" onclick="openCreateModal('event')" style="margin-top:8px; height:36px; padding:0 14px; font-size:13px;">
+              + Ajouter un rendez-vous
+            </button>
           </div>
         `;
         return;
       }
 
+      // VUE LISTE GROUPÉE CHRONOLOGIQUEMENT
+      if (state.agendaSubView === 'list') {
+        let currentHeader = '';
+        filtered.forEach(ev => {
+          let headerText = 'Plus tard';
+          if (ev.date === todayIso) headerText = "Aujourd'hui";
+          else if (ev.date === tomorrowIso) headerText = "Demain";
+          else if (ev.date > todayIso && ev.date <= nextWeekIso) headerText = "Cette semaine";
+          else if (ev.date < todayIso) headerText = "Passé";
+
+          if (headerText !== currentHeader) {
+            currentHeader = headerText;
+            const hDiv = document.createElement('div');
+            hDiv.style.cssText = 'font-size:12px; font-weight:700; color:var(--text-secondary); text-transform:uppercase; letter-spacing:0.5px; margin:12px 2px 4px 2px;';
+            hDiv.innerText = currentHeader;
+            list.appendChild(hDiv);
+          }
+
+          const card = document.createElement('div');
+          card.className = `event-card ${ev.date === todayIso ? 'today' : ''}`;
+          card.innerHTML = `
+            <div class="event-strip"></div>
+            <div class="event-details">
+              <div class="event-time-row">${ev.time ? ev.time : 'Toute la journée'} • ${formatDateHuman(ev.date)}</div>
+              <div class="event-title">${escapeHtml(ev.title)}</div>
+              ${ev.description ? `<div class="event-desc">${escapeHtml(ev.description)}</div>` : ''}
+              <div class="event-tags">
+                ${ev.location ? `<span>📍 ${escapeHtml(ev.location)}</span>` : ''}
+                ${ev.person_name ? `<span>👤 ${escapeHtml(ev.person_name)}</span>` : ''}
+                ${formatResidentTagsHtml(ev.title + ' ' + (ev.description || ''), ev.person_name)}
+              </div>
+            </div>
+            <div class="card-actions-group">
+              <button type="button" class="btn-card-action btn-edit" onclick="openEditEventModal('${ev.id}')" title="Modifier">✏️</button>
+              <button type="button" class="btn-card-action btn-delete" onclick="deleteItem('event', '${ev.id}')" title="Supprimer">🗑️</button>
+            </div>
+          `;
+          list.appendChild(card);
+        });
+        return;
+      }
+
+      // VUE CALENDRIER STANDARD
       filtered.forEach(ev => {
         const isToday = (ev.date === todayIso);
         const card = document.createElement('div');
@@ -2653,7 +3064,10 @@
               ${formatResidentTagsHtml(ev.title + ' ' + (ev.description || ''), ev.person_name)}
             </div>
           </div>
-          <button class="btn-delete" onclick="deleteItem('event', '${ev.id}')" title="Supprimer">✕</button>
+          <div class="card-actions-group">
+            <button type="button" class="btn-card-action btn-edit" onclick="openEditEventModal('${ev.id}')" title="Modifier">✏️</button>
+            <button type="button" class="btn-card-action btn-delete" onclick="deleteItem('event', '${ev.id}')" title="Supprimer">🗑️</button>
+          </div>
         `;
         list.appendChild(card);
       });
@@ -2661,6 +3075,7 @@
 
     function renderTasks() {
       const list = document.getElementById('tasksList');
+      if (!list) return;
       list.innerHTML = '';
 
       let filtered = state.tasks.filter(t => {
@@ -2682,9 +3097,12 @@
       if (filtered.length === 0) {
         list.innerHTML = `
           <div class="empty-banner">
-            <div style="font-size:26px;">✓</div>
-            <div style="font-weight:600; color:var(--text-primary);">Aucun rappel</div>
+            <div style="font-size:28px;">✓</div>
+            <div style="font-weight:600; color:var(--text-primary); font-size:15px;">Aucun rappel</div>
             <div style="font-size:12px;">Toutes vos tâches sont à jour.</div>
+            <button type="button" class="btn-add-primary" onclick="openCreateModal('task')" style="margin-top:8px; height:36px; padding:0 14px; font-size:13px;">
+              + Ajouter un rappel
+            </button>
           </div>
         `;
         return;
@@ -2708,7 +3126,10 @@
               ${formatResidentTagsHtml(t.title, t.category)}
             </div>
           </div>
-          <button class="btn-delete" onclick="deleteItem('task', '${t.id}')" title="Supprimer">✕</button>
+          <div class="card-actions-group">
+            <button type="button" class="btn-card-action btn-edit" onclick="openEditTaskModal('${t.id}')" title="Modifier">✏️</button>
+            <button type="button" class="btn-card-action btn-delete" onclick="deleteItem('task', '${t.id}')" title="Supprimer">🗑️</button>
+          </div>
         `;
         list.appendChild(row);
       });
@@ -2716,37 +3137,103 @@
 
     function renderNotes() {
       const list = document.getElementById('notesList');
+      if (!list) return;
       list.innerHTML = '';
 
-      if (state.notes.length === 0) {
+      let filtered = state.notes.slice();
+
+      const searchInp = document.getElementById('searchNotesInput');
+      if (searchInp && searchInp.value.trim()) {
+        const q = searchInp.value.trim().toLowerCase();
+        filtered = filtered.filter(n => {
+          return (n.title || '').toLowerCase().includes(q) ||
+                 (n.content || '').toLowerCase().includes(q) ||
+                 (n.category || '').toLowerCase().includes(q);
+        });
+      }
+
+      if (filtered.length === 0) {
         list.innerHTML = `
           <div class="empty-banner" style="grid-column: 1 / -1;">
-            <div style="font-size:26px;">📝</div>
-            <div style="font-weight:600; color:var(--text-primary);">Aucune note</div>
-            <div style="font-size:12px;">Vos mémos s'afficheront ici.</div>
+            <div style="font-size:28px;">📝</div>
+            <div style="font-weight:600; color:var(--text-primary); font-size:15px;">Aucune note</div>
+            <div style="font-size:12px;">Vos mémos et notes partagées s'afficheront ici.</div>
+            <button type="button" class="btn-add-primary" onclick="openCreateModal('note')" style="margin-top:8px; height:36px; padding:0 14px; font-size:13px;">
+              + Ajouter une note
+            </button>
           </div>
         `;
         return;
       }
 
-      state.notes.forEach(n => {
+      filtered.forEach(n => {
         const item = document.createElement('div');
         item.className = 'note-item';
 
         item.innerHTML = `
           <div class="note-head">
-            <span>${escapeHtml(n.title || 'Note')}</span>
-            <button class="btn-delete" onclick="deleteItem('note', '${n.id}')" title="Supprimer">✕</button>
-          </div>
-          <div style="font-size:11px; color:var(--text-secondary);">${n.timestamp ? n.timestamp : 'Récent'} • ${escapeHtml(n.category || 'Général')}</div>
-          <div class="note-body">
-            ${escapeHtml(n.content)}
-            <div style="margin-top:6px; display:flex; flex-wrap:wrap; gap:4px;">
-              ${formatResidentTagsHtml(n.content, n.category)}
+            <span style="font-weight:600; font-size:14px; color:var(--text-primary);">${escapeHtml(n.title || 'Note')}</span>
+            <div class="card-actions-group">
+              <button type="button" class="btn-card-action btn-edit" onclick="openEditNoteModal('${n.id}')" title="Modifier">✏️</button>
+              <button type="button" class="btn-card-action btn-delete" onclick="deleteItem('note', '${n.id}')" title="Supprimer">🗑️</button>
             </div>
+          </div>
+          <div style="font-size:11px; color:var(--text-secondary); margin-bottom:6px;">${n.timestamp ? n.timestamp : 'Récent'} • <span style="font-weight:600; color:var(--apple-purple);">${escapeHtml(n.category || 'Général')}</span></div>
+          <div class="note-body" style="font-size:13px; line-height:1.45; white-space:pre-wrap;">${escapeHtml(n.content)}</div>
+          <div style="margin-top:8px; display:flex; flex-wrap:wrap; gap:4px;">
+            ${formatResidentTagsHtml(n.title + ' ' + (n.content || ''), n.category)}
           </div>
         `;
         list.appendChild(item);
+      });
+    }
+
+    function renderLibraryFamily() {
+      const container = document.getElementById('libraryFamilyCards') || document.getElementById('familyCardsGrid');
+      if (!container) return;
+      container.innerHTML = '';
+
+      KNOWN_RESIDENTS.forEach(m => {
+        const card = document.createElement('div');
+        card.style.cssText = 'background:#ffffff; border-radius:12px; padding:12px 14px; border:1px solid var(--separator-subtle); box-shadow:0 1px 3px rgba(0,0,0,0.04); display:flex; flex-direction:column; gap:8px;';
+
+        const phoneHtml = m.phones && m.phones.length > 0
+          ? m.phones.map(p => `<a href="tel:${p.replace(/\s+/g, '')}" style="color:var(--apple-blue); font-weight:600; text-decoration:none; display:inline-flex; align-items:center; gap:4px;">📞 ${escapeHtml(p)}</a>`).join(', ')
+          : '<span style="color:var(--text-secondary); font-style:italic;">Non renseigné</span>';
+
+        const emailsHtml = m.emails && m.emails.length > 0
+          ? m.emails.map(e => `<a href="mailto:${e}" style="color:var(--apple-purple); font-weight:500; text-decoration:none; display:inline-block; margin-right:6px;">✉️ ${escapeHtml(e)}</a>`).join('')
+          : '<span style="color:var(--text-secondary); font-style:italic;">Non renseigné</span>';
+
+        card.innerHTML = `
+          <div style="display:flex; align-items:center; justify-content:space-between; gap:10px;">
+            <div style="display:flex; align-items:center; gap:10px;">
+              <div class="auth-avatar ${m.avatarClass}" style="width:36px; height:36px; font-size:13px; font-weight:700;">${m.avatarInit}</div>
+              <div>
+                <div style="font-size:14.5px; font-weight:700; color:var(--text-primary); line-height:1.2;">
+                  ${escapeHtml(m.fullName)}
+                  ${m.nickname && m.nickname !== m.fullName ? `<span style="font-size:12px; font-weight:500; color:var(--text-secondary);">(${escapeHtml(m.nickname)})</span>` : ''}
+                </div>
+                <div style="font-size:12px; color:var(--text-secondary); margin-top:2px;">
+                  📍 ${escapeHtml(m.residence)}
+                </div>
+              </div>
+            </div>
+            <button type="button" class="btn-circle" style="width:34px; height:34px; font-size:13px; flex-shrink:0;" onclick="filterByPerson('${m.preferredName}'); switchTab('agenda');" title="Filtrer l'agenda pour ${m.preferredName}">
+              📅
+            </button>
+          </div>
+
+          <div style="font-size:12px; color:var(--text-primary); background:#f9f9fb; padding:7px 10px; border-radius:8px; line-height:1.35;">
+            <span style="font-weight:600; color:var(--text-secondary);">Rôle / Liens :</span> ${escapeHtml(m.role)}
+          </div>
+
+          <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(200px, 1fr)); gap:6px; font-size:12px;">
+            <div><span style="color:var(--text-secondary); font-weight:600;">Téléphone :</span> ${phoneHtml}</div>
+            <div><span style="color:var(--text-secondary); font-weight:600;">E-mails :</span> ${emailsHtml}</div>
+          </div>
+        `;
+        container.appendChild(card);
       });
     }
 
@@ -2955,14 +3442,34 @@
       postToLocalApi('/api/task/toggle', { title });
     }
 
-    function saveNote() {
+        function saveNote() {
       const title = document.getElementById('inNoteTitle').value.trim();
       const content = document.getElementById('inNoteContent').value.trim();
       const category = document.getElementById('inNoteCategory').value.trim();
+      const editId = (document.getElementById('editNoteId') ? document.getElementById('editNoteId').value : '');
 
       if (!title || !content) {
         alert("Veuillez remplir le titre et le contenu.");
         return;
+      }
+
+      if (editId) {
+        const idx = state.notes.findIndex(n => String(n.id) === String(editId));
+        if (idx !== -1) {
+          state.notes[idx] = {
+            ...state.notes[idx],
+            title: title,
+            content: content,
+            category: category || 'Général',
+            timestamp: new Date().toISOString().replace('T', ' ').slice(0, 16)
+          };
+          closeModal('modalNote');
+          renderAll();
+          showToast("✓ Note mise à jour");
+          autoSave("Modification note");
+          postToLocalApi('/api/note', state.notes[idx]);
+          return;
+        }
       }
 
       const newNote = {
@@ -2976,12 +3483,19 @@
       state.notes.unshift(newNote);
       closeModal('modalNote');
       renderAll();
-      autoSave("Note");
-
+      showToast("✓ Note enregistrée");
+      autoSave("Nouvelle note");
       postToLocalApi('/api/note', { title, content, category });
       document.getElementById('inNoteTitle').value = '';
       document.getElementById('inNoteContent').value = '';
     }
+
+        // Helper aliases for event/task/note delete and view modes
+    function deleteEvent(id) { deleteItem('event', id); }
+    function deleteTask(id) { deleteItem('task', id); }
+    function deleteNote(id) { deleteItem('note', id); }
+    function setAgendaViewMode(mode) { setAgendaSubView(mode); }
+    function setBiblioSubView(mode) { setLibrarySubView(mode); }
 
     function deleteItem(type, id) {
       if (!confirm("Supprimer cet élément ?")) return;
@@ -3112,6 +3626,7 @@
     }
 
     function switchTab(tabName) {
+      if (tabName === 'notes') tabName = 'library';
       state.activeTab = tabName;
 
       document.querySelectorAll('.tab-view').forEach(c => c.classList.remove('active'));
@@ -3122,18 +3637,64 @@
         b.classList.toggle('active', b.getAttribute('data-tab') === tabName);
       });
 
-      document.querySelectorAll('.segmented-control .segment-btn').forEach(b => {
-        const txt = b.innerText.toLowerCase();
-        b.classList.toggle('active', txt.includes(tabName));
+      document.querySelectorAll('.segment-btn').forEach(b => {
+        const d = b.getAttribute('data-tab');
+        if (d) {
+          b.classList.toggle('active', d === tabName);
+        } else {
+          const oc = b.getAttribute('onclick') || '';
+          b.classList.toggle('active', oc.includes("'" + tabName + "'"));
+        }
       });
+
+      if (tabName === 'library') {
+        if (state.librarySubView === 'family') renderLibraryFamily();
+        else renderNotes();
+      } else if (tabName === 'agenda') {
+        renderEvents();
+      } else if (tabName === 'tasks') {
+        renderTasks();
+      }
     }
 
-    function openCreateModal() {
-      if (state.activeTab === 'tasks') {
+        function openCreateModal(forceType) {
+      const type = forceType || state.activeTab;
+      if (type === 'tasks' || type === 'task') {
+        const idInp = document.getElementById('editTaskId');
+        if (idInp) idInp.value = '';
+        const titleEl = document.getElementById('modalTaskTitle');
+        if (titleEl) titleEl.innerText = "Nouveau Rappel";
+        const saveBtn = document.getElementById('modalTaskSaveBtn');
+        if (saveBtn) saveBtn.innerText = "Ajouter";
+        document.getElementById('inTaskTitle').value = '';
+        document.getElementById('inTaskDate').value = new Date().toISOString().split('T')[0];
+        document.getElementById('inTaskPriority').value = 'normal';
+        document.getElementById('inTaskCategory').value = (state.currentUser && state.currentUser.preferredName) ? state.currentUser.preferredName : 'Général';
         openModal('modalTask');
-      } else if (state.activeTab === 'notes') {
+      } else if (type === 'notes' || type === 'note' || type === 'library') {
+        const idInp = document.getElementById('editNoteId');
+        if (idInp) idInp.value = '';
+        const titleEl = document.getElementById('modalNoteTitle');
+        if (titleEl) titleEl.innerText = "Nouvelle Note";
+        const saveBtn = document.getElementById('modalNoteSaveBtn');
+        if (saveBtn) saveBtn.innerText = "Enregistrer";
+        document.getElementById('inNoteTitle').value = '';
+        document.getElementById('inNoteContent').value = '';
+        document.getElementById('inNoteCategory').value = 'Général';
         openModal('modalNote');
       } else {
+        const idInp = document.getElementById('editEvId');
+        if (idInp) idInp.value = '';
+        const titleEl = document.getElementById('modalEventTitle');
+        if (titleEl) titleEl.innerText = "Nouveau Rendez-vous";
+        const saveBtn = document.getElementById('modalEventSaveBtn');
+        if (saveBtn) saveBtn.innerText = "Ajouter";
+        document.getElementById('inEvTitle').value = '';
+        document.getElementById('inEvDate').value = new Date().toISOString().split('T')[0];
+        document.getElementById('inEvTime').value = '';
+        document.getElementById('inEvPerson').value = (state.currentUser && state.currentUser.preferredName) ? state.currentUser.preferredName : '';
+        document.getElementById('inEvLocation').value = '';
+        document.getElementById('inEvDesc').value = '';
         openModal('modalEvent');
       }
     }
@@ -3163,6 +3724,102 @@
       box.classList.add('show');
       setTimeout(() => box.classList.remove('show'), 2600);
     }
+
+        // AUTOCOMPLÉTION @ MENTION PERSONNES
+    function setupMentionAutocomplete(inputId) {
+      const el = document.getElementById(inputId);
+      if (!el) return;
+
+      el.addEventListener('input', () => {
+        const val = el.value;
+        const pos = el.selectionStart || val.length;
+        const textBefore = val.slice(0, pos);
+        const atMatch = textBefore.match(/@([a-zA-ZÀ-ÿ0-9_-]*)$/);
+
+        const popover = document.getElementById('mentionPopover');
+        if (!atMatch) {
+          if (popover) popover.style.display = 'none';
+          return;
+        }
+
+        const query = atMatch[1].toLowerCase();
+        const matched = KNOWN_RESIDENTS.filter(r => {
+          if (!query) return true;
+          const full = r.fullName.toLowerCase();
+          const pref = r.preferredName.toLowerCase();
+          const nick = (r.nickname || '').toLowerCase();
+          return full.includes(query) || pref.includes(query) || nick.includes(query);
+        });
+
+        if (matched.length === 0) {
+          if (popover) popover.style.display = 'none';
+          return;
+        }
+
+        showMentionPopover(el, matched, atMatch[0]);
+      });
+    }
+
+    function showMentionPopover(targetEl, list, matchStr) {
+      const popover = document.getElementById('mentionPopover');
+      if (!popover) return;
+
+      const rect = targetEl.getBoundingClientRect();
+      popover.style.top = (window.scrollY + rect.bottom + 4) + 'px';
+      popover.style.left = Math.max(8, Math.min(window.scrollX + rect.left, window.innerWidth - 280)) + 'px';
+      popover.innerHTML = '';
+
+      const hdr = document.createElement('div');
+      hdr.style.cssText = 'font-size:11px; font-weight:700; color:var(--text-secondary); padding:4px 8px; text-transform:uppercase; letter-spacing:0.4px;';
+      hdr.innerText = "Associer un membre (@)";
+      popover.appendChild(hdr);
+
+      list.forEach(r => {
+        const item = document.createElement('button');
+        item.type = 'button';
+        item.className = 'mention-item';
+        item.innerHTML = `
+          <div class="auth-avatar ${r.avatarClass}" style="width:24px; height:24px; font-size:10px;">${r.avatarInit}</div>
+          <div style="flex:1; overflow:hidden;">
+            <div style="font-weight:600; color:var(--text-primary); font-size:13px; line-height:1.2;">@${escapeHtml(r.preferredName)} <span style="font-size:11px; font-weight:400; color:var(--text-secondary);">${escapeHtml(r.fullName)}</span></div>
+            <div style="font-size:11px; color:var(--text-secondary); white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">${escapeHtml(r.role)}</div>
+          </div>
+        `;
+        item.onclick = (e) => {
+          e.preventDefault();
+          e.stopPropagation();
+          insertMentionIntoInput(targetEl, `@${r.preferredName} `, matchStr);
+          popover.style.display = 'none';
+        };
+        popover.appendChild(item);
+      });
+
+      popover.style.display = 'flex';
+    }
+
+    function insertMentionIntoInput(el, tagToInsert, matchStr) {
+      const val = el.value;
+      const pos = el.selectionStart || val.length;
+      const textBefore = val.slice(0, pos);
+      const textAfter = val.slice(pos);
+      const escaped = matchStr.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+      const newBefore = textBefore.replace(new RegExp(escaped + '$'), tagToInsert);
+      el.value = newBefore + textAfter;
+      el.focus();
+      const newPos = newBefore.length;
+      el.setSelectionRange(newPos, newPos);
+    }
+
+    document.addEventListener('click', (e) => {
+      const popover = document.getElementById('mentionPopover');
+      if (popover && !popover.contains(e.target) && !e.target.closest('input') && !e.target.closest('textarea')) {
+        popover.style.display = 'none';
+      }
+      const fabMenu = document.getElementById('mobileFabMenu');
+      if (fabMenu && !fabMenu.contains(e.target) && !e.target.closest('.mobile-fab-btn')) {
+        fabMenu.style.display = 'none';
+      }
+    });
 
     function escapeHtml(str) {
       if (!str) return '';
