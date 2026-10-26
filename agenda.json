@@ -57,6 +57,12 @@
   ],
   "notes": [
     {
+      "id": 7,
+      "timestamp": "2026-10-26 08:11:03",
+      "content": "MAPA COMPLETO DA FAMÍLIA GRIESBECK — NASCIMENTO — BOUVARD (8 INTEGRANTES) :\n1. Axel Silva Nascimento (Axel) : Parceiro de Jean-Étienne (PACS); genro de Nathalie e Jean-Joël; cunhado de Ariane e Vincent; tio por afinidade de Adèle e Roxane. Emails: axelnascimento@gmail.com; axelnascimentto@gmail.com. Residência 1: 27 rue Poissonnière, Paris.\n2. Jean-Étienne Griesbeck (JET) : Parceiro de Axel (PACS); filho de Nathalie e Jean-Joël; irmão de Ariane; tio de Adèle e Roxane. Tel: +33 6 71 37 47 76. Emails: jet.griesbeck@gmail.com; jacen57@gmail.com; jgriesbeck@orange.fr. Dupla residência: 27 rue Poissonnière, Paris & Metz / Ancy-Dornot.\n3. Nathalie Griesbeck (Maminath / Nat) : Sogra de Axel; mãe de Jean-Étienne e Ariane; companheira de Jean-Joël; avó de Adèle e Roxane. Emails: natguepratte@gmail.com; nathalie.griesbeck@europarl.europa.eu. Residência 2: Metz / Ancy-Dornot, Moselle.\n4. Jean-Joël Griesbeck (GP / Papa) : Sogro de Axel; pai de Jean-Étienne e Ariane; companheiro de Nathalie; avô de Adèle e Roxane. Emails: jjgriesbeck57@gmail.com; jjgriesbeck1@orange.fr. Residência 2: Metz / Ancy-Dornot, Moselle.\n5. Ariane Griesbeck (Ariane) : Cunhada de Axel; irmã de Jean-Étienne; filha de Nathalie e Jean-Joël; companheira de Vincent; mãe de Adèle e Roxane. Tel: +33 6 27 69 24 76. Email: arianegriesbeck@gmail.com. Residência 3: 8 rue Beauregard, Paris.\n6. Vincent Bouvard (Vincent) : Concunhado de Axel; companheiro de Ariane; genro de Nathalie e Jean-Joël; pai de Adèle e Roxane. Emails: vincent.bouvard@socgen.com; vincentbouvard@laposte.net; vbouvard75@gmail.com. Residência 3: 8 rue Beauregard, Paris.\n7. Adèle Bouvard Griesbeck (Adèle) : Sobrinha de Jean-Étienne e Axel; filha de Ariane e Vincent; neta de Nathalie e Jean-Joël; irmã de Roxane. Tel: +33 7 49 81 83 53. Residência 3: 8 rue Beauregard, Paris.\n8. Roxane Bouvard Griesbeck (Roxane) : Sobrinha de Jean-Étienne e Axel; filha de Ariane e Vincent; neta de Nathalie e Jean-Joël; irmã de Adèle. Residência 3: 8 rue Beauregard, Paris.\n\nORGANIZAÇÃO POR RESIDÊNCIA :\n• Residência 1 — Paris, rue Poissonnière : 27 rue Poissonnière, Paris (Axel Silva Nascimento e Jean-Étienne Griesbeck)\n• Residência 2 — Metz / Ancy-Dornot : Moselle, França (Nathalie Griesbeck, Jean-Joël Griesbeck e Jean-Étienne Griesbeck [dupla residência])\n• Residência 3 — Paris, rue Beauregard : 8 rue Beauregard, Paris (Ariane Griesbeck, Vincent Bouvard, Adèle Bouvard Griesbeck e Roxane Bouvard Griesbeck)",
+      "category": "Famille"
+    },
+    {
       "id": 6,
       "timestamp": "2026-10-26 08:08:33",
       "content": "Renew",
@@ -79,63 +85,115 @@
     {
       "full_name": "Nathalie Griesbeck",
       "preferred_name": "Nathalie",
-      "role": "Mère de famille / Épouse",
+      "nickname": "Maminath / Nat",
+      "role": "Sogra de Axel; mãe de Jean-Étienne e Ariane; companheira de Jean-Joël; avó de Adèle e Roxane",
       "spouse": "Jean-Joël Griesbeck",
       "parents": "",
       "children": "Jean-Étienne Griesbeck, Ariane Griesbeck",
       "siblings": "",
-      "notes": "Personnalité politique et résidente. S'adresser à elle avec politesse, élégance et chaleur."
+      "phone": "",
+      "email": "natguepratte@gmail.com; nathalie.griesbeck@europarl.europa.eu",
+      "residence": "Metz / Ancy-Dornot, Moselle (Résidence 2)",
+      "notes": "Personnalité politique, mère et grand-mère. S'adresser à elle avec politesse, élégance, distinction et chaleur."
     },
     {
       "full_name": "Jean-Joël Griesbeck",
       "preferred_name": "Jean-Joël",
-      "role": "Père de famille / Époux",
+      "nickname": "GP / Papa",
+      "role": "Sogro de Axel; pai de Jean-Étienne e Ariane; companheiro de Nathalie; avô de Adèle e Roxane",
       "spouse": "Nathalie Griesbeck",
       "parents": "",
       "children": "Jean-Étienne Griesbeck, Ariane Griesbeck",
       "siblings": "",
-      "notes": "Résident de la maison. S'adresser à lui avec respect, courtoisie et chaleur."
+      "phone": "",
+      "email": "jjgriesbeck57@gmail.com; jjgriesbeck1@orange.fr",
+      "residence": "Metz / Ancy-Dornot, Moselle (Résidence 2)",
+      "notes": "Père et grand-père. S'adresser à lui avec respect, courtoisie et chaleur."
     },
     {
       "full_name": "Jean-Étienne Griesbeck",
       "preferred_name": "Jean-Étienne",
-      "role": "Fils / Époux d'Axel",
-      "spouse": "Axel Nascimento",
+      "nickname": "JET",
+      "role": "Parceiro de Axel (PACS); filho de Nathalie e Jean-Joël; irmão de Ariane; tio de Adèle e Roxane",
+      "spouse": "Axel Silva Nascimento",
       "parents": "Nathalie Griesbeck, Jean-Joël Griesbeck",
       "children": "",
       "siblings": "Ariane Griesbeck",
-      "notes": "Époux d'Axel Nascimento. S'adresser à lui avec bienveillance et amitié."
-    },
-    {
-      "full_name": "Axel Nascimento",
-      "preferred_name": "Axel",
-      "role": "Époux de Jean-Étienne / Administrateur Persée",
-      "spouse": "Jean-Étienne Griesbeck",
-      "parents": "Nathalie & Jean-Joël Griesbeck (beaux-parents)",
-      "children": "",
-      "siblings": "Ariane Griesbeck & Vincent Bouvard (beaux-frères/belles-sœurs)",
-      "notes": "Utilisateur principal de Persée. S'adresser à lui avec une grande fidélité, efficacité et chaleur."
+      "phone": "+33 6 71 37 47 76",
+      "email": "jet.griesbeck@gmail.com; jacen57@gmail.com; jgriesbeck@orange.fr",
+      "residence": "Dupla: 27 rue Poissonnière, Paris & Metz / Ancy-Dornot (Résidence 1 & 2)",
+      "notes": "Partenaire d'Axel, fils et oncle. S'adresser à lui avec bienveillance, amitié et sympathie."
     },
     {
       "full_name": "Ariane Griesbeck",
       "preferred_name": "Ariane",
-      "role": "Fille / Épouse de Vincent / Sœur de Jean-Étienne",
+      "nickname": "Ariane",
+      "role": "Cunhada de Axel; irmã de Jean-Étienne; filha de Nathalie e Jean-Joël; companheira de Vincent; mãe de Adèle e Roxane",
       "spouse": "Vincent Bouvard",
       "parents": "Nathalie Griesbeck, Jean-Joël Griesbeck",
-      "children": "",
+      "children": "Adèle Bouvard Griesbeck, Roxane Bouvard Griesbeck",
       "siblings": "Jean-Étienne Griesbeck",
-      "notes": "Fille de la famille et sœur de Jean-Étienne. S'adresser à elle avec respect et sympathie."
+      "phone": "+33 6 27 69 24 76",
+      "email": "arianegriesbeck@gmail.com",
+      "residence": "8 rue Beauregard, Paris (Résidence 3)",
+      "notes": "Fille de la famille, sœur de Jean-Étienne et mère d'Adèle et Roxane. S'adresser à elle avec gentillesse et respect."
     },
     {
       "full_name": "Vincent Bouvard",
       "preferred_name": "Vincent",
-      "role": "Époux d'Ariane / Gendre",
+      "nickname": "Vincent",
+      "role": "Concunhado de Axel; companheiro de Ariane; genro de Nathalie e Jean-Joël; pai de Adèle e Roxane",
       "spouse": "Ariane Griesbeck",
       "parents": "Nathalie & Jean-Joël Griesbeck (beaux-parents)",
+      "children": "Adèle Bouvard Griesbeck, Roxane Bouvard Griesbeck",
+      "siblings": "Jean-Étienne Griesbeck & Axel Silva Nascimento (beaux-frères)",
+      "phone": "",
+      "email": "vincent.bouvard@socgen.com; vincentbouvard@laposte.net; vbouvard75@gmail.com",
+      "residence": "8 rue Beauregard, Paris (Résidence 3)",
+      "notes": "Époux d'Ariane, gendre et père. S'adresser à lui avec cordialité et respect."
+    },
+    {
+      "full_name": "Axel Silva Nascimento",
+      "preferred_name": "Axel",
+      "nickname": "Axel",
+      "role": "Parceiro de Jean-Étienne (PACS); genro de Nathalie e Jean-Joël; cunhado de Ariane e Vincent; tio por afinidade de Adèle e Roxane; Administrateur Persée",
+      "spouse": "Jean-Étienne Griesbeck",
+      "parents": "Nathalie & Jean-Joël Griesbeck (beaux-parents)",
       "children": "",
-      "siblings": "Jean-Étienne Griesbeck & Axel Nascimento (beaux-frères)",
-      "notes": "Époux d'Ariane. S'adresser à lui avec courtoisie et amabilité."
+      "siblings": "Ariane Griesbeck & Vincent Bouvard (beaux-frères/belles-sœurs)",
+      "phone": "",
+      "email": "axelnascimento@gmail.com; axelnascimentto@gmail.com",
+      "residence": "27 rue Poissonnière, Paris (Résidence 1)",
+      "notes": "Utilisateur principal et créateur de Persée. S'adresser à lui avec une fidélité exemplaire, grand dévouement et chaleur."
+    },
+    {
+      "full_name": "Adèle Bouvard Griesbeck",
+      "preferred_name": "Adèle",
+      "nickname": "Adèle",
+      "role": "Sobrinha de Jean-Étienne e Axel; filha de Ariane e Vincent; neta de Nathalie e Jean-Joël",
+      "spouse": "",
+      "parents": "Ariane Griesbeck, Vincent Bouvard",
+      "children": "",
+      "siblings": "Roxane Bouvard Griesbeck (sœur)",
+      "phone": "+33 7 49 81 83 53",
+      "email": "",
+      "residence": "8 rue Beauregard, Paris (Résidence 3)",
+      "notes": "Nièce de la famille. S'adresser à elle avec gentillesse, douceur et sympathie."
+    },
+    {
+      "full_name": "Roxane Bouvard Griesbeck",
+      "preferred_name": "Roxane",
+      "nickname": "Roxane",
+      "role": "Sobrinha de Jean-Étienne e Axel; filha de Ariane e Vincent; neta de Nathalie e Jean-Joël",
+      "spouse": "",
+      "parents": "Ariane Griesbeck, Vincent Bouvard",
+      "children": "",
+      "siblings": "Adèle Bouvard Griesbeck (sœur)",
+      "phone": "",
+      "email": "",
+      "residence": "8 rue Beauregard, Paris (Résidence 3)",
+      "notes": "Nièce de la famille. S'adresser à elle avec tendresse, attention et bienveillance."
     }
   ],
-  "last_updated": "26/10/2026 08:08:40"
+  "last_updated": "26/10/2026 08:12:19"
 }
