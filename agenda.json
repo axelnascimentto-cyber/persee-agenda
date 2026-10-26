@@ -11,6 +11,15 @@
       "status": "scheduled"
     },
     {
+      "id": 7,
+      "title": "Résume mon agenda pour aujourd'hui",
+      "date": "2026-10-26",
+      "time": "",
+      "description": "Créé via interaction Persée",
+      "person_name": "Axel",
+      "status": "scheduled"
+    },
+    {
       "id": 6,
       "title": "TEST 2 @Axel @Jean-Étienne",
       "date": "2026-10-26",
@@ -201,5 +210,5 @@
       "notes": "Nièce de la famille. S'adresser à elle avec tendresse, attention et bienveillance."
     }
   ],
-  "last_updated": "26/10/2026 09:42:04"
+  "last_updated": "26/10/2026 09:43:05"
 }
