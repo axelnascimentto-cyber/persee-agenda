@@ -4069,6 +4069,56 @@
     }
 
     // 1. HERO DU PROCHAIN COMPROMISSO
+        // -------------------------------------------------------------
+    // FILTRAGE ROBUSTE ET INTELLIGENT PAR RÉSIDENT
+    // -------------------------------------------------------------
+    function matchesPersonFilter(item, targetPerson) {
+      if (!targetPerson || targetPerson === 'all') return true;
+      const normalize = (s) => (s || '').toString().toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '').trim();
+      
+      const target = normalize(targetPerson);
+      const person = normalize(item.person_name || item.category || '');
+      const title = normalize(item.title || item.content || '');
+      const desc = normalize(item.description || item.location || '');
+      const fullText = `${person} ${title} ${desc}`;
+
+      if (fullText.includes(target)) return true;
+
+      // Correspondances par alias résident
+      if (target.includes('etienne') || target === 'jet') {
+        return (fullText.includes('etienne') || fullText.includes('jet') || fullText.includes('jacen57')) && !fullText.includes('joel');
+      }
+      if (target.includes('joel') || target === 'gp') {
+        return fullText.includes('joel') || fullText.includes('gp') || fullText.includes('papa');
+      }
+      if (target.includes('nathalie') || target === 'nat') {
+        return fullText.includes('nathalie') || fullText.includes('nat') || fullText.includes('maminath');
+      }
+      if (target.includes('axel')) {
+        return fullText.includes('axel');
+      }
+      if (target.includes('ariane') || target === 'ar') {
+        return fullText.includes('ariane') || fullText.includes('ar');
+      }
+      if (target.includes('vincent')) {
+        return fullText.includes('vincent');
+      }
+      if (target.includes('adele')) {
+        return fullText.includes('adele');
+      }
+      if (target.includes('roxane')) {
+        return fullText.includes('roxane');
+      }
+      return false;
+    }
+
+    function isJeanEtienneSelected() {
+      if (!state.filterPerson || state.filterPerson === 'all') return false;
+      const p = state.filterPerson.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '');
+      return (p.includes('etienne') || p === 'jet') && !p.includes('joel');
+    }
+
+    // 1. HERO DU PROCHAIN RENDEZ-VOUS
     function renderHeroNextEvent() {
       const container = document.getElementById('heroNextEventCard');
       if (!container) return;
@@ -4093,13 +4143,7 @@
       // Filtrer par personne si un filtre est actif
       let relevantUpcoming = upcoming;
       if (state.filterPerson && state.filterPerson !== 'all') {
-        const fp = state.filterPerson.toLowerCase();
-        relevantUpcoming = upcoming.filter(ev => {
-          const person = (ev.person_name || '').toLowerCase();
-          const title = (ev.title || '').toLowerCase();
-          const desc = (ev.description || '').toLowerCase();
-          return person.includes(fp) || title.includes(fp) || desc.includes(fp);
-        });
+        relevantUpcoming = upcoming.filter(ev => matchesPersonFilter(ev, state.filterPerson));
       }
 
       if (relevantUpcoming.length === 0) {
@@ -4145,7 +4189,7 @@
           timeDiffText = `Aujourd'hui à ${nextEv.time}`;
         }
       } else if (nextEv.date > todayIso) {
-        timeDiffText = `À venir · ${nextEv.date}`;
+        timeDiffText = `À venir · ${formatDateHuman(nextEv.date)}`;
       }
 
       const personName = nextEv.person_name || 'Famille';
@@ -4230,12 +4274,14 @@
       const monday = new Date(today);
       monday.setDate(today.getDate() + mondayOffset);
 
+      const dotColor = (state.filterPerson && state.filterPerson !== 'all') ? getPersonAccentColor(state.filterPerson) : 'var(--accent-blue)';
+
       for (let i = 0; i < 7; i++) {
         const dayDate = new Date(monday);
         dayDate.setDate(monday.getDate() + i);
         const dateIso = dayDate.toISOString().split('T')[0];
 
-        const dayEvents = state.events.filter(ev => ev.date === dateIso);
+        const dayEvents = state.events.filter(ev => ev.date === dateIso && matchesPersonFilter(ev, state.filterPerson));
         const hasEvents = dayEvents.length > 0;
 
         const cell = document.createElement('div');
@@ -4249,7 +4295,7 @@
         cell.innerHTML = `
           <div class="cal-strip-day-lbl">${DAY_SHORT[dayDate.getDay()]}</div>
           <div class="cal-strip-day-num">${dayDate.getDate()}</div>
-          ${hasEvents ? '<div class="cal-strip-dot"></div>' : '<div style="height:5px; margin-top:4px;"></div>'}
+          ${hasEvents ? `<div class="cal-strip-dot" style="background:${dotColor};"></div>` : '<div style="height:5px; margin-top:4px;"></div>'}
         `;
         container.appendChild(cell);
       }
@@ -4261,16 +4307,51 @@
       if (!container) return;
       container.innerHTML = '';
 
-      const activeDate = state.selectedCalDate || new Date().toISOString().split('T')[0];
-      let dayEvents = state.events.filter(ev => ev.date === activeDate);
+      const todayIso = new Date().toISOString().split('T')[0];
+      const activeDate = state.selectedCalDate || todayIso;
+      let dayEvents = state.events.filter(ev => ev.date === activeDate && matchesPersonFilter(ev, state.filterPerson));
 
+      // Bannière et raccourcis si un résident est filtré
       if (state.filterPerson && state.filterPerson !== 'all') {
-        const fp = state.filterPerson.toLowerCase();
-        dayEvents = dayEvents.filter(ev => {
-          const person = (ev.person_name || '').toLowerCase();
-          const title = (ev.title || '').toLowerCase();
-          return person.includes(fp) || title.includes(fp);
-        });
+        const pColor = getPersonAccentColor(state.filterPerson);
+        const allPersonEvents = state.events.filter(ev => matchesPersonFilter(ev, state.filterPerson) && ev.date >= todayIso)
+          .sort((a, b) => (a.date + ' ' + (a.time || '')).localeCompare(b.date + ' ' + (b.time || '')));
+
+        const banner = document.createElement('div');
+        banner.style.cssText = `background:${pColor}12; border-left:3.5px solid ${pColor}; padding:10px 14px; border-radius:10px; margin-bottom:14px; font-size:12.5px;`;
+
+        if (dayEvents.length > 0) {
+          banner.innerHTML = `
+            <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:8px;">
+              <div>
+                <span style="font-weight:700; color:var(--text-primary);">📅 ${dayEvents.length} rendez-vous</span> pour <b>${escapeHtml(state.filterPerson)}</b> le ${formatDateHuman(activeDate)}
+              </div>
+              <button type="button" class="btn-text-sm" onclick="state.agendaSubView='list'; renderEvents();" style="font-weight:600; color:${pColor}; background:none; border:none; cursor:pointer;">
+                Voir la liste complète (${allPersonEvents.length}) →
+              </button>
+            </div>
+          `;
+        } else {
+          let chipsHtml = '';
+          allPersonEvents.forEach(ev => {
+            chipsHtml += `
+              <button type="button" onclick="state.selectedCalDate='${ev.date}'; renderCalendarWeekStrip(); renderEvents();" style="background:#ffffff; border:1px solid ${pColor}50; border-radius:12px; padding:4px 10px; font-size:11.5px; font-weight:600; color:${pColor}; cursor:pointer; box-shadow:0 1px 2px rgba(0,0,0,0.05);">
+                ${formatDateHuman(ev.date)}${ev.time ? ' ' + ev.time : ''} : ${escapeHtml(ev.title)}
+              </button>
+            `;
+          });
+
+          banner.innerHTML = `
+            <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:8px; margin-bottom:${chipsHtml ? '8px' : '0'};">
+              <span style="font-weight:600; color:var(--text-primary);">Aucun rendez-vous le ${formatDateHuman(activeDate)} pour ${escapeHtml(state.filterPerson)}</span>
+              <button type="button" class="btn-text-sm" onclick="state.agendaSubView='list'; renderEvents();" style="font-weight:600; color:${pColor}; background:none; border:none; cursor:pointer;">
+                Vue Liste (${allPersonEvents.length}) →
+              </button>
+            </div>
+            ${chipsHtml ? `<div style="font-size:11.5px; color:var(--text-secondary); margin-bottom:6px;">Prochains rendez-vous planifiés :</div><div style="display:flex; flex-wrap:wrap; gap:6px;">${chipsHtml}</div>` : `<div style="font-size:11.5px; color:var(--text-secondary);">Aucun rendez-vous futur enregistré. Synchronisation active toutes les 30 min.</div>`}
+          `;
+        }
+        container.appendChild(banner);
       }
 
       const hours = ["08:00", "09:00", "10:00", "11:00", "12:00", "13:00", "14:00", "15:00", "16:00", "17:00", "18:00", "19:00", "20:00"];
@@ -4335,6 +4416,9 @@
     function openCreateForHour(dateIso, hour) {
       document.getElementById('inEvDate').value = dateIso;
       document.getElementById('inEvTime').value = hour;
+      if (state.filterPerson && state.filterPerson !== 'all') {
+        document.getElementById('inEvPerson').value = state.filterPerson;
+      }
       openCreateModal('event');
     }
 
@@ -4345,7 +4429,7 @@
       if (!list) return;
       list.innerHTML = '';
 
-      const pending = state.tasks.filter(t => !t.done);
+      const pending = state.tasks.filter(t => !t.done && matchesPersonFilter(t, state.filterPerson));
       if (badge) badge.innerText = pending.length;
 
       if (pending.length === 0) {
@@ -4375,17 +4459,6 @@
       });
     }
 
-
-    
-    // -------------------------------------------------------------
-    // INTÉGRATION GOOGLE AGENDA JEAN-ÉTIENNE (JET)
-    // -------------------------------------------------------------
-    function isJeanEtienneSelected() {
-      if (!state.filterPerson || state.filterPerson === 'all') return false;
-      const p = state.filterPerson.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '');
-      return p.includes('jean') || p.includes('etienne') || p === 'jet';
-    }
-
     function renderEvents() {
       // 1. Mettre à jour le Hero du prochain rendez-vous
       renderHeroNextEvent();
@@ -4399,7 +4472,7 @@
       // 4. Mettre à jour la colonne latérale des rappels
       renderSideTasks();
 
-            // 5. Affichage selon sous-vue Calendrier vs Liste
+      // 5. Affichage selon sous-vue Calendrier vs Liste
       const calView = document.getElementById('calendarTimelineView');
       const listView = document.getElementById('calendarListView');
       const isCal = (state.agendaSubView !== 'list');
@@ -4408,9 +4481,6 @@
 
       if (strip) strip.style.display = 'flex';
       if (subviewSwitch) subviewSwitch.style.display = 'inline-flex';
-      if (calView) calView.style.display = isCal ? 'flex' : 'none';
-      if (listView) listView.style.display = isCal ? 'none' : 'flex';
-
       if (calView) calView.style.display = isCal ? 'flex' : 'none';
       if (listView) listView.style.display = isCal ? 'none' : 'flex';
 
@@ -4426,7 +4496,6 @@
       // Rendu de la vue liste
       const listContainer = listView || document.getElementById('eventsList');
       if (!listContainer) return;
-      const list = listContainer;
       listContainer.innerHTML = '';
 
       const todayIso = new Date().toISOString().split('T')[0];
@@ -4439,15 +4508,9 @@
 
       let filtered = state.events.slice();
 
-      // Person filter
+      // Filtrage par personne avec le matcher universel
       if (state.filterPerson && state.filterPerson !== 'all') {
-        const fp = state.filterPerson.toLowerCase();
-        filtered = filtered.filter(ev => {
-          const person = (ev.person_name || '').toLowerCase();
-          const title = (ev.title || '').toLowerCase();
-          const desc = (ev.description || '').toLowerCase();
-          return person.includes(fp) || title.includes(fp) || desc.includes(fp);
-        });
+        filtered = filtered.filter(ev => matchesPersonFilter(ev, state.filterPerson));
       }
 
       // If in Calendar mode, apply period filters
@@ -4461,10 +4524,10 @@
         });
       }
 
-      filtered.sort((a, b) => (a.date + ' ' + (a.time || '')) > (b.date + ' ' + (b.time || '')) ? 1 : -1);
+      filtered.sort((a, b) => (a.date + ' ' + (a.time || '')).localeCompare(b.date + ' ' + (b.time || '')));
 
       if (filtered.length === 0) {
-        list.innerHTML = `
+        listContainer.innerHTML = `
           <div class="empty-banner">
             <div style="font-size:28px;">📅</div>
             <div style="font-weight:600; color:var(--text-primary); font-size:15px;">Aucun rendez-vous</div>
@@ -4478,55 +4541,26 @@
       }
 
       // VUE LISTE GROUPÉE CHRONOLOGIQUEMENT
-      if (state.agendaSubView === 'list') {
-        let currentHeader = '';
-        filtered.forEach(ev => {
-          let headerText = 'Plus tard';
-          if (ev.date === todayIso) headerText = "Aujourd'hui";
-          else if (ev.date === tomorrowIso) headerText = "Demain";
-          else if (ev.date > todayIso && ev.date <= nextWeekIso) headerText = "Cette semaine";
-          else if (ev.date < todayIso) headerText = "Passé";
-
-          if (headerText !== currentHeader) {
-            currentHeader = headerText;
-            const hDiv = document.createElement('div');
-            hDiv.style.cssText = 'font-size:12px; font-weight:700; color:var(--text-secondary); text-transform:uppercase; letter-spacing:0.5px; margin:12px 2px 4px 2px;';
-            hDiv.innerText = currentHeader;
-            list.appendChild(hDiv);
-          }
-
-          const card = document.createElement('div');
-          card.className = `event-card ${ev.date === todayIso ? 'today' : ''}`;
-          card.innerHTML = `
-            <div class="event-strip"></div>
-            <div class="event-details">
-              <div class="event-time-row">${ev.time ? ev.time : 'Toute la journée'} • ${formatDateHuman(ev.date)}</div>
-              <div class="event-title">${escapeHtml(ev.title)}</div>
-              ${ev.description ? `<div class="event-desc">${escapeHtml(ev.description)}</div>` : ''}
-              <div class="event-tags">
-                ${ev.location ? `<span>📍 ${escapeHtml(ev.location)}</span>` : ''}
-                ${ev.person_name ? `<span>👤 ${escapeHtml(ev.person_name)}</span>` : ''}
-                ${formatResidentTagsHtml(ev.title + ' ' + (ev.description || ''), ev.person_name)}
-              </div>
-            </div>
-            <div class="card-actions-group">
-              <button type="button" class="btn-card-action btn-edit" onclick="openEditEventModal('${ev.id}')" title="Modifier">✏️</button>
-              <button type="button" class="btn-card-action btn-delete" onclick="deleteItem('event', '${ev.id}')" title="Supprimer">🗑️</button>
-            </div>
-          `;
-          list.appendChild(card);
-        });
-        return;
-      }
-
-      // VUE CALENDRIER STANDARD
+      let currentHeader = '';
       filtered.forEach(ev => {
-        const isToday = (ev.date === todayIso);
-        const card = document.createElement('div');
-        card.className = `event-card ${isToday ? 'today' : ''}`;
+        let headerText = 'Plus tard';
+        if (ev.date === todayIso) headerText = "Aujourd'hui";
+        else if (ev.date === tomorrowIso) headerText = "Demain";
+        else if (ev.date > todayIso && ev.date <= nextWeekIso) headerText = "Cette semaine";
+        else if (ev.date < todayIso) headerText = "Passé";
 
+        if (headerText !== currentHeader) {
+          currentHeader = headerText;
+          const hDiv = document.createElement('div');
+          hDiv.style.cssText = 'font-size:12px; font-weight:700; color:var(--text-secondary); text-transform:uppercase; letter-spacing:0.5px; margin:12px 2px 4px 2px;';
+          hDiv.innerText = currentHeader;
+          listContainer.appendChild(hDiv);
+        }
+
+        const card = document.createElement('div');
+        card.className = `event-card ${ev.date === todayIso ? 'today' : ''}`;
         card.innerHTML = `
-          <div class="event-strip"></div>
+          <div class="event-strip" style="background:${getPersonAccentColor(ev.person_name)};"></div>
           <div class="event-details">
             <div class="event-time-row">${ev.time ? ev.time : 'Toute la journée'} • ${formatDateHuman(ev.date)}</div>
             <div class="event-title">${escapeHtml(ev.title)}</div>
@@ -4542,11 +4576,11 @@
             <button type="button" class="btn-card-action btn-delete" onclick="deleteItem('event', '${ev.id}')" title="Supprimer">🗑️</button>
           </div>
         `;
-        list.appendChild(card);
+        listContainer.appendChild(card);
       });
     }
 
-    function renderTasks() {
+function renderTasks() {
       const list = document.getElementById('tasksList');
       if (!list) return;
       list.innerHTML = '';
@@ -4559,12 +4593,7 @@
       });
 
       if (state.filterPerson && state.filterPerson !== 'all') {
-        const fp = state.filterPerson.toLowerCase();
-        filtered = filtered.filter(tk => {
-          const title = (tk.title || '').toLowerCase();
-          const cat = (tk.category || '').toLowerCase();
-          return title.includes(fp) || cat.includes(fp);
-        });
+        filtered = filtered.filter(tk => matchesPersonFilter(tk, state.filterPerson));
       }
 
       if (filtered.length === 0) {
@@ -5304,7 +5333,7 @@
         document.getElementById('inEvTitle').value = '';
         document.getElementById('inEvDate').value = new Date().toISOString().split('T')[0];
         document.getElementById('inEvTime').value = '';
-        document.getElementById('inEvPerson').value = (state.currentUser && state.currentUser.preferredName) ? state.currentUser.preferredName : '';
+        document.getElementById('inEvPerson').value = (state.filterPerson && state.filterPerson !== 'all') ? state.filterPerson : ((state.currentUser && state.currentUser.preferredName) ? state.currentUser.preferredName : '');
         document.getElementById('inEvLocation').value = '';
         document.getElementById('inEvDesc').value = '';
         openModal('modalEvent');
