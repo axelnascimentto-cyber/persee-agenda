@@ -11,6 +11,15 @@
       "status": "scheduled"
     },
     {
+      "id": 6,
+      "title": "TEST 2 @Axel @Jean-Étienne",
+      "date": "2026-10-26",
+      "time": "14:30",
+      "description": "Lieu: APPART METZ",
+      "person_name": "Jean-Étienne, Adèle, Axel",
+      "status": "scheduled"
+    },
+    {
       "id": 5,
       "title": "TITRE TEST",
       "date": "2026-10-28",
@@ -186,5 +195,5 @@
       "notes": "Nièce de la famille. S'adresser à elle avec tendresse, attention et bienveillance."
     }
   ],
-  "last_updated": "26/10/2026 09:21:23"
+  "last_updated": "26/10/2026 09:22:01"
 }
