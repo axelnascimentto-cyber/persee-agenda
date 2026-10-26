@@ -57,6 +57,12 @@
   ],
   "notes": [
     {
+      "id": 12,
+      "timestamp": "2026-10-26 09:41:58",
+      "content": "adicioone rdv medial para jean joel dia 25 de novembro, 15:00 a metz, @Jean-Étienne @Nathalie",
+      "category": "Mémo Nathalie"
+    },
+    {
       "id": 11,
       "timestamp": "2026-10-26 09:20:07",
       "content": "@Jean-Joël",
@@ -195,5 +201,5 @@
       "notes": "Nièce de la famille. S'adresser à elle avec tendresse, attention et bienveillance."
     }
   ],
-  "last_updated": "26/10/2026 09:22:07"
+  "last_updated": "26/10/2026 09:42:01"
 }
