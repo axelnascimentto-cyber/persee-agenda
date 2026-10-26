@@ -57,6 +57,12 @@
   ],
   "notes": [
     {
+      "id": 9,
+      "timestamp": "2026-10-26 09:03:21",
+      "content": "Est-ce que Jean-Joël a pris ses médicaments ?",
+      "category": "Mémo Jean-Joël"
+    },
+    {
       "id": 8,
       "timestamp": "2026-10-26 08:42:41",
       "content": "Bonjour Persée",
@@ -177,5 +183,5 @@
       "notes": "Nièce de la famille. S'adresser à elle avec tendresse, attention et bienveillance."
     }
   ],
-  "last_updated": "26/10/2026 08:42:47"
+  "last_updated": "26/10/2026 09:03:27"
 }
