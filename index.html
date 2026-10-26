@@ -953,6 +953,153 @@
       line-height: 1.4;
     }
 
+    /* FAMILY & PARTICIPANT PILLS */
+    .pill-btn {
+      background: #f2f2f7;
+      color: var(--text-primary);
+      border: 1px solid var(--separator-subtle);
+      border-radius: var(--radius-full);
+      padding: 4px 10px;
+      font-size: 11px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.15s ease;
+    }
+    .pill-btn:hover {
+      background: rgba(0, 122, 255, 0.1);
+      color: var(--apple-blue);
+      border-color: var(--apple-blue);
+    }
+    .pill-btn.active {
+      background: var(--apple-blue);
+      color: #ffffff;
+      border-color: var(--apple-blue);
+      font-weight: 600;
+    }
+
+    /* FAMILY STRUCTURE PRESENTATION IN AGENT TAB */
+    .family-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 12px;
+      margin-top: 10px;
+    }
+    .family-member-card {
+      background: #ffffff;
+      border: 1px solid var(--separator);
+      border-radius: var(--radius-lg);
+      padding: 14px;
+      box-shadow: var(--shadow-sm);
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      transition: transform 0.15s ease, box-shadow 0.15s ease;
+    }
+    .family-member-card:hover {
+      box-shadow: var(--shadow-card);
+      transform: translateY(-1px);
+    }
+    .family-header {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .family-avatar {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #007aff, #5856d6);
+      color: #ffffff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 14px;
+      flex-shrink: 0;
+    }
+    .family-avatar.mother { background: linear-gradient(135deg, #ff2d55, #ff375f); }
+    .family-avatar.father { background: linear-gradient(135deg, #007aff, #0040dd); }
+    .family-avatar.son { background: linear-gradient(135deg, #34c759, #30b0c7); }
+    .family-avatar.admin { background: linear-gradient(135deg, #af52de, #5856d6); }
+    .family-avatar.daughter { background: linear-gradient(135deg, #ff9500, #ff2d55); }
+    .family-avatar.soninlaw { background: linear-gradient(135deg, #5ac8fa, #007aff); }
+    .family-names {
+      flex: 1;
+      min-width: 0;
+    }
+    .family-fullname {
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--text-primary);
+    }
+    .family-role-badge {
+      display: inline-block;
+      font-size: 10px;
+      font-weight: 600;
+      padding: 2px 7px;
+      border-radius: var(--radius-full);
+      background: rgba(0, 122, 255, 0.1);
+      color: var(--apple-blue);
+      margin-top: 2px;
+    }
+    .family-role-badge.admin {
+      background: rgba(175, 82, 222, 0.12);
+      color: var(--apple-purple);
+    }
+    .family-relations {
+      font-size: 12px;
+      color: var(--text-secondary);
+      line-height: 1.4;
+      border-top: 1px solid var(--separator-subtle);
+      padding-top: 8px;
+    }
+    .family-notes {
+      font-size: 11px;
+      color: var(--text-secondary);
+      font-style: italic;
+      background: var(--card-subtle);
+      padding: 6px 8px;
+      border-radius: var(--radius-sm);
+    }
+
+    /* SIDEBAR FAMILY LIST */
+    .sidebar-family-list {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+    .sidebar-family-item {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 8px;
+      border-radius: var(--radius-md);
+      cursor: pointer;
+      transition: background 0.12s ease;
+      font-size: 12px;
+      color: var(--text-primary);
+    }
+    .sidebar-family-item:hover {
+      background: var(--card-subtle);
+    }
+    .sidebar-family-item.active {
+      background: rgba(0, 122, 255, 0.1);
+      font-weight: 600;
+      color: var(--apple-blue);
+    }
+    .sidebar-mini-avatar {
+      width: 22px;
+      height: 22px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 9px;
+      font-weight: 700;
+      color: #fff;
+      flex-shrink: 0;
+    }
+
     /* EMPTY STATES */
     .empty-banner {
       width: 100%;
@@ -1217,6 +1364,15 @@
         </div>
       </div>
 
+      <!-- MEMBRES DE LA RÉSIDENCE (SIDEBAR) -->
+      <div class="card-white" style="margin-top:12px;">
+        <div style="font-size:13px; font-weight:700; margin-bottom:8px; display:flex; align-items:center; justify-content:space-between;">
+          <span>👥 Résidence</span>
+          <span style="font-size:11px; color:var(--text-secondary); font-weight:500;" id="sidebarFamilyCount">6 membres</span>
+        </div>
+        <div class="sidebar-family-list" id="sidebarFamilyList"></div>
+      </div>
+
     </aside>
 
     <!-- MAIN VIEW AREA (EXPANDS 100% WIDTH) -->
@@ -1318,8 +1474,8 @@
               <div class="agent-feat-desc">Chaque modification est sauvegardée silencieusement en tâche de fond sur Google Drive dans le dossier CLOUD PORTAL.</div>
             </div>
             <div class="agent-feat-box">
-              <div class="agent-feat-title">🗣️ Voix Hector & Écoute Continue</div>
-              <div class="agent-feat-desc">Synthèse vocale chaleureuse en français via Hector, avec capture audio Jabra 510 à 48 kHz.</div>
+              <div class="agent-feat-title">🗣️ Voix Naturelle & Écoute Continue</div>
+              <div class="agent-feat-desc">Persée s'exprime en français fluide et chaleureux, avec capture et diffusion audio HD sur Jabra 510.</div>
             </div>
             <div class="agent-feat-box">
               <div class="agent-feat-title">🔒 Confidentialité & Indépendance</div>
@@ -1332,8 +1488,31 @@
               ⚡ Résumer ma journée
             </button>
             <button onclick="toggleVoiceInput()" class="btn-add-primary" style="background:#f2f2f7; color:var(--text-primary); box-shadow:none; border:1px solid var(--separator);">
-              🎤 Parler avec Hector
+              🎤 Parler avec Persée
             </button>
+          </div>
+
+          <!-- STRUCTURE FAMILIALE DE LA RÉSIDENCE DANS L'AGENT PERSÉE -->
+          <div style="margin-top:20px; width:100%;">
+            <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:12px; flex-wrap:wrap; gap:8px;">
+              <div>
+                <div style="font-size:16px; font-weight:700; color:var(--text-primary); display:flex; align-items:center; gap:6px;">
+                  <span>👥</span>
+                  <span>Structure Familiale de la Résidence</span>
+                </div>
+                <div style="font-size:12px; color:var(--text-secondary); margin-top:2px;">
+                  Membres permanents, hiérarchie et liens de parenté mémorisés dans l'IA Persée
+                </div>
+              </div>
+              <span class="auto-save-pill" style="color:var(--apple-purple); background:rgba(175,82,222,0.1); border:1px solid rgba(175,82,222,0.2);">
+                <span class="auto-save-dot" style="background:var(--apple-purple);"></span>
+                <span>Mémoire 24/7</span>
+              </span>
+            </div>
+
+            <div class="family-grid" id="familyGrid">
+              <!-- Rendered via JS -->
+            </div>
           </div>
         </div>
       </div>
@@ -1388,6 +1567,14 @@
           <div class="field-box">
             <label class="field-label">Participant</label>
             <input type="text" id="inEvPerson" class="field-input" placeholder="Ex: Axel">
+            <div style="display:flex; flex-wrap:wrap; gap:4px; margin-top:6px;">
+              <button type="button" class="pill-btn" onclick="selectEvParticipant('Axel')">Axel</button>
+              <button type="button" class="pill-btn" onclick="selectEvParticipant('Jean-Étienne')">Jean-Étienne</button>
+              <button type="button" class="pill-btn" onclick="selectEvParticipant('Nathalie')">Nathalie</button>
+              <button type="button" class="pill-btn" onclick="selectEvParticipant('Jean-Joël')">Jean-Joël</button>
+              <button type="button" class="pill-btn" onclick="selectEvParticipant('Ariane')">Ariane</button>
+              <button type="button" class="pill-btn" onclick="selectEvParticipant('Vincent')">Vincent</button>
+            </div>
           </div>
           <div class="field-box">
             <label class="field-label">Lieu</label>
@@ -1429,8 +1616,16 @@
           </div>
         </div>
         <div class="field-box">
-          <label class="field-label">Catégorie</label>
+          <label class="field-label">Catégorie / Personne</label>
           <input type="text" id="inTaskCategory" class="field-input" placeholder="Général, Maison...">
+          <div style="display:flex; flex-wrap:wrap; gap:4px; margin-top:4px;">
+            <button type="button" class="pill-btn" onclick="selectTaskParticipant('Axel')">Axel</button>
+            <button type="button" class="pill-btn" onclick="selectTaskParticipant('Jean-Étienne')">Jean-Étienne</button>
+            <button type="button" class="pill-btn" onclick="selectTaskParticipant('Nathalie')">Nathalie</button>
+            <button type="button" class="pill-btn" onclick="selectTaskParticipant('Jean-Joël')">Jean-Joël</button>
+            <button type="button" class="pill-btn" onclick="selectTaskParticipant('Ariane')">Ariane</button>
+            <button type="button" class="pill-btn" onclick="selectTaskParticipant('Vincent')">Vincent</button>
+          </div>
         </div>
       </div>
     </div>
@@ -1469,12 +1664,89 @@
 
     const CLOUD_API_URL = "https://script.google.com/macros/s/AKfycby7C8aUmBSCqeqS73oTfFivghfyneTXkio_S2DXA4v5quvhyPTI38dcSW1I0eErkHj0XA/exec";
 
+    const DEFAULT_FAMILY = [
+      {
+        full_name: "Nathalie Griesbeck",
+        preferred_name: "Nathalie",
+        role: "Mère de famille / Épouse",
+        spouse: "Jean-Joël Griesbeck",
+        parents: "",
+        children: "Jean-Étienne Griesbeck, Ariane Griesbeck",
+        siblings: "",
+        notes: "S'adresser à elle avec politesse, élégance, distinction et chaleur.",
+        avatar_class: "mother",
+        avatar_init: "N"
+      },
+      {
+        full_name: "Jean-Joël Griesbeck",
+        preferred_name: "Jean-Joël",
+        role: "Père de famille / Époux",
+        spouse: "Nathalie Griesbeck",
+        parents: "",
+        children: "Jean-Étienne Griesbeck, Ariane Griesbeck",
+        siblings: "",
+        notes: "S'adresser à lui avec courtoisie, respect et chaleur.",
+        avatar_class: "father",
+        avatar_init: "JJ"
+      },
+      {
+        full_name: "Jean-Étienne Griesbeck",
+        preferred_name: "Jean-Étienne",
+        role: "Fils / Époux d'Axel",
+        spouse: "Axel Nascimento",
+        parents: "Nathalie Griesbeck, Jean-Joël Griesbeck",
+        children: "",
+        siblings: "Ariane Griesbeck",
+        notes: "S'adresser à lui avec bienveillance, amitié et sympathie.",
+        avatar_class: "son",
+        avatar_init: "JÉ"
+      },
+      {
+        full_name: "Axel Nascimento",
+        preferred_name: "Axel",
+        role: "Époux de J-Étienne / Admin Persée",
+        spouse: "Jean-Étienne Griesbeck",
+        parents: "Nathalie & Jean-Joël Griesbeck (beaux-parents)",
+        children: "",
+        siblings: "Ariane Griesbeck & Vincent Bouvard (beaux-frères/belles-sœurs)",
+        notes: "Utilisateur principal et créateur de Persée. Dévouement et fidélité absolue.",
+        avatar_class: "admin",
+        avatar_init: "A"
+      },
+      {
+        full_name: "Ariane Griesbeck",
+        preferred_name: "Ariane",
+        role: "Fille / Épouse de Vincent",
+        spouse: "Vincent Bouvard",
+        parents: "Nathalie Griesbeck, Jean-Joël Griesbeck",
+        children: "",
+        siblings: "Jean-Étienne Griesbeck",
+        notes: "S'adresser à elle avec respect et sympathie.",
+        avatar_class: "daughter",
+        avatar_init: "Ar"
+      },
+      {
+        full_name: "Vincent Bouvard",
+        preferred_name: "Vincent",
+        role: "Gendre / Époux d'Ariane",
+        spouse: "Ariane Griesbeck",
+        parents: "Nathalie & Jean-Joël Griesbeck (beaux-parents)",
+        children: "",
+        siblings: "Jean-Étienne Griesbeck & Axel Nascimento (beaux-frères)",
+        notes: "S'adresser à lui avec cordialité et sympathie.",
+        avatar_class: "soninlaw",
+        avatar_init: "V"
+      }
+    ];
+
     let state = {
       events: [],
       tasks: [],
       notes: [],
+      family: DEFAULT_FAMILY,
       filterEvent: 'all',
       filterTask: 'all',
+      filterPerson: 'all',
       activeTab: 'agenda',
       selectedCalDate: new Date().toISOString().split('T')[0],
       currentViewMonth: new Date()
@@ -1587,6 +1859,7 @@
             state.events = data.events || [];
             state.tasks = data.tasks || [];
             state.notes = data.notes || [];
+            if (data.family && data.family.length > 0) state.family = data.family;
             loaded = true;
           }
         }
@@ -1601,6 +1874,7 @@
               state.events = data2.events || [];
               state.tasks = data2.tasks || [];
               state.notes = data2.notes || [];
+              if (data2.family && data2.family.length > 0) state.family = data2.family;
               loaded = true;
             }
           }
@@ -1792,6 +2066,7 @@
       renderEvents();
       renderTasks();
       renderNotes();
+      renderFamily();
       updateBadges();
       renderMiniCalendar();
     }
@@ -1816,6 +2091,16 @@
         if (state.filterEvent.startsWith('date:')) return ev.date === state.filterEvent.replace('date:', '');
         return true;
       });
+
+      if (state.filterPerson && state.filterPerson !== 'all') {
+        const fp = state.filterPerson.toLowerCase();
+        filtered = filtered.filter(ev => {
+          const person = (ev.person_name || '').toLowerCase();
+          const title = (ev.title || '').toLowerCase();
+          const desc = (ev.description || '').toLowerCase();
+          return person.includes(fp) || title.includes(fp) || desc.includes(fp);
+        });
+      }
 
       filtered.sort((a, b) => (a.date + ' ' + (a.time || '')) > (b.date + ' ' + (b.time || '')) ? 1 : -1);
 
@@ -1862,6 +2147,15 @@
         if (state.filterTask === 'urgent') return t.priority === 'urgente' && t.status !== 'completed';
         return true;
       });
+
+      if (state.filterPerson && state.filterPerson !== 'all') {
+        const fp = state.filterPerson.toLowerCase();
+        filtered = filtered.filter(tk => {
+          const title = (tk.title || '').toLowerCase();
+          const cat = (tk.category || '').toLowerCase();
+          return title.includes(fp) || cat.includes(fp);
+        });
+      }
 
       if (filtered.length === 0) {
         list.innerHTML = `
@@ -1935,6 +2229,120 @@
 
       document.getElementById('statEventsCount').innerText = state.events.length;
       document.getElementById('statTasksCount').innerText = state.tasks.filter(t => t.status !== 'completed').length;
+    }
+
+    // 6.5 FAMILY RENDERING & PARTICIPANT ACTIONS
+    function selectEvParticipant(name) {
+      const input = document.getElementById('inEvPerson');
+      if (!input.value.trim()) {
+        input.value = name;
+      } else if (!input.value.includes(name)) {
+        input.value = input.value.trim() + ', ' + name;
+      }
+    }
+
+    function selectTaskParticipant(name) {
+      const input = document.getElementById('inTaskCategory');
+      input.value = name;
+      const titleInput = document.getElementById('inTaskTitle');
+      if (titleInput.value.trim() && !titleInput.value.includes(name)) {
+        titleInput.value = `[${name}] ` + titleInput.value.trim().replace(/^\[.*?\]\s*/, '');
+      }
+    }
+
+    function renderFamily() {
+      const fam = (state.family && state.family.length > 0) ? state.family : DEFAULT_FAMILY;
+
+      // 1. Render in Agent Tab Grid
+      const grid = document.getElementById('familyGrid');
+      if (grid) {
+        grid.innerHTML = '';
+        fam.forEach(m => {
+          const card = document.createElement('div');
+          card.className = 'family-member-card';
+          
+          let avClass = m.avatar_class || 'soninlaw';
+          let avInit = m.avatar_init || (m.preferred_name ? m.preferred_name.substring(0, 2).toUpperCase() : 'M');
+          const pref = m.preferred_name || '';
+          if (pref.includes('Nathalie')) { avClass = 'mother'; avInit = 'N'; }
+          else if (pref.includes('Jean-Joël') || pref.includes('Joel')) { avClass = 'father'; avInit = 'JJ'; }
+          else if (pref.includes('Jean-Étienne') || pref.includes('Etienne')) { avClass = 'son'; avInit = 'JÉ'; }
+          else if (pref.includes('Axel')) { avClass = 'admin'; avInit = 'A'; }
+          else if (pref.includes('Ariane')) { avClass = 'daughter'; avInit = 'Ar'; }
+          else if (pref.includes('Vincent')) { avClass = 'soninlaw'; avInit = 'V'; }
+
+          let relParts = [];
+          if (m.spouse) relParts.push(`<strong>Époux/se :</strong> ${escapeHtml(m.spouse)}`);
+          if (m.parents) relParts.push(`<strong>Parents :</strong> ${escapeHtml(m.parents)}`);
+          if (m.children) relParts.push(`<strong>Enfants :</strong> ${escapeHtml(m.children)}`);
+          if (m.siblings) relParts.push(`<strong>Fratrie / Alliances :</strong> ${escapeHtml(m.siblings)}`);
+
+          card.innerHTML = `
+            <div class="family-header">
+              <div class="family-avatar ${avClass}">${avInit}</div>
+              <div class="family-names">
+                <div class="family-fullname">${escapeHtml(m.full_name || m.preferred_name)}</div>
+                <span class="family-role-badge ${pref === 'Axel' ? 'admin' : ''}">${escapeHtml(m.role || 'Résident')}</span>
+              </div>
+            </div>
+            ${relParts.length > 0 ? `<div class="family-relations">${relParts.join('<br>')}</div>` : ''}
+            ${m.notes ? `<div class="family-notes">${escapeHtml(m.notes)}</div>` : ''}
+          `;
+          grid.appendChild(card);
+        });
+      }
+
+      // 2. Render in Sidebar
+      const sideList = document.getElementById('sidebarFamilyList');
+      if (sideList) {
+        sideList.innerHTML = '';
+        
+        // "Tous" item
+        const allItem = document.createElement('div');
+        allItem.className = `sidebar-family-item ${state.filterPerson === 'all' ? 'active' : ''}`;
+        allItem.innerHTML = `
+          <div class="sidebar-mini-avatar" style="background:#8e8e93;">👥</div>
+          <div style="flex:1;">Tous les résidents</div>
+        `;
+        allItem.onclick = () => filterByPerson('all');
+        sideList.appendChild(allItem);
+
+        fam.forEach(m => {
+          let avClass = m.avatar_class || 'soninlaw';
+          let avInit = m.avatar_init || (m.preferred_name ? m.preferred_name.substring(0, 2).toUpperCase() : 'M');
+          const pref = m.preferred_name || '';
+          if (pref.includes('Nathalie')) { avClass = 'mother'; avInit = 'N'; }
+          else if (pref.includes('Jean-Joël') || pref.includes('Joel')) { avClass = 'father'; avInit = 'JJ'; }
+          else if (pref.includes('Jean-Étienne') || pref.includes('Etienne')) { avClass = 'son'; avInit = 'JÉ'; }
+          else if (pref.includes('Axel')) { avClass = 'admin'; avInit = 'A'; }
+          else if (pref.includes('Ariane')) { avClass = 'daughter'; avInit = 'Ar'; }
+          else if (pref.includes('Vincent')) { avClass = 'soninlaw'; avInit = 'V'; }
+
+          const item = document.createElement('div');
+          item.className = `sidebar-family-item ${state.filterPerson === pref ? 'active' : ''}`;
+          item.innerHTML = `
+            <div class="sidebar-mini-avatar ${avClass}">${avInit}</div>
+            <div style="flex:1; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">${escapeHtml(pref)}</div>
+          `;
+          item.onclick = () => filterByPerson(pref);
+          sideList.appendChild(item);
+        });
+      }
+
+      const countEl = document.getElementById('sidebarFamilyCount');
+      if (countEl) countEl.innerText = `${fam.length} membres`;
+    }
+
+    function filterByPerson(person) {
+      state.filterPerson = person;
+      renderFamily();
+      renderEvents();
+      renderTasks();
+      if (person !== 'all') {
+        showToast(`Filtré sur : ${person}`);
+      } else {
+        showToast("Affichage de tous les résidents");
+      }
     }
 
     // 7. ACTIONS (EVENT, TASK, NOTE)
