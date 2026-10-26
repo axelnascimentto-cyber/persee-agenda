@@ -1166,32 +1166,6 @@
       color: var(--text-secondary);
       line-height: 1.4;
     }
-    .auth-residents-grid {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 8px;
-      width: 100%;
-      margin: 8px 0;
-    }
-    .auth-resident-btn {
-      background: #f2f2f7;
-      border: 1px solid var(--separator-subtle);
-      border-radius: 12px;
-      padding: 8px 10px;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      cursor: pointer;
-      text-align: left;
-      transition: all 0.15s ease;
-    }
-    .auth-resident-btn:hover, .auth-resident-btn.selected {
-      background: rgba(0, 122, 255, 0.1);
-      border-color: var(--apple-blue);
-    }
-    .auth-resident-btn.selected {
-      box-shadow: 0 0 0 2px var(--apple-blue);
-    }
     .auth-avatar {
       width: 28px;
       height: 28px;
@@ -1846,51 +1820,24 @@
   <!-- MODAL D'AUTHENTIFICATION RÉSIDENT (PREMIER ACCÈS / SESSIONS PERSISTANTES) -->
   <div class="auth-overlay" id="authOverlay" style="display:none;">
     <div class="auth-card">
-      <div class="auth-icon-badge">🏡</div>
-      <div class="auth-title">Résidence Griesbeck & Nascimento</div>
-      <div class="auth-sub">Veuillez renseigner votre nom complet pour déverrouiller l'accès à l'agenda familial et aux services de Persée.</div>
+      <div class="auth-icon-badge">🔒</div>
+      <div class="auth-title">Accès Sécurisé Résidents</div>
+      <div class="auth-sub">Veuillez renseigner votre nom complet pour déverrouiller l'accès à l'agenda et aux services de Persée.</div>
 
-      <div class="auth-residents-grid">
-        <button type="button" class="auth-resident-btn" onclick="selectAuthResident('Nathalie Griesbeck')">
-          <div class="auth-avatar mother">N</div>
-          <div class="auth-name">Nathalie Griesbeck</div>
-        </button>
-        <button type="button" class="auth-resident-btn" onclick="selectAuthResident('Jean-Joël Griesbeck')">
-          <div class="auth-avatar father">JJ</div>
-          <div class="auth-name">Jean-Joël Griesbeck</div>
-        </button>
-        <button type="button" class="auth-resident-btn" onclick="selectAuthResident('Jean-Étienne Griesbeck')">
-          <div class="auth-avatar son">JÉ</div>
-          <div class="auth-name">Jean-Étienne Griesbeck</div>
-        </button>
-        <button type="button" class="auth-resident-btn" onclick="selectAuthResident('Axel Nascimento')">
-          <div class="auth-avatar admin">A</div>
-          <div class="auth-name">Axel Nascimento</div>
-        </button>
-        <button type="button" class="auth-resident-btn" onclick="selectAuthResident('Ariane Griesbeck')">
-          <div class="auth-avatar daughter">Ar</div>
-          <div class="auth-name">Ariane Griesbeck</div>
-        </button>
-        <button type="button" class="auth-resident-btn" onclick="selectAuthResident('Vincent Bouvard')">
-          <div class="auth-avatar soninlaw">V</div>
-          <div class="auth-name">Vincent Bouvard</div>
-        </button>
-      </div>
-
-      <form onsubmit="handleAuthSubmit(event)" style="width:100%; display:flex; flex-direction:column; gap:10px;">
+      <form onsubmit="handleAuthSubmit(event)" style="width:100%; display:flex; flex-direction:column; gap:12px; margin-top:8px;">
         <div class="field-box" style="text-align:left;">
           <label class="field-label">Nom complet (mot de passe d'accès)</label>
-          <input type="text" id="authNameInput" class="field-input" placeholder="Ex: Axel Nascimento" autocomplete="off" required>
+          <input type="text" id="authNameInput" class="field-input" placeholder="Saisissez votre nom complet" autocomplete="off" autofocus required>
         </div>
-        <div id="authErrorMsg" style="color:var(--apple-red); font-size:12px; font-weight:600; display:none;">
-          Nom complet non reconnu dans la résidence. Veuillez vérifier l'orthographe.
+        <div id="authErrorMsg" style="color:var(--apple-red); font-size:12px; font-weight:600; display:none; padding:2px 0;">
+          Nom complet non reconnu ou non autorisé. Veuillez vérifier la saisie.
         </div>
         <button type="submit" class="btn-add-primary" style="width:100%; height:44px; font-size:15px; border-radius:var(--radius-md); justify-content:center;">
-          Accéder à l'agenda
+          Déverrouiller l'accès
         </button>
       </form>
-      <div style="font-size:11px; color:var(--text-secondary); margin-top:4px;">
-        🔒 Votre session reste mémorisée sur cet appareil sans besoin de ressaisir.
+      <div style="font-size:11px; color:var(--text-secondary); margin-top:6px;">
+        🔒 Votre session reste mémorisée en toute sécurité sur cet appareil sans besoin de ressaisir.
       </div>
     </div>
   </div>
@@ -1993,10 +1940,10 @@
       currentViewMonth: new Date()
     };
 
-    const KNOWN_RESIDENTS = [
+        const KNOWN_RESIDENTS = [
       {
         fullName: "Nathalie Griesbeck",
-        aliases: ["nathalie griesbeck", "natalie griesbeck", "nathalie"],
+        aliases: ["nathalie griesbeck", "natalie griesbeck"],
         preferredName: "Nathalie",
         role: "Mère de famille / Épouse",
         avatarClass: "mother",
@@ -2004,7 +1951,7 @@
       },
       {
         fullName: "Jean-Joël Griesbeck",
-        aliases: ["jean joel griesbeck", "jean-joel griesbeck", "joel griesbeck", "jean joel", "jean-joël"],
+        aliases: ["jean joel griesbeck", "jean-joel griesbeck", "joel griesbeck", "jean-joël griesbeck"],
         preferredName: "Jean-Joël",
         role: "Père de famille / Époux",
         avatarClass: "father",
@@ -2012,7 +1959,7 @@
       },
       {
         fullName: "Jean-Étienne Griesbeck",
-        aliases: ["jean etienne griesbeck", "jean-etienne griesbeck", "etienne griesbeck", "jean etienne", "jean-étienne"],
+        aliases: ["jean etienne griesbeck", "jean-etienne griesbeck", "etienne griesbeck", "jean-étienne griesbeck"],
         preferredName: "Jean-Étienne",
         role: "Fils / Époux d'Axel",
         avatarClass: "son",
@@ -2020,7 +1967,7 @@
       },
       {
         fullName: "Axel Nascimento",
-        aliases: ["axel nascimento", "axel"],
+        aliases: ["axel nascimento"],
         preferredName: "Axel",
         role: "Époux de Jean-Étienne / Admin Persée",
         avatarClass: "admin",
@@ -2028,7 +1975,7 @@
       },
       {
         fullName: "Ariane Griesbeck",
-        aliases: ["ariane griesbeck", "ariane"],
+        aliases: ["ariane griesbeck"],
         preferredName: "Ariane",
         role: "Fille / Épouse de Vincent",
         avatarClass: "daughter",
@@ -2036,7 +1983,7 @@
       },
       {
         fullName: "Vincent Bouvard",
-        aliases: ["vincent bouvard", "vincent"],
+        aliases: ["vincent bouvard"],
         preferredName: "Vincent",
         role: "Gendre / Époux d'Ariane",
         avatarClass: "soninlaw",
@@ -2105,34 +2052,26 @@
         const errMsg = document.getElementById('authErrorMsg');
         if (errMsg) {
           errMsg.style.display = 'block';
-          errMsg.innerText = "Nom complet non reconnu comme résident de la maison.";
+          errMsg.innerText = "Nom non reconnu ou non autorisé. Veuillez vérifier la saisie.";
         }
       }
     }
 
-    function selectAuthResident(fullName) {
-      const input = document.getElementById('authNameInput');
-      if (input) input.value = fullName;
-      document.querySelectorAll('.auth-resident-btn').forEach(btn => {
-        const nameEl = btn.querySelector('.auth-name');
-        btn.classList.toggle('selected', nameEl && nameEl.innerText.trim() === fullName);
-      });
-      if (input) input.focus();
-    }
-
     function promptSwitchUser() {
       const cur = state.currentUser ? state.currentUser.fullName : 'Résident';
-      if (confirm(`Vous êtes connecté en tant que ${cur}. Voulez-vous changer d'utilisateur ?`)) {
+      if (confirm(`Vous êtes connecté en tant que ${cur}. Souhaitez-vous changer d'utilisateur ?`)) {
         try {
           localStorage.removeItem('persee_resident_session');
         } catch(e) {}
         state.currentUser = null;
         const input = document.getElementById('authNameInput');
         if (input) input.value = '';
-        document.querySelectorAll('.auth-resident-btn').forEach(b => b.classList.remove('selected'));
         updateUserSessionUI();
         const overlay = document.getElementById('authOverlay');
-        if (overlay) overlay.style.display = 'flex';
+        if (overlay) {
+          overlay.style.display = 'flex';
+          setTimeout(() => { if (input) input.focus(); }, 100);
+        }
       }
     }
 
