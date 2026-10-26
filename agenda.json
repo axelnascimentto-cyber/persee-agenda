@@ -9,15 +9,6 @@
       "description": "Créé via interaction Persée",
       "person_name": "",
       "status": "scheduled"
-    },
-    {
-      "id": 1,
-      "title": "Rendez-vous V3 Persée",
-      "date": "2026-10-26",
-      "time": "16:30",
-      "description": "Validation du déploiement Version 3 Google Apps Script (Lieu: Bureau Portal TV)",
-      "person_name": "Axel",
-      "status": "scheduled"
     }
   ],
   "tasks": [
@@ -174,5 +165,5 @@
       "notes": "Nièce de la famille. S'adresser à elle avec tendresse, attention et bienveillance."
     }
   ],
-  "last_updated": "26/10/2026 09:07:55"
+  "last_updated": "26/10/2026 09:07:56"
 }
