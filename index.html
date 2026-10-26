@@ -1571,6 +1571,129 @@
     .toast-banner.show {
       transform: translateX(-50%) translateY(0);
     }
+  
+    /* SUIVI MÉDICAMENTS JEAN-JOËL (GP) - STYLE APPLE HEALTH */
+    .med-tracker-card {
+      background: #ffffff;
+      border-radius: 16px;
+      padding: 14px 16px;
+      margin-bottom: 16px;
+      border: 1px solid var(--separator-subtle);
+      border-left: 5px solid #34c759;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.04);
+    }
+    .med-tracker-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 12px;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+    .med-tracker-title {
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--text-primary);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .med-tracker-sub {
+      font-size: 12px;
+      color: var(--text-secondary);
+      margin-top: 2px;
+    }
+    .med-badge-all {
+      font-size: 11px;
+      font-weight: 700;
+      padding: 3px 10px;
+      border-radius: 12px;
+      background: #e8f5e9;
+      color: #2e7d32;
+    }
+    .med-badge-pending {
+      font-size: 11px;
+      font-weight: 700;
+      padding: 3px 10px;
+      border-radius: 12px;
+      background: #fff3e0;
+      color: #e65100;
+    }
+    .med-doses-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+      gap: 10px;
+    }
+    .med-dose-card {
+      background: #fbfbfd;
+      border: 1px solid var(--separator-subtle);
+      border-radius: 12px;
+      padding: 10px 12px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      transition: all 0.2s ease;
+    }
+    .med-dose-card.taken {
+      background: #f0fdf4;
+      border-color: #86efac;
+    }
+    .med-dose-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      margin-bottom: 4px;
+    }
+    .med-dose-label {
+      font-size: 13.5px;
+      font-weight: 700;
+      color: var(--text-primary);
+    }
+    .med-dose-time {
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--text-secondary);
+    }
+    .med-dose-detail {
+      font-size: 11.5px;
+      color: var(--text-secondary);
+      line-height: 1.3;
+      margin-bottom: 8px;
+    }
+    .med-dose-btn {
+      width: 100%;
+      border: none;
+      border-radius: 8px;
+      padding: 7px 10px;
+      font-size: 12px;
+      font-weight: 700;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      transition: all 0.15s ease;
+      touch-action: manipulation;
+    }
+    .med-dose-btn.btn-to-take {
+      background: #0071e3;
+      color: #ffffff;
+    }
+    .med-dose-btn.btn-to-take:hover {
+      background: #0077ed;
+    }
+    .med-dose-btn.btn-taken {
+      background: #dcfce7;
+      color: #15803d;
+    }
+    .med-dose-validation-text {
+      font-size: 10.5px;
+      color: #15803d;
+      font-weight: 600;
+      margin-top: 4px;
+      text-align: center;
+    }
+
   </style>
 </head>
 <body>
@@ -1854,7 +1977,7 @@
             </div>
             <div id="libraryFamilyCards" style="display:flex; flex-direction:column; gap:10px;"></div>
           </div>
-        
+        </div>
 
         <!-- SOUS-VUE 3: FICHE SANTÉ & PROTOCOLE MÉDICAL JEAN-JOËL (ALZHEIMER) -->
         <div id="libraryHealthView" style="display:none; flex-direction:column; gap:14px; width:100%;">
@@ -1959,7 +2082,6 @@
             </div>
           </div>
         </div>
-</div>
       </div>
 
       <!-- TAB 4: AGENT HUB -->
