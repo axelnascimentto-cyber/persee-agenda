@@ -11,6 +11,15 @@
       "status": "scheduled"
     },
     {
+      "id": 3,
+      "title": "Résume mon agenda pour aujourd'hui",
+      "date": "2026-10-26",
+      "time": "",
+      "description": "Créé via interaction Persée",
+      "person_name": "",
+      "status": "scheduled"
+    },
+    {
       "id": 1,
       "title": "Rendez-vous V3 Persée",
       "date": "2026-10-26",
@@ -114,5 +123,5 @@
       "notes": "Époux d'Ariane. S'adresser à lui avec courtoisie et amabilité."
     }
   ],
-  "last_updated": "26/10/2026 07:51:19"
+  "last_updated": "26/10/2026 07:51:22"
 }
