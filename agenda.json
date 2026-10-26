@@ -31,6 +31,18 @@
   ],
   "notes": [
     {
+      "id": 5,
+      "timestamp": "2026-10-26 07:42:29",
+      "content": "adiconar rdv medical para @jean joel",
+      "category": "Mémo Persée"
+    },
+    {
+      "id": 4,
+      "timestamp": "2026-10-26 07:31:20",
+      "content": "STRUCTURE FAMILIALE DU FOYER :\nSTRUCTURE FAMILIALE DU FOYER :\n1. Nathalie Griesbeck : Épouse de Jean-Joël Griesbeck, Mère de Jean-Étienne et d'Ariane, Belle-mère d'Axel Nascimento et de Vincent Bouvard.\n2. Jean-Joël Griesbeck : Époux de Nathalie Griesbeck, Père de Jean-Étienne et d'Ariane, Beau-père d'Axel Nascimento et de Vincent Bouvard.\n3. Jean-Étienne Griesbeck : Fils de Nathalie et Jean-Joël, Époux d'Axel Nascimento, Frère d'Ariane, Beau-frère de Vincent Bouvard.\n4. Axel Nascimento : Époux de Jean-Étienne Griesbeck, Gendre de Nathalie et Jean-Joël, Beau-frère d'Ariane et de Vincent Bouvard.\n5. Ariane Griesbeck : Fille de Jean-Joël et Nathalie, Épouse de Vincent Bouvard, Sœur de Jean-Étienne, Belle-sœur d'Axel.\n6. Vincent Bouvard : Époux d'Ariane Griesbeck, Gendre de Jean-Joël et Nathalie, Beau-frère de Jean-Étienne et d'Axel.",
+      "category": "Famille"
+    },
+    {
       "id": 3,
       "timestamp": "2026-10-26 07:30:06",
       "content": "salut",
@@ -49,5 +61,67 @@
       "category": "système"
     }
   ],
-  "last_updated": "26/10/2026 07:30:28"
+  "family": [
+    {
+      "full_name": "Nathalie Griesbeck",
+      "preferred_name": "Nathalie",
+      "role": "Mère de famille / Épouse",
+      "spouse": "Jean-Joël Griesbeck",
+      "parents": "",
+      "children": "Jean-Étienne Griesbeck, Ariane Griesbeck",
+      "siblings": "",
+      "notes": "Personnalité politique et résidente. S'adresser à elle avec politesse, élégance et chaleur."
+    },
+    {
+      "full_name": "Jean-Joël Griesbeck",
+      "preferred_name": "Jean-Joël",
+      "role": "Père de famille / Époux",
+      "spouse": "Nathalie Griesbeck",
+      "parents": "",
+      "children": "Jean-Étienne Griesbeck, Ariane Griesbeck",
+      "siblings": "",
+      "notes": "Résident de la maison. S'adresser à lui avec respect, courtoisie et chaleur."
+    },
+    {
+      "full_name": "Jean-Étienne Griesbeck",
+      "preferred_name": "Jean-Étienne",
+      "role": "Fils / Époux d'Axel",
+      "spouse": "Axel Nascimento",
+      "parents": "Nathalie Griesbeck, Jean-Joël Griesbeck",
+      "children": "",
+      "siblings": "Ariane Griesbeck",
+      "notes": "Époux d'Axel Nascimento. S'adresser à lui avec bienveillance et amitié."
+    },
+    {
+      "full_name": "Axel Nascimento",
+      "preferred_name": "Axel",
+      "role": "Époux de Jean-Étienne / Administrateur Persée",
+      "spouse": "Jean-Étienne Griesbeck",
+      "parents": "Nathalie & Jean-Joël Griesbeck (beaux-parents)",
+      "children": "",
+      "siblings": "Ariane Griesbeck & Vincent Bouvard (beaux-frères/belles-sœurs)",
+      "notes": "Utilisateur principal de Persée. S'adresser à lui avec une grande fidélité, efficacité et chaleur."
+    },
+    {
+      "full_name": "Ariane Griesbeck",
+      "preferred_name": "Ariane",
+      "role": "Fille / Épouse de Vincent / Sœur de Jean-Étienne",
+      "spouse": "Vincent Bouvard",
+      "parents": "Nathalie Griesbeck, Jean-Joël Griesbeck",
+      "children": "",
+      "siblings": "Jean-Étienne Griesbeck",
+      "notes": "Fille de la famille et sœur de Jean-Étienne. S'adresser à elle avec respect et sympathie."
+    },
+    {
+      "full_name": "Vincent Bouvard",
+      "preferred_name": "Vincent",
+      "role": "Époux d'Ariane / Gendre",
+      "spouse": "Ariane Griesbeck",
+      "parents": "Nathalie & Jean-Joël Griesbeck (beaux-parents)",
+      "children": "",
+      "siblings": "Jean-Étienne Griesbeck & Axel Nascimento (beaux-frères)",
+      "notes": "Époux d'Ariane. S'adresser à lui avec courtoisie et amabilité."
+    }
+  ],
+  "last_updated": "26/10/2026 07:42:47"
 }
