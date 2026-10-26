@@ -9,6 +9,15 @@
       "description": "Créé via interaction Persée",
       "person_name": "",
       "status": "scheduled"
+    },
+    {
+      "id": 5,
+      "title": "TITRE TEST",
+      "date": "2026-10-28",
+      "time": "18:00",
+      "description": "TEST (Lieu: MAISON)",
+      "person_name": "Jean-Étienne, Nathalie, Jean-Joël",
+      "status": "scheduled"
     }
   ],
   "tasks": [
@@ -177,5 +186,5 @@
       "notes": "Nièce de la famille. S'adresser à elle avec tendresse, attention et bienveillance."
     }
   ],
-  "last_updated": "26/10/2026 09:20:13"
+  "last_updated": "26/10/2026 09:21:18"
 }
