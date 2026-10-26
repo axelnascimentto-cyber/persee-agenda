@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>Persée • Calendrier & Hub Plein Écran</title>
+  <title>Persée • Agenda & Assistant IA</title>
 
   <!-- PWA & Apple iOS Metadata -->
   <meta name="theme-color" content="#ffffff">
@@ -13,7 +13,7 @@
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='22' fill='%23ff3b30'/><text y='70' x='20' font-size='65' font-family='-apple-system, sans-serif' font-weight='bold' fill='white'>26</text></svg>">
 
   <style>
-    /* APPLE FULL-BLEED DESIGN SYSTEM - NO LATERAL MARGINS */
+    /* APPLE FULL-BLEED DESIGN SYSTEM - AGENT & AGENDA INTEGRATION */
     :root {
       --bg-primary: #f2f2f7;        /* iOS Grouped Background */
       --card-bg: #ffffff;           /* Apple Crisp White */
@@ -30,7 +30,7 @@
       --apple-blue: #007aff;        /* iOS System Blue */
       --apple-orange: #ff9500;      /* Reminders Orange */
       --apple-green: #34c759;       /* Completed Green */
-      --apple-purple: #af52de;
+      --apple-purple: #af52de;      /* AI Agent Violet */
       --apple-yellow: #ffcc00;
 
       --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.04);
@@ -144,7 +144,27 @@
       color: var(--text-primary);
     }
 
-    /* AUTO-SAVE STATUS INDICATOR */
+    /* AGENT & AUTO-SAVE STATUS INDICATORS */
+    .agent-status-pill {
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--apple-purple);
+      background: rgba(175, 82, 222, 0.12);
+      padding: 2px 8px;
+      border-radius: var(--radius-full);
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .agent-status-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--apple-purple);
+      animation: pulseDot 1.6s infinite alternate;
+    }
+
     .auto-save-pill {
       font-size: 11px;
       font-weight: 600;
@@ -163,7 +183,6 @@
       height: 6px;
       border-radius: 50%;
       background: var(--apple-green);
-      display: inline-block;
     }
 
     .auto-save-pill.saving {
@@ -260,7 +279,7 @@
       transform: scale(0.96);
     }
 
-    /* FULL BLEED LAYOUT (NO LATERAL MARGINS) */
+    /* FULL BLEED BODY (NO LATERAL MARGINS) */
     .app-body {
       flex: 1;
       width: 100%;
@@ -269,7 +288,7 @@
       position: relative;
     }
 
-    /* DESKTOP / TV SPLIT: SIDEBAR + MAIN (100% WIDTH OCCUPIED) */
+    /* DESKTOP / TV SPLIT: SIDEBAR + MAIN */
     @media (min-width: 900px) {
       .app-body {
         flex-direction: row;
@@ -285,7 +304,7 @@
         padding: 16px;
         display: flex;
         flex-direction: column;
-        gap: 16px;
+        gap: 14px;
         overflow-y: auto;
       }
 
@@ -296,7 +315,7 @@
         overflow-y: auto;
         display: flex;
         flex-direction: column;
-        gap: 18px;
+        gap: 16px;
         min-width: 0;
       }
 
@@ -309,7 +328,7 @@
       }
     }
 
-    /* MOBILE: EDGE-TO-EDGE COLUMN */
+    /* MOBILE: EDGE-TO-EDGE */
     @media (max-width: 899px) {
       .app-body {
         flex-direction: column;
@@ -326,7 +345,7 @@
         padding: 12px;
         display: flex;
         flex-direction: column;
-        gap: 14px;
+        gap: 12px;
       }
 
       .desktop-only {
@@ -334,13 +353,98 @@
       }
     }
 
-    /* CARDS (APPLE CLEAN FULL WIDTH) */
+    /* CARDS */
     .card-white {
       background: var(--card-bg);
       border-radius: var(--radius-lg);
       border: 1px solid var(--separator);
       box-shadow: var(--shadow-card);
       padding: 14px 16px;
+    }
+
+    /* AGENT CO-PILOT CARD (SIDEBAR & TOP OF AGENDA) */
+    .agent-copilot-card {
+      background: linear-gradient(135deg, rgba(175, 82, 222, 0.05), rgba(0, 122, 255, 0.04));
+      border: 1px solid rgba(175, 82, 222, 0.2);
+      border-radius: var(--radius-lg);
+      padding: 14px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .agent-header-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .agent-avatar-badge {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .agent-avatar {
+      width: 28px;
+      height: 28px;
+      border-radius: 8px;
+      background: linear-gradient(135deg, var(--apple-purple), var(--apple-blue));
+      color: #ffffff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 15px;
+      font-weight: 700;
+    }
+
+    .agent-name {
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--text-primary);
+    }
+
+    .agent-briefing-text {
+      font-size: 12px;
+      color: #3a3a3c;
+      line-height: 1.45;
+    }
+
+    /* PROACTIVE SPOTLIGHT PROMPT BAR */
+    .agent-prompt-bar {
+      display: flex;
+      align-items: center;
+      background: #ffffff;
+      border: 1px solid var(--separator);
+      border-radius: var(--radius-full);
+      box-shadow: var(--shadow-sm);
+      padding: 4px 6px 4px 14px;
+      gap: 8px;
+      width: 100%;
+    }
+
+    .agent-prompt-input {
+      flex: 1;
+      border: none;
+      outline: none;
+      font-size: 13px;
+      color: var(--text-primary);
+      background: transparent;
+    }
+
+    .agent-prompt-btn {
+      background: var(--apple-purple);
+      color: #ffffff;
+      border: none;
+      border-radius: var(--radius-full);
+      padding: 6px 12px;
+      font-size: 12px;
+      font-weight: 600;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 4px;
     }
 
     /* MINI CALENDAR (APPLE SIDEBAR STYLE) */
@@ -443,7 +547,7 @@
       color: transparent;
     }
 
-    /* STATS SUMMARY IN SIDEBAR */
+    /* STATS SUMMARY */
     .sidebar-stats {
       display: grid;
       grid-template-columns: 1fr 1fr;
@@ -528,7 +632,7 @@
       color: var(--apple-red);
     }
 
-    /* SECTION HEADER & FILTERS */
+    /* SECTION BAR */
     .section-bar {
       display: flex;
       align-items: center;
@@ -574,7 +678,7 @@
       font-weight: 600;
     }
 
-    /* TAB CONTENT */
+    /* TABS */
     .tab-view {
       display: none;
       flex-direction: column;
@@ -586,7 +690,7 @@
       display: flex;
     }
 
-    /* EVENT CARD (FULL WIDTH APPLE CALENDAR STYLE) */
+    /* EVENT CARD */
     .event-card {
       width: 100%;
       background: #ffffff;
@@ -597,7 +701,6 @@
       display: flex;
       align-items: flex-start;
       position: relative;
-      transition: transform 0.1s ease;
     }
 
     .event-strip {
@@ -667,7 +770,7 @@
       color: var(--apple-red);
     }
 
-    /* REMINDERS LIST (APPLE REMINDERS STYLE) */
+    /* REMINDERS */
     .reminders-col {
       display: flex;
       flex-direction: column;
@@ -740,7 +843,7 @@
       gap: 6px;
     }
 
-    /* NOTES GRID (FULL WIDTH) */
+    /* NOTES */
     .notes-layout {
       display: grid;
       grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
@@ -772,6 +875,82 @@
       color: #3c3c43;
       line-height: 1.45;
       white-space: pre-wrap;
+    }
+
+    /* AGENT HUB TAB */
+    .agent-panel {
+      background: #ffffff;
+      border-radius: var(--radius-lg);
+      border: 1px solid var(--separator);
+      box-shadow: var(--shadow-card);
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .agent-profile {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .agent-big-avatar {
+      width: 50px;
+      height: 50px;
+      border-radius: 14px;
+      background: linear-gradient(135deg, var(--apple-purple), var(--apple-blue));
+      color: #ffffff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 26px;
+      font-weight: 800;
+    }
+
+    .agent-meta-info {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .agent-full-name {
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--text-primary);
+    }
+
+    .agent-sub {
+      font-size: 12px;
+      color: var(--text-secondary);
+    }
+
+    .agent-features-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+      gap: 10px;
+    }
+
+    .agent-feat-box {
+      background: var(--card-subtle);
+      border: 1px solid var(--separator-subtle);
+      border-radius: var(--radius-md);
+      padding: 12px;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .agent-feat-title {
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--text-primary);
+    }
+
+    .agent-feat-desc {
+      font-size: 11px;
+      color: var(--text-secondary);
+      line-height: 1.4;
     }
 
     /* EMPTY STATES */
@@ -833,6 +1012,7 @@
 
     .tab-link.active[data-tab="agenda"] { color: var(--apple-red); }
     .tab-link.active[data-tab="tasks"] { color: var(--apple-orange); }
+    .tab-link.active[data-tab="agent"] { color: var(--apple-purple); }
 
     /* MODAL SHEETS */
     .sheet-backdrop {
@@ -877,9 +1057,7 @@
       cursor: pointer;
     }
 
-    .sheet-btn.bold {
-      font-weight: 700;
-    }
+    .sheet-btn.bold { font-weight: 700; }
 
     .sheet-fields {
       padding: 18px;
@@ -923,7 +1101,7 @@
       gap: 8px;
     }
 
-    /* APPLE NOTIFICATION BANNER */
+    /* TOAST */
     .toast-banner {
       position: fixed;
       top: 12px;
@@ -951,7 +1129,7 @@
 </head>
 <body>
 
-  <!-- TOP APP BAR (EDGE-TO-EDGE) -->
+  <!-- TOP APP BAR -->
   <header class="app-header">
     <div class="header-left">
       <div class="apple-cal-icon">
@@ -961,6 +1139,10 @@
       <div class="header-titles">
         <div class="header-title-row">
           <span class="header-title">Persée</span>
+          <span class="agent-status-pill">
+            <span class="agent-status-dot"></span>
+            <span>Agent Actif</span>
+          </span>
           <span class="auto-save-pill" id="autoSaveIndicator">
             <span class="auto-save-dot"></span>
             <span id="autoSaveText">Enregistré auto</span>
@@ -970,12 +1152,12 @@
       </div>
     </div>
 
-    <!-- DESKTOP TOP TABS -->
+    <!-- TOP SEGMENTED TABS (DESKTOP) -->
     <div class="segmented-control desktop-only" style="display:none;">
       <button class="segment-btn active" onclick="switchTab('agenda')">📅 Agenda</button>
       <button class="segment-btn" onclick="switchTab('tasks')">✓ Rappels</button>
       <button class="segment-btn" onclick="switchTab('notes')">📝 Notes</button>
-      <button class="segment-btn" onclick="switchTab('cloud')">☁️ Cloud Drive</button>
+      <button class="segment-btn" onclick="switchTab('agent')">🤖 Assistant IA</button>
     </div>
 
     <div class="header-actions">
@@ -994,6 +1176,19 @@
     <!-- DESKTOP / TV SIDEBAR -->
     <aside class="sidebar">
       
+      <!-- AGENT CO-PILOT BRIEFING CARD -->
+      <div class="agent-copilot-card">
+        <div class="agent-header-row">
+          <div class="agent-avatar-badge">
+            <div class="agent-avatar">P</div>
+            <div class="agent-name">Persée • Briefing Quotidien</div>
+          </div>
+        </div>
+        <div class="agent-briefing-text" id="agentBriefingText">
+          Analyse de l'agenda en cours...
+        </div>
+      </div>
+
       <!-- MINI CALENDAR -->
       <div class="card-white">
         <div class="cal-header-row">
@@ -1010,7 +1205,7 @@
         <div class="cal-days-grid" id="calDaysGrid"></div>
       </div>
 
-      <!-- SIDEBAR SUMMARY STATS -->
+      <!-- SUMMARY STATS -->
       <div class="sidebar-stats">
         <div class="stat-pill">
           <div class="stat-val" style="color:var(--apple-blue);" id="statEventsCount">0</div>
@@ -1022,21 +1217,32 @@
         </div>
       </div>
 
-      <!-- GOOGLE DRIVE SYNC CARD -->
-      <div class="card-white" style="display:flex; flex-direction:column; gap:8px;">
-        <div style="font-size:13px; font-weight:700; color:var(--text-primary);">☁️ Sauvegarde Automatique</div>
-        <div style="font-size:11px; color:var(--text-secondary); line-height:1.4;">
-          Toutes vos modifications sont immédiatement enregistrées et synchronisées en tâche de fond.
-        </div>
-        <button onclick="saveBackupToDrive()" class="btn-add-primary" style="background:#f2f2f7; color:var(--apple-blue); box-shadow:none; justify-content:center; border:1px solid var(--separator); padding:6px;">
-          Sauvegarder sur Drive
-        </button>
-      </div>
-
     </aside>
 
     <!-- MAIN VIEW AREA (EXPANDS 100% WIDTH) -->
     <main class="main-content">
+
+      <!-- MOBILE AGENT BRIEFING BANNER -->
+      <div class="agent-copilot-card" id="mobileAgentCard" style="display:none;">
+        <div class="agent-header-row">
+          <div class="agent-avatar-badge">
+            <div class="agent-avatar">P</div>
+            <div class="agent-name">Persée • Assistant Personnel</div>
+          </div>
+        </div>
+        <div class="agent-briefing-text" id="mobileAgentBriefing">
+          Chargement de votre journée...
+        </div>
+      </div>
+
+      <!-- INTERACTIVE SPOTLIGHT COMMAND BAR -->
+      <form class="agent-prompt-bar" onsubmit="handleAgentPromptSubmit(event)">
+        <input type="text" id="agentPromptInput" class="agent-prompt-input" placeholder="Demander à Persée (ex: « Rendez-vous demain 14h » ou « Rappelle-moi d'appeler Marc »)...">
+        <button type="submit" class="agent-prompt-btn">
+          <span>Envoyer</span>
+          <span>↵</span>
+        </button>
+      </form>
 
       <!-- MOBILE HORIZONTAL 7-DAYS STRIP -->
       <div class="mobile-week-strip" id="mobileWeekStrip"></div>
@@ -1091,17 +1297,44 @@
         <div class="notes-layout" id="notesList"></div>
       </div>
 
-      <!-- TAB 4: CLOUD DRIVE -->
-      <div class="tab-view" id="tab-cloud">
-        <div class="card-white" style="display:flex; flex-direction:column; align-items:center; text-align:center; padding:32px 16px; gap:12px;">
-          <div style="font-size:42px;">📸</div>
-          <div style="font-size:18px; font-weight:700;">Photos & Archives CLOUD PORTAL</div>
-          <div style="font-size:13px; color:var(--text-secondary); max-width:440px; line-height:1.5;">
-            Toutes les captures visuelles de votre Meta Portal TV sont archivées sur votre Google Drive.
+      <!-- TAB 4: AGENT HUB -->
+      <div class="tab-view" id="tab-agent">
+        <div class="agent-panel">
+          <div class="agent-profile">
+            <div class="agent-big-avatar">P</div>
+            <div class="agent-meta-info">
+              <div class="agent-full-name">Persée • Agent Multimodal Autonome</div>
+              <div class="agent-sub">Opérant 24h/24 sur Meta Portal TV (Qualcomm Snapdragon 835) • Jabra Speak 510</div>
+            </div>
           </div>
-          <a href="https://drive.google.com/drive/folders/1MflKe8u6ygC7bV0dnHjgE0Sa41MaKWzm" target="_blank" class="btn-add-primary" style="text-decoration:none; padding:9px 20px;">
-            <span>Ouvrir sur Google Drive ↗</span>
-          </a>
+
+          <div class="agent-features-grid">
+            <div class="agent-feat-box">
+              <div class="agent-feat-title">🧠 Gestion Proactive de l'Agenda</div>
+              <div class="agent-feat-desc">Persée écoute les conversations en temps réel, reconnaît vos rendez-vous et tâches urgentes, et les inscrit directement dans SQLite.</div>
+            </div>
+            <div class="agent-feat-box">
+              <div class="agent-feat-title">☁️ Sauvegarde Automatique Drive</div>
+              <div class="agent-feat-desc">Chaque modification est sauvegardée silencieusement en tâche de fond sur Google Drive dans le dossier CLOUD PORTAL.</div>
+            </div>
+            <div class="agent-feat-box">
+              <div class="agent-feat-title">🗣️ Voix Hector & Écoute Continue</div>
+              <div class="agent-feat-desc">Synthèse vocale chaleureuse en français via Hector, avec capture audio Jabra 510 à 48 kHz.</div>
+            </div>
+            <div class="agent-feat-box">
+              <div class="agent-feat-title">🔒 Confidentialité & Indépendance</div>
+              <div class="agent-feat-desc">100% autonome sur la Portal TV, ne nécessite pas que le PC reste allumé.</div>
+            </div>
+          </div>
+
+          <div style="display:flex; gap:10px; flex-wrap:wrap; margin-top:6px;">
+            <button onclick="triggerAgentPrompt('Résume mon agenda pour aujourd\'hui')" class="btn-add-primary" style="background:var(--apple-purple);">
+              ⚡ Résumer ma journée
+            </button>
+            <button onclick="toggleVoiceInput()" class="btn-add-primary" style="background:#f2f2f7; color:var(--text-primary); box-shadow:none; border:1px solid var(--separator);">
+              🎤 Parler avec Hector
+            </button>
+          </div>
         </div>
       </div>
 
@@ -1122,13 +1355,13 @@
       <div class="tab-icon">📝</div>
       <div>Notes</div>
     </button>
-    <button class="tab-link" data-tab="cloud" onclick="switchTab('cloud')">
-      <div class="tab-icon">☁️</div>
-      <div>Drive</div>
+    <button class="tab-link" data-tab="agent" onclick="switchTab('agent')">
+      <div class="tab-icon">🤖</div>
+      <div>Persée</div>
     </button>
   </nav>
 
-  <!-- MODAL: ADD EVENT -->
+  <!-- MODALS -->
   <div class="sheet-backdrop" id="modalEvent">
     <div class="sheet-panel">
       <div class="sheet-title-bar">
@@ -1169,7 +1402,6 @@
     </div>
   </div>
 
-  <!-- MODAL: ADD TASK -->
   <div class="sheet-backdrop" id="modalTask">
     <div class="sheet-panel">
       <div class="sheet-title-bar">
@@ -1204,7 +1436,6 @@
     </div>
   </div>
 
-  <!-- MODAL: ADD NOTE -->
   <div class="sheet-backdrop" id="modalNote">
     <div class="sheet-panel">
       <div class="sheet-title-bar">
@@ -1229,7 +1460,6 @@
     </div>
   </div>
 
-  <!-- APPLE TOAST -->
   <div class="toast-banner" id="toastBox">✓ Enregistré automatiquement</div>
 
   <script>
@@ -1257,6 +1487,10 @@
 
     // 1. INITIALISATION
     function initApp() {
+      if (window.innerWidth < 900) {
+        document.getElementById('mobileAgentCard').style.display = 'flex';
+      }
+
       updateHeaderDate();
       renderMiniCalendar();
       renderMobileWeekStrip();
@@ -1269,7 +1503,10 @@
       renderAll();
 
       fetchAgenda();
-      setInterval(fetchAgenda, 25000); // Background polling
+      fetchAgentBriefing();
+
+      setInterval(fetchAgenda, 20000);
+      setInterval(fetchAgentBriefing, 60000);
     }
 
     function updateHeaderDate() {
@@ -1282,7 +1519,7 @@
       document.getElementById('liveHeaderDate').innerText = `${dayStr} ${now.getDate()} ${monthStr} ${now.getFullYear()}`;
     }
 
-    // 2. DATA & INSTANT AUTO-SAVE
+    // 2. DATA & AUTO-SAVE TO LOCAL STORAGE & SILENT DRIVE BACKUP
     function loadCache() {
       try {
         const ev = localStorage.getItem('persee_events');
@@ -1295,14 +1532,12 @@
     }
 
     function autoSave(actionLabel) {
-      // 1. Save locally instantly
       try {
         localStorage.setItem('persee_events', JSON.stringify(state.events));
         localStorage.setItem('persee_tasks', JSON.stringify(state.tasks));
         localStorage.setItem('persee_notes', JSON.stringify(state.notes));
       } catch(e) {}
 
-      // 2. Visual indicator
       const pill = document.getElementById('autoSaveIndicator');
       const text = document.getElementById('autoSaveText');
       pill.classList.add('saving');
@@ -1311,19 +1546,41 @@
       setTimeout(() => {
         pill.classList.remove('saving');
         text.innerText = "Enregistré auto";
-        showToast(actionLabel ? `✓ ${actionLabel} enregistré automatiquement` : "✓ Enregistré automatiquement");
-      }, 500);
+        showToast(actionLabel ? `✓ ${actionLabel} enregistré` : "✓ Enregistré automatiquement");
+      }, 400);
+
+      // Déclenchement silencieux de la sauvegarde Google Drive
+      silentDriveBackup();
+    }
+
+    async function silentDriveBackup() {
+      // 1. Via l'API locale Portal TV
+      try {
+        fetch(API_BASE + "/api/backup_to_drive", { method: 'POST' });
+      } catch (e) {}
+
+      // 2. Via le Webhook Google Apps Script en arrière-plan
+      try {
+        const backupPayload = {
+          action: "backup_agenda",
+          events: state.events,
+          tasks: state.tasks,
+          notes: state.notes
+        };
+        fetch(CLOUD_API_URL, {
+          method: 'POST',
+          body: JSON.stringify(backupPayload)
+        });
+      } catch (e2) {}
     }
 
     async function fetchAgenda() {
       let loaded = false;
-
-      // Local API / Tailscale
       try {
         const ctrl = new AbortController();
-        const timeout = setTimeout(() => ctrl.abort(), 2000);
+        const tid = setTimeout(() => ctrl.abort(), 2000);
         let res = await fetch(API_BASE + '/api/agenda', { signal: ctrl.signal });
-        clearTimeout(timeout);
+        clearTimeout(tid);
         if (res.ok) {
           let data = await res.json();
           if (data && data.status === 'success') {
@@ -1335,7 +1592,6 @@
         }
       } catch (err) {}
 
-      // GitHub CDN Fallback
       if (!loaded) {
         try {
           let res2 = await fetch('./agenda.json?v=' + Date.now());
@@ -1358,15 +1614,97 @@
           localStorage.setItem('persee_notes', JSON.stringify(state.notes));
         } catch(e) {}
         renderAll();
+        updateAgentBriefingLocally();
       }
     }
 
-    function forceSync() {
-      showToast("Synchronisation en arrière-plan...");
-      fetchAgenda();
+    // 3. AGENT BRIEFING & INTERACTION
+    async function fetchAgentBriefing() {
+      try {
+        const ctrl = new AbortController();
+        const tid = setTimeout(() => ctrl.abort(), 2000);
+        let res = await fetch(API_BASE + '/api/agent/briefing', { signal: ctrl.signal });
+        clearTimeout(tid);
+        if (res.ok) {
+          let data = await res.json();
+          if (data && data.briefing) {
+            applyBriefingText(data.briefing);
+            return;
+          }
+        }
+      } catch(e) {}
+
+      updateAgentBriefingLocally();
     }
 
-    // 3. MINI CALENDAR
+    function updateAgentBriefingLocally() {
+      const todayIso = new Date().toISOString().split('T')[0];
+      const todayEvts = state.events.filter(e => e.date === todayIso);
+      const urgentTasks = state.tasks.filter(t => t.status !== 'completed' && t.priority === 'urgente');
+      const pendingTasks = state.tasks.filter(t => t.status !== 'completed');
+
+      let text = "Bonjour Axel ! ";
+      if (todayEvts.length > 0 && urgentTasks.length > 0) {
+        text += `Vous avez ${todayEvts.length} rendez-vous aujourd'hui et ${urgentTasks.length} tâche(s) urgente(s).`;
+      } else if (todayEvts.length > 0) {
+        text += `Vous avez ${todayEvts.length} rendez-vous de prévu aujourd'hui.`;
+      } else if (pendingTasks.length > 0) {
+        text += `Aucun rendez-vous aujourd'hui. Vous avez ${pendingTasks.length} rappel(s) en attente.`;
+      } else {
+        text += "Votre journée est libre. Persée veille sur vos activités.";
+      }
+      applyBriefingText(text);
+    }
+
+    function applyBriefingText(msg) {
+      const deskEl = document.getElementById('agentBriefingText');
+      if (deskEl) deskEl.innerText = msg;
+      const mobEl = document.getElementById('mobileAgentBriefing');
+      if (mobEl) mobEl.innerText = msg;
+    }
+
+    async function handleAgentPromptSubmit(e) {
+      if (e) e.preventDefault();
+      const input = document.getElementById('agentPromptInput');
+      const val = input.value.trim();
+      if (!val) return;
+
+      input.value = '';
+      await triggerAgentPrompt(val);
+    }
+
+    async function triggerAgentPrompt(commandText) {
+      showToast("🤖 Persée traite : « " + commandText + " »...");
+
+      // Tente d'envoyer la commande à l'agent
+      try {
+        let res = await fetch(API_BASE + '/api/agent/command', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ text: commandText })
+        });
+        if (res.ok) {
+          let data = await res.json();
+          if (data && data.response) {
+            applyBriefingText("« " + data.response + " »");
+            showToast("Persée : " + data.response);
+            fetchAgenda();
+            return;
+          }
+        }
+      } catch (e) {}
+
+      // Fallback local intelligent
+      parseVoiceIntent(commandText);
+    }
+
+    function forceSync() {
+      showToast("Synchronisation avec Persée...");
+      fetchAgenda();
+      fetchAgentBriefing();
+    }
+
+    // 4. MINI CALENDAR
     function renderMiniCalendar() {
       const year = state.currentViewMonth.getFullYear();
       const month = state.currentViewMonth.getMonth();
@@ -1411,7 +1749,7 @@
       renderMiniCalendar();
     }
 
-    // 4. MOBILE WEEK STRIP
+    // 5. MOBILE WEEK STRIP
     function renderMobileWeekStrip() {
       const strip = document.getElementById('mobileWeekStrip');
       strip.innerHTML = '';
@@ -1449,7 +1787,7 @@
       }
     }
 
-    // 5. VIEWS RENDERING
+    // 6. VIEWS RENDERING
     function renderAll() {
       renderEvents();
       renderTasks();
@@ -1599,7 +1937,7 @@
       document.getElementById('statTasksCount').innerText = state.tasks.filter(t => t.status !== 'completed').length;
     }
 
-    // 6. ACTIONS & AUTOMATIC SAVING
+    // 7. ACTIONS (EVENT, TASK, NOTE)
     function saveEvent() {
       const title = document.getElementById('inEvTitle').value.trim();
       const date = document.getElementById('inEvDate').value;
@@ -1738,36 +2076,7 @@
       } catch (e) {}
     }
 
-    async function saveBackupToDrive() {
-      showToast("☁️ Sauvegarde Drive en cours...");
-      try {
-        let res = await fetch(API_BASE + "/api/backup_to_drive", { method: 'POST' });
-        if (res.ok) {
-          showToast("✓ Sauvegarde Drive réussie !");
-          return;
-        }
-      } catch (e) {}
-
-      try {
-        const backupPayload = {
-          action: "backup_agenda",
-          events: state.events,
-          tasks: state.tasks,
-          notes: state.notes
-        };
-        let res2 = await fetch(CLOUD_API_URL, {
-          method: 'POST',
-          body: JSON.stringify(backupPayload)
-        });
-        if (res2.ok) {
-          showToast("✓ Sauvegarde Drive réussie !");
-          return;
-        }
-      } catch (err2) {}
-      showToast("Échec de la sauvegarde.");
-    }
-
-    // 7. VOICE RECOGNITION (SIRI STYLE)
+    // 8. VOICE RECOGNITION (SIRI STYLE)
     function toggleVoiceInput() {
       const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
       if (!SpeechRecognition) {
@@ -1788,8 +2097,7 @@
       recognition.onresult = function(event) {
         const text = event.results[0][0].transcript;
         micBtn.style.color = '';
-        showToast(`Compris : « ${text} »`);
-        parseVoiceIntent(text);
+        triggerAgentPrompt(text);
       };
 
       recognition.onerror = function() { micBtn.style.color = ''; };
@@ -1831,7 +2139,7 @@
       }
     }
 
-    // 8. TABS & FILTERS
+    // 9. TABS & FILTERS
     function filterEvents(type, btn) {
       state.filterEvent = type;
       if (btn) {
