@@ -1122,7 +1122,24 @@
           }
         } catch(eLocal) {}
 
-        // Tentative 2 : Si hors domicile (GitHub Pages / 4G / 5G)
+        // Tentative 2 : Chargement depuis agenda.json (Même domaine GitHub Pages, 100% sans blocage)
+        if (!data || data.status !== "success") {
+          try {
+            const resJson = await fetch("./agenda.json?v=" + Date.now(), { cache: "no-store" });
+            if (resJson.ok) {
+              const fileData = await resJson.json();
+              data = {
+                status: "success",
+                events: fileData.events || [],
+                tasks: fileData.tasks || [],
+                notes: fileData.notes || []
+              };
+              label.innerText = "Connecté (Cloud GitHub)";
+            }
+          } catch(eJson) {}
+        }
+
+        // Tentative 3 : Fallback Cloud Google Apps Script
         if (!data || data.status !== "success") {
           try {
             const resCloud = await fetch(CLOUD_API_URL + "?api=data");
@@ -1146,8 +1163,9 @@
           state.last_sync = new Date().toISOString();
           saveToCache();
           renderAll();
-          updateNetworkStatus(true);
+          badge.className = "sync-status";
           return;
+        }
         }
 
         updateNetworkStatus(false);
