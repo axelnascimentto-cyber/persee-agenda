@@ -1699,6 +1699,663 @@
       text-align: center;
     }
 
+  
+    /* ========================================================
+       PERSÉE REDESIGN 2026: CLEAN ARCHITECTURE & VISUAL BALANCE
+       ======================================================== */
+
+    /* HIGH CONTRAST & LEGIBILITY */
+    :root {
+      --text-primary: #1c1c1e;
+      --text-secondary: #3a3a3c;   /* Elevated contrast for TV & Mobile */
+      --text-muted: #6c6c70;
+      --action-blue: #0071e3;
+      --action-blue-hover: #0077ed;
+      --persee-purple: #5856d6;
+      --persee-purple-light: #f5f3ff;
+      --alert-red: #ff3b30;
+      --success-green: #34c759;
+    }
+
+    /* HEADER SIMPLIFICATION */
+    .single-status-indicator {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 3px 10px;
+      background: rgba(52, 199, 89, 0.12);
+      border-radius: var(--radius-full);
+      font-size: 12px;
+      font-weight: 600;
+      color: #1e7e34;
+    }
+    .status-indicator-dot {
+      width: 7px;
+      height: 7px;
+      background: #34c759;
+      border-radius: 50%;
+      box-shadow: 0 0 6px rgba(52, 199, 89, 0.6);
+      animation: pulseDot 2s infinite ease-in-out;
+    }
+    @keyframes pulseDot {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.6; transform: scale(0.9); }
+    }
+
+    .header-add-btn {
+      height: 38px;
+      padding: 0 16px;
+      font-size: 13.5px;
+      font-weight: 600;
+      border-radius: 10px;
+      background: var(--action-blue);
+      color: #ffffff;
+      border: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      cursor: pointer;
+      box-shadow: 0 2px 8px rgba(0, 113, 227, 0.25);
+      transition: background 0.15s ease, transform 0.1s ease;
+    }
+    .header-add-btn:active {
+      transform: scale(0.97);
+    }
+
+    /* INTEGRATED PERSÉE COMMAND FIELD ("Demandez à Persée…") */
+    .persee-command-container {
+      width: 100%;
+      margin: 4px 0 14px 0;
+    }
+    .persee-command-bar {
+      display: flex;
+      align-items: center;
+      background: #ffffff;
+      border: 1.5px solid rgba(88, 86, 214, 0.25);
+      border-radius: 14px;
+      padding: 5px 8px 5px 12px;
+      box-shadow: 0 2px 10px rgba(88, 86, 214, 0.06);
+      transition: all 0.2s ease;
+      gap: 8px;
+    }
+    .persee-command-bar:focus-within {
+      border-color: var(--persee-purple);
+      box-shadow: 0 3px 16px rgba(88, 86, 214, 0.15);
+    }
+    .persee-lead-badge {
+      width: 28px;
+      height: 28px;
+      background: linear-gradient(135deg, #5856d6, #af52de);
+      color: #fff;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 14px;
+      font-weight: 800;
+      flex-shrink: 0;
+    }
+    .persee-lead-input {
+      flex: 1;
+      border: none;
+      outline: none;
+      background: transparent;
+      font-size: 14.5px;
+      color: var(--text-primary);
+      font-weight: 500;
+      min-width: 0;
+    }
+    .persee-lead-input::placeholder {
+      color: var(--text-muted);
+      font-size: 13.5px;
+    }
+    .persee-icon-btn {
+      width: 34px;
+      height: 34px;
+      border: none;
+      background: transparent;
+      color: var(--persee-purple);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: background 0.15s ease;
+      flex-shrink: 0;
+    }
+    .persee-icon-btn:hover {
+      background: var(--persee-purple-light);
+    }
+    .persee-submit-btn {
+      height: 34px;
+      padding: 0 14px;
+      background: var(--persee-purple);
+      color: #ffffff;
+      border: none;
+      border-radius: 9px;
+      font-size: 13px;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      cursor: pointer;
+      flex-shrink: 0;
+      transition: background 0.15s ease;
+    }
+    .persee-submit-btn:hover {
+      background: #4745b8;
+    }
+
+    /* CENTRAL SPACE: TWO-COLUMN DASHBOARD */
+    .agenda-dashboard {
+      display: grid;
+      grid-template-columns: minmax(0, 1.85fr) minmax(310px, 1fr);
+      gap: 20px;
+      align-items: start;
+      width: 100%;
+    }
+    @media (max-width: 960px) {
+      .agenda-dashboard {
+        grid-template-columns: 1fr;
+        gap: 16px;
+      }
+    }
+
+    /* MAIN COLUMN & HERO PROCHAIN RENDEZ-VOUS */
+    .agenda-col-main {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      min-width: 0;
+    }
+
+    .hero-next-event-card {
+      background: #ffffff;
+      border-radius: 16px;
+      padding: 16px 18px;
+      border: 1px solid var(--separator-subtle);
+      border-left: 5px solid var(--action-blue);
+      box-shadow: 0 3px 12px rgba(0, 0, 0, 0.04);
+      transition: transform 0.15s ease;
+    }
+    .hero-top-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 8px;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+    .hero-badge-tag {
+      font-size: 11.5px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: var(--action-blue);
+      background: rgba(0, 113, 227, 0.08);
+      padding: 3px 10px;
+      border-radius: 8px;
+    }
+    .hero-person-pill {
+      font-size: 12px;
+      font-weight: 600;
+      padding: 3px 10px;
+      background: #f2f2f7;
+      color: var(--text-primary);
+      border-radius: 12px;
+      border: 1px solid var(--separator-subtle);
+    }
+    .hero-body-row {
+      display: flex;
+      align-items: baseline;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+    .hero-time-big {
+      font-size: 32px;
+      font-weight: 800;
+      color: var(--action-blue);
+      letter-spacing: -0.5px;
+      line-height: 1;
+    }
+    .hero-title-group {
+      flex: 1;
+      min-width: 180px;
+    }
+    .hero-event-title {
+      font-size: 17px;
+      font-weight: 700;
+      color: var(--text-primary);
+      line-height: 1.3;
+    }
+    .hero-event-location {
+      font-size: 13.5px;
+      font-weight: 500;
+      color: var(--text-secondary);
+      margin-top: 3px;
+    }
+    .hero-event-desc {
+      font-size: 12.5px;
+      color: var(--text-muted);
+      margin-top: 2px;
+    }
+    .hero-card-empty {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 4px 2px;
+    }
+    .hero-empty-icon {
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      background: #e8f5e9;
+      color: #2e7d32;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+      font-weight: 800;
+      flex-shrink: 0;
+    }
+    .hero-empty-title {
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--text-primary);
+    }
+    .hero-empty-sub {
+      font-size: 13px;
+      color: var(--text-secondary);
+      margin-top: 2px;
+    }
+
+    /* AGENDA MAIN HEADER WITH + RENDEZ-VOUS ADJACENT */
+    .agenda-main-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 4px;
+    }
+    .agenda-title-cluster {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .agenda-title {
+      font-size: 20px;
+      font-weight: 800;
+      color: var(--text-primary);
+      letter-spacing: -0.3px;
+    }
+    .badge-count {
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--text-secondary);
+      background: rgba(118, 118, 128, 0.12);
+      padding: 2px 8px;
+      border-radius: 10px;
+    }
+    .btn-section-add {
+      height: 34px;
+      padding: 0 12px;
+      background: rgba(0, 113, 227, 0.1);
+      color: var(--action-blue);
+      border: 1px solid rgba(0, 113, 227, 0.25);
+      border-radius: 9px;
+      font-size: 13px;
+      font-weight: 700;
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      cursor: pointer;
+      transition: all 0.15s ease;
+    }
+    .btn-section-add:hover {
+      background: var(--action-blue);
+      color: #ffffff;
+    }
+
+    /* COMPACT RESIDENT AVATAR FILTER BAR */
+    .resident-avatar-filter-bar {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      overflow-x: auto;
+      padding: 4px 2px;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: none;
+    }
+    .resident-avatar-filter-bar::-webkit-scrollbar {
+      display: none;
+    }
+    .avatar-filter-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 4px 10px 4px 6px;
+      border-radius: 20px;
+      background: #ffffff;
+      border: 1px solid var(--separator);
+      font-size: 12.5px;
+      font-weight: 600;
+      color: var(--text-secondary);
+      cursor: pointer;
+      white-space: nowrap;
+      transition: all 0.15s ease;
+      height: 32px;
+    }
+    .avatar-filter-btn:hover {
+      border-color: var(--text-muted);
+      color: var(--text-primary);
+    }
+    .avatar-filter-btn.active {
+      background: var(--action-blue);
+      border-color: var(--action-blue);
+      color: #ffffff;
+      box-shadow: 0 2px 6px rgba(0, 113, 227, 0.3);
+    }
+    .avatar-circle {
+      width: 22px;
+      height: 22px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 10px;
+      font-weight: 800;
+      flex-shrink: 0;
+    }
+    .avatar-filter-btn.active .avatar-circle {
+      background: #ffffff !important;
+      color: var(--action-blue) !important;
+      border-color: #ffffff !important;
+    }
+
+    /* REAL 7-DAY STRIP */
+    .calendar-week-strip {
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
+      gap: 6px;
+      background: #ffffff;
+      padding: 8px 10px;
+      border-radius: 14px;
+      border: 1px solid var(--separator-subtle);
+      box-shadow: 0 1px 4px rgba(0, 0, 0, 0.03);
+    }
+    .cal-strip-day {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 8px 4px;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: all 0.15s ease;
+      min-width: 0;
+    }
+    .cal-strip-day:hover {
+      background: #f2f2f7;
+    }
+    .cal-strip-day.active {
+      background: var(--action-blue);
+      color: #ffffff !important;
+      box-shadow: 0 2px 8px rgba(0, 113, 227, 0.35);
+    }
+    .cal-strip-day-lbl {
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--text-muted);
+      text-transform: uppercase;
+    }
+    .cal-strip-day.active .cal-strip-day-lbl {
+      color: rgba(255, 255, 255, 0.85);
+    }
+    .cal-strip-day-num {
+      font-size: 17px;
+      font-weight: 800;
+      margin-top: 2px;
+      color: var(--text-primary);
+    }
+    .cal-strip-day.active .cal-strip-day-num {
+      color: #ffffff;
+    }
+    .cal-strip-dot {
+      width: 5px;
+      height: 5px;
+      border-radius: 50%;
+      background: var(--action-blue);
+      margin-top: 4px;
+    }
+    .cal-strip-day.active .cal-strip-dot {
+      background: #ffffff;
+    }
+
+    /* REAL HOURLY TIMELINE VIEW */
+    .calendar-timeline-view {
+      background: #ffffff;
+      border-radius: 16px;
+      padding: 12px 16px;
+      border: 1px solid var(--separator-subtle);
+      box-shadow: 0 1px 4px rgba(0, 0, 0, 0.03);
+      display: flex;
+      flex-direction: column;
+    }
+    .timeline-hour-slot {
+      display: flex;
+      min-height: 52px;
+      border-bottom: 1px solid var(--separator-subtle);
+      align-items: stretch;
+    }
+    .timeline-hour-slot:last-child {
+      border-bottom: none;
+    }
+    .timeline-hour-label {
+      width: 55px;
+      font-size: 12.5px;
+      font-weight: 700;
+      color: var(--text-muted);
+      padding-top: 10px;
+      flex-shrink: 0;
+    }
+    .timeline-hour-content {
+      flex: 1;
+      padding: 4px 0 6px 12px;
+      border-left: 2px solid #e5e5ea;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      min-width: 0;
+      cursor: pointer;
+    }
+    .timeline-hour-content:hover {
+      background: #fafafc;
+    }
+    .timeline-event-card {
+      background: #f8f8fa;
+      border-radius: 10px;
+      border: 1px solid var(--separator-subtle);
+      padding: 8px 12px;
+      display: flex;
+      gap: 10px;
+      align-items: flex-start;
+      cursor: pointer;
+      transition: all 0.15s ease;
+    }
+    .timeline-event-card:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+    }
+    .timeline-event-bar {
+      width: 4px;
+      align-self: stretch;
+      border-radius: 2px;
+      background: var(--action-blue);
+      flex-shrink: 0;
+    }
+    .timeline-event-body {
+      flex: 1;
+      min-width: 0;
+    }
+    .timeline-event-title-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 8px;
+    }
+    .timeline-event-title {
+      font-size: 14.5px;
+      font-weight: 700;
+      color: var(--text-primary);
+    }
+    .timeline-event-pill {
+      font-size: 11px;
+      font-weight: 600;
+      padding: 2px 8px;
+      border-radius: 8px;
+      background: #e5e5ea;
+      color: var(--text-primary);
+    }
+    .timeline-event-time {
+      font-size: 12.5px;
+      font-weight: 600;
+      color: var(--action-blue);
+      margin-top: 2px;
+    }
+    .timeline-event-desc {
+      font-size: 12px;
+      color: var(--text-secondary);
+      margin-top: 2px;
+    }
+    .timeline-empty-line {
+      height: 100%;
+      min-height: 38px;
+    }
+
+    /* SIDE COLUMN (ACOMPANHAMENTOS & LEMBRETES) */
+    .agenda-col-side {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      min-width: 0;
+    }
+    .side-card {
+      background: #ffffff;
+      border-radius: 16px;
+      padding: 14px 16px;
+      border: 1px solid var(--separator-subtle);
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.04);
+    }
+    .side-card-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 12px;
+    }
+    .side-card-title {
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--text-primary);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .badge-count-sm {
+      font-size: 11px;
+      font-weight: 700;
+      padding: 2px 7px;
+      border-radius: 8px;
+      background: rgba(0, 113, 227, 0.12);
+      color: var(--action-blue);
+    }
+    .btn-circle-sm {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      background: #f2f2f7;
+      border: 1px solid var(--separator);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--text-secondary);
+      cursor: pointer;
+      transition: all 0.15s ease;
+    }
+    .btn-circle-sm:hover {
+      background: #e5e5ea;
+      color: var(--text-primary);
+    }
+    .side-tasks-list {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .side-task-item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 8px 10px;
+      background: #fbfbfd;
+      border: 1px solid var(--separator-subtle);
+      border-radius: 10px;
+      transition: background 0.15s ease;
+    }
+    .side-task-item:hover {
+      background: #f2f2f7;
+    }
+    .task-checkbox-sm {
+      width: 18px;
+      height: 18px;
+      accent-color: var(--action-blue);
+      cursor: pointer;
+      flex-shrink: 0;
+    }
+    .side-task-text {
+      flex: 1;
+      font-size: 13.5px;
+      font-weight: 600;
+      color: var(--text-primary);
+      min-width: 0;
+      line-height: 1.3;
+    }
+    .side-task-text.urgent {
+      color: #b91c1c;
+    }
+    .urgent-dot {
+      color: var(--alert-red);
+      margin-left: 4px;
+    }
+    .btn-del-sm {
+      background: transparent;
+      border: none;
+      color: var(--text-muted);
+      cursor: pointer;
+      padding: 2px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 4px;
+    }
+    .btn-del-sm:hover {
+      color: var(--alert-red);
+      background: #fee2e2;
+    }
+    .btn-link-action {
+      background: transparent;
+      border: none;
+      font-size: 12.5px;
+      font-weight: 700;
+      color: var(--action-blue);
+      cursor: pointer;
+      padding: 4px 0;
+      transition: color 0.15s ease;
+    }
+    .btn-link-action:hover {
+      color: var(--action-blue-hover);
+      text-decoration: underline;
+    }
+    
   </style>
 </head>
 <body>
@@ -1713,13 +2370,9 @@
       <div class="header-titles">
         <div class="header-title-row">
           <span class="header-title">Persée</span>
-          <span class="agent-status-pill">
-            <span class="agent-status-dot"></span>
-            <span>Agent Actif</span>
-          </span>
-          <span class="auto-save-pill" id="autoSaveIndicator">
-            <span class="auto-save-dot"></span>
-            <span id="autoSaveText">Enregistré auto</span>
+          <span class="single-status-indicator" id="singleStatusPill" title="Agent Persée opérationnel et synchronisé">
+            <span class="status-indicator-dot"></span>
+            <span id="singleStatusText">Persée en ligne</span>
           </span>
         </div>
         <div class="header-subtitle" id="liveHeaderDate">Chargement...</div>
@@ -1741,8 +2394,8 @@
       <button class="btn-circle" onclick="openFamilyDirectoryModal()" title="Répertoire Familial & Résidences (8 membres)">👥</button>
       <button class="btn-circle" id="micBtn" onclick="toggleVoiceInput()" title="Commande Vocale (Micro)">🎤</button>
       <button class="btn-circle" onclick="forceSync()" title="Synchroniser">↻</button>
-      <button class="btn-add-primary" onclick="openCreateModal()">
-        <span>+</span>
+      <button class="header-add-btn" onclick="openCreateModal()" title="Ajouter un rendez-vous, rappel ou note">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
         <span>Ajouter</span>
       </button>
     </div>
@@ -1809,97 +2462,133 @@
     <!-- MAIN VIEW AREA (EXPANDS 100% WIDTH) -->
     <main class="main-content">
 
-      <!-- MOBILE AGENT BRIEFING BANNER -->
-      <div class="agent-copilot-card" id="mobileAgentCard" style="display:none;">
-        <div class="agent-header-row">
-          <div class="agent-avatar-badge">
-            <div class="agent-avatar">P</div>
-            <div class="agent-name">Persée • Assistant Personnel</div>
-          </div>
-        </div>
-        <div class="agent-briefing-text" id="mobileAgentBriefing">
-          Chargement de votre journée...
-        </div>
+      <!-- CHAMP INTÉGRÉ PERSÉE (« Demandez à Persée… ») -->
+      <div class="persee-command-container">
+        <form class="persee-command-bar" onsubmit="handleAgentPromptSubmit(event)">
+          <div class="persee-lead-badge" title="Persée IA">P</div>
+          <input type="text" id="agentPromptInput" class="persee-lead-input" placeholder="Demandez à Persée… (ex: « Rendez-vous médecin demain 10h », « Médicaments pris »)" autocomplete="off">
+          <button type="button" class="persee-icon-btn" onclick="toggleVoiceInput()" title="Commande vocale (Micro)">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" y1="19" x2="12" y2="23"/><line x1="8" y1="23" x2="16" y2="23"/></svg>
+          </button>
+          <button type="submit" class="persee-submit-btn" title="Envoyer à Persée">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+          </button>
+        </form>
       </div>
-
-      <!-- INTERACTIVE SPOTLIGHT COMMAND BAR (TEXTE OU VOIX) -->
-      <form class="agent-prompt-bar" onsubmit="handleAgentPromptSubmit(event)">
-        <input type="text" id="agentPromptInput" class="agent-prompt-input" placeholder="Parler ou écrire à Persée (ex: « Rendez-vous demain 14h », « @Nathalie médecin »)...">
-        <button type="button" class="btn-circle" style="width:30px; height:30px; font-size:14px; margin-right:4px;" onclick="toggleVoiceInput()" title="Parler à l'oral (Micro)">🎤</button>
-        <button type="submit" class="agent-prompt-btn">
-          <span>Envoyer</span>
-          <span>↵</span>
-        </button>
-      </form>
-
-      <!-- BARRE DE TAGS RAPIDES DES RÉSIDENTS -->
-      <div class="quick-tags-bar" style="display:flex; align-items:center; gap:6px; flex-wrap:wrap; margin:4px 0 10px 0; padding:0 2px;">
-        <span style="font-size:11px; font-weight:600; color:var(--text-secondary);">Taguer :</span>
-        <button type="button" class="resident-tag tag-axel" onclick="insertTagIntoPrompt('@Axel')">@Axel</button>
-        <button type="button" class="resident-tag tag-jean-etienne" onclick="insertTagIntoPrompt('@Jean-Étienne')">@Jean-Étienne</button>
-        <button type="button" class="resident-tag tag-nathalie" onclick="insertTagIntoPrompt('@Nathalie')">@Nathalie</button>
-        <button type="button" class="resident-tag tag-jean-joel" onclick="insertTagIntoPrompt('@Jean-Joël')">@Jean-Joël</button>
-        <button type="button" class="resident-tag tag-ariane" onclick="insertTagIntoPrompt('@Ariane')">@Ariane</button>
-        <button type="button" class="resident-tag tag-vincent" onclick="insertTagIntoPrompt('@Vincent')">@Vincent</button>
-        <button type="button" class="resident-tag tag-adele" onclick="insertTagIntoPrompt('@Adèle')">@Adèle</button>
-        <button type="button" class="resident-tag tag-roxane" onclick="insertTagIntoPrompt('@Roxane')">@Roxane</button>
-      </div>
-
-      <!-- MOBILE HORIZONTAL 7-DAYS STRIP -->
-      <div class="mobile-week-strip" id="mobileWeekStrip"></div>
 
       <!-- TAB 1: AGENDA -->
+            <!-- TAB 1: AGENDA (ESPACE CENTRAL EN 2 COLONNES) -->
       <div class="tab-view active" id="tab-agenda">
-        <div class="section-bar" style="flex-wrap:wrap; gap:8px;">
-          <div class="section-title">
-            <span>Agenda</span>
-            <span style="font-size:12px; font-weight:600; color:var(--text-secondary); background:rgba(118,118,128,0.12); padding:2px 8px; border-radius:10px;" id="badgeEvents">0</span>
-          </div>
+        <div class="agenda-dashboard">
+          
+          <!-- COLONNE PRINCIPALE (COMPROMISSOS & CALENDRIER) -->
+          <div class="agenda-col-main">
+            
+            <!-- 1. HERO DU PROCHAIN COMPROMISSO -->
+            <div class="hero-next-event-card" id="heroNextEventCard">
+              <!-- Rendu dynamiquement via JS -->
+            </div>
 
-          <!-- COMMUTATEUR VUE CALENDRIER / LISTE -->
-          <div class="agenda-subview-switch">
-            <button type="button" class="agenda-subview-btn active" id="btnAgendaCalendar" onclick="setAgendaSubView('calendar')">📅 Calendrier</button>
-            <button type="button" class="agenda-subview-btn" id="btnAgendaList" onclick="setAgendaSubView('list')">📋 Liste</button>
-          </div>
-
-          <div class="filter-pills" id="agendaFilterPills">
-            <button class="filter-btn active" onclick="filterEvents('all', this)">Tous</button>
-            <button class="filter-btn" onclick="filterEvents('today', this)">Aujourd'hui</button>
-            <button class="filter-btn" onclick="filterEvents('tomorrow', this)">Demain</button>
-            <button class="filter-btn" onclick="filterEvents('week', this)">7 Jours</button>
-          </div>
-
-        <!-- CARTE DE SUIVI MÉDICAL & MÉDICAMENTS (JEAN-JOËL / ALZHEIMER) -->
-        <div class="med-tracker-card" id="medTrackerCard">
-          <div class="med-tracker-header">
-            <div>
-              <div class="med-tracker-title">
-                <span>💊 Traitement & Médicaments Jean-Joël (GP)</span>
-                <span id="medOverallBadge" class="med-badge-pending">1/4 pris</span>
+            <!-- 2. BARRE AGENDA (+ RENDEZ-VOUS ADJACENT AU TITRE) -->
+            <div class="agenda-main-header">
+              <div class="agenda-title-cluster">
+                <h2 class="agenda-title">Agenda</h2>
+                <span class="badge-count" id="badgeEvents">0</span>
+                <button type="button" class="btn-section-add" onclick="openCreateModal('event')" title="Ajouter un rendez-vous">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+                  <span>Rendez-vous</span>
+                </button>
               </div>
-              <div class="med-tracker-sub" id="medTrackerSubtitle">
-                Suivi quotidien en temps réel partagé • Metz & Paris
+
+              <!-- COMMUTATEUR VUE CALENDRIER / LISTE -->
+              <div class="agenda-subview-switch">
+                <button type="button" class="agenda-subview-btn active" id="btnAgendaCalendar" onclick="setAgendaSubView('calendar')">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+                  <span>Calendrier</span>
+                </button>
+                <button type="button" class="agenda-subview-btn" id="btnAgendaList" onclick="setAgendaSubView('list')">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></svg>
+                  <span>Liste</span>
+                </button>
               </div>
             </div>
-            <button type="button" class="btn-circle" style="width:30px; height:30px; font-size:12px;" onclick="refreshMedications()" title="Actualiser les médicaments">
-              🔄
-            </button>
+
+            <!-- 3. FILTRE COMPACT DES MORADORES AVEC AVATARES -->
+            <div class="resident-avatar-filter-bar" id="residentFilterBar">
+              <!-- Rendu dynamiquement avec Tous + Avatars (Axel, JET, Nat, GP...) -->
+            </div>
+
+            <!-- 4. FAIXA DE 7 DIAS INTERATIVA -->
+            <div class="calendar-week-strip" id="calendarWeekStrip">
+              <!-- 7 jours LUN à DIM avec indicateurs d'événements -->
+            </div>
+
+            <!-- 5. TIMELINE HORAIRE (08:00 à 20:00) -->
+            <div id="calendarTimelineView" class="calendar-timeline-view">
+              <!-- Rendu de la ligne du temps avec créneaux et rendez-vous -->
+            </div>
+
+            <!-- 6. VUE LISTE COMPACTE -->
+            <div id="calendarListView" class="calendar-list-view" style="display:none; flex-direction:column; gap:8px;">
+              <!-- Rendu de la liste d'événements -->
+            </div>
+            <div style="display:none;" id="eventsList"></div>
           </div>
-          <div class="med-doses-grid" id="medDosesGrid">
-            <!-- 4 prises quotidiennes générées dynamiquement -->
+
+          <!-- COLONNE MENOR (ACOMPANHAMENTOS & LEMBRETES) -->
+          <div class="agenda-col-side">
+            
+            <!-- CARTE COMPACTE SUIVI MÉDICAL JEAN-JOËL (2 DOSES) -->
+            <div class="side-card med-tracker-card" id="medTrackerCard" style="margin-bottom:0;">
+              <div class="med-tracker-header">
+                <div>
+                  <div class="med-tracker-title">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#34c759" stroke-width="2"><path d="m10.5 20.5 10-10a4.95 4.95 0 1 0-7-7l-10 10a4.95 4.95 0 1 0 7 7Z"/><path d="m8.5 8.5 7 7"/></svg>
+                    <span>Jean-Joël • Pilulier</span>
+                    <span id="medOverallBadge" class="med-badge-pending">0/2 pris</span>
+                  </div>
+                  <div class="med-tracker-sub" id="medTrackerSubtitle">
+                    2 prises quotidiennes • Metz & Paris
+                  </div>
+                </div>
+                <button type="button" class="btn-circle-sm" onclick="refreshMedications()" title="Actualiser">
+                  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21.5 2v6h-6M21.34 15.57a10 10 0 1 1-.57-8.38l5.67-5.67"/></svg>
+                </button>
+              </div>
+
+              <div class="med-doses-grid" id="medDosesGrid">
+                <!-- 2 prises : Petit-déjeuner & Dîner -->
+              </div>
+
+              <div style="margin-top: 10px; display:flex; justify-content:space-between; align-items:center;">
+                <button type="button" class="btn-link-action" onclick="switchTab('library'); setLibrarySubView('health');">
+                  🩺 Fiche Santé & Médicale →
+                </button>
+              </div>
+            </div>
+
+            <!-- CARTE RAPPELS DU JOUR DANS LA COLONNE MENOR -->
+            <div class="side-card tasks-summary-card" id="sideTasksCard">
+              <div class="side-card-header">
+                <div class="side-card-title">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--action-blue)" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+                  <span>Rappels du jour</span>
+                  <span class="badge-count-sm" id="badgeSideTasks">0</span>
+                </div>
+                <button type="button" class="btn-circle-sm" onclick="openCreateModal('task')" title="Nouveau rappel">
+                  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+                </button>
+              </div>
+              <div class="side-tasks-list" id="sideTasksList">
+                <!-- Tâches du jour injectées dynamiquement -->
+              </div>
+            </div>
+
           </div>
         </div>
-
-
-          <button class="btn-add-primary" onclick="openCreateModal('event')" style="height:32px; padding:0 12px; font-size:12px; margin-left:auto;">
-            + Rendez-vous
-          </button>
-        </div>
-
-        <div style="display:flex; flex-direction:column; gap:8px; width:100%;" id="eventsList"></div>
       </div>
 
-      <!-- TAB 2: RAPPELS -->
+<!-- TAB 2: RAPPELS -->
       <div class="tab-view" id="tab-tasks">
         <div class="section-bar" style="flex-wrap:wrap; gap:8px;">
           <div class="section-title">
@@ -3199,10 +3888,343 @@
       renderMiniCalendar();
     }
 
-    function renderEvents() {
-      const list = document.getElementById('eventsList');
+    
+    // ========================================================
+    // REDESIGN 2026: HERO, AVATAR FILTER, 7-DAYS STRIP, TIMELINE
+    // ========================================================
+
+    function getPersonAccentColor(name) {
+      if (!name) return '#0071e3';
+      const n = name.toLowerCase();
+      if (n.includes('axel')) return '#0071e3';
+      if (n.includes('jean-étienne') || n.includes('jean-etienne') || n.includes('jet')) return '#34c759';
+      if (n.includes('nathalie') || n.includes('nat')) return '#ff2d55';
+      if (n.includes('jean-joël') || n.includes('jean-joel') || n.includes('gp')) return '#0284c7';
+      if (n.includes('ariane')) return '#ff9500';
+      if (n.includes('vincent')) return '#5856d6';
+      if (n.includes('adèle') || n.includes('adele')) return '#e11d48';
+      if (n.includes('roxane')) return '#7c3aed';
+      return '#0071e3';
+    }
+
+    // 1. HERO DU PROCHAIN COMPROMISSO
+    function renderHeroNextEvent() {
+      const container = document.getElementById('heroNextEventCard');
+      if (!container) return;
+
+      const now = new Date();
+      const todayIso = now.toISOString().split('T')[0];
+      const currentTimeMinutes = now.getHours() * 60 + now.getMinutes();
+
+      // Rechercher les rendez-vous d'aujourd'hui ou futurs
+      const upcoming = state.events.filter(ev => {
+        if (!ev.date) return false;
+        if (ev.date > todayIso) return true;
+        if (ev.date === todayIso) {
+          if (!ev.time) return true;
+          const parts = ev.time.split(':');
+          const evMin = parseInt(parts[0], 10) * 60 + parseInt(parts[1] || '0', 10);
+          return evMin >= (currentTimeMinutes - 20);
+        }
+        return false;
+      }).sort((a, b) => (a.date + ' ' + (a.time || '00:00')).localeCompare(b.date + ' ' + (b.time || '00:00')));
+
+      if (upcoming.length === 0) {
+        container.innerHTML = `
+          <div class="hero-card-empty">
+            <div class="hero-empty-icon">✓</div>
+            <div class="hero-empty-text">
+              <div class="hero-empty-title">Aucun autre rendez-vous prévu aujourd'hui</div>
+              <div class="hero-empty-sub">Temps libre, repos et sérénité pour Jean-Joël et la famille.</div>
+            </div>
+          </div>
+        `;
+        return;
+      }
+
+      const nextEv = upcoming[0];
+      let timeDiffText = "Aujourd'hui";
+      if (nextEv.date === todayIso && nextEv.time) {
+        const parts = nextEv.time.split(':');
+        const evMin = parseInt(parts[0], 10) * 60 + parseInt(parts[1] || '0', 10);
+        const diff = evMin - currentTimeMinutes;
+        if (diff > 0 && diff <= 60) {
+          timeDiffText = `dans ${diff} min`;
+        } else if (diff > 60 && diff < 300) {
+          const h = Math.floor(diff / 60);
+          const m = diff % 60;
+          timeDiffText = `dans ${h}h${m > 0 ? (m < 10 ? '0' + m : m) : ''}`;
+        } else if (diff <= 0) {
+          timeDiffText = "En cours";
+        } else {
+          timeDiffText = `Aujourd'hui à ${nextEv.time}`;
+        }
+      } else if (nextEv.date > todayIso) {
+        timeDiffText = `À venir · ${nextEv.date}`;
+      }
+
+      const personName = nextEv.person_name || 'Famille';
+      const locationText = nextEv.location ? `📍 ${escapeHtml(nextEv.location)}` : '';
+      const timeDisplay = nextEv.time || 'Toute la journée';
+
+      container.innerHTML = `
+        <div class="hero-top-row">
+          <span class="hero-badge-tag">PROCHAIN RENDEZ-VOUS · ${timeDiffText}</span>
+          <span class="hero-person-pill">${escapeHtml(personName)}</span>
+        </div>
+        <div class="hero-body-row">
+          <div class="hero-time-big">${timeDisplay}</div>
+          <div class="hero-title-group">
+            <div class="hero-event-title">${escapeHtml(nextEv.title)}</div>
+            ${locationText ? `<div class="hero-event-location">${locationText}</div>` : ''}
+            ${nextEv.description ? `<div class="hero-event-desc">${escapeHtml(nextEv.description)}</div>` : ''}
+          </div>
+          <div style="margin-left:auto;">
+            <button type="button" class="btn-circle-sm" onclick="openEditEventModal('${nextEv.id}')" title="Modifier">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z"/></svg>
+            </button>
+          </div>
+        </div>
+      `;
+    }
+
+    // 2. FILTRE COMPACT AVEC AVATARS
+    function renderResidentAvatarFilter() {
+      const container = document.getElementById('residentFilterBar');
+      if (!container) return;
+      container.innerHTML = '';
+
+      const members = [
+        { id: 'all', label: 'Tous', initials: 'Tous', color: '#0071e3' },
+        { id: 'Axel', label: 'Axel', initials: 'A', color: '#0071e3' },
+        { id: 'Jean-Étienne', label: 'JET', initials: 'JET', color: '#34c759' },
+        { id: 'Nathalie', label: 'Nat', initials: 'Nat', color: '#ff2d55' },
+        { id: 'Jean-Joël', label: 'GP', initials: 'GP', color: '#0284c7' },
+        { id: 'Ariane', label: 'Ariane', initials: 'Ar', color: '#ff9500' },
+        { id: 'Vincent', label: 'Vincent', initials: 'V', color: '#5856d6' },
+        { id: 'Adèle', label: 'Adèle', initials: 'Ad', color: '#e11d48' },
+        { id: 'Roxane', label: 'Roxane', initials: 'R', color: '#7c3aed' }
+      ];
+
+      members.forEach(m => {
+        const btn = document.createElement('button');
+        btn.type = 'button';
+        const isActive = (state.filterPerson === m.id || (!state.filterPerson && m.id === 'all'));
+        btn.className = `avatar-filter-btn ${isActive ? 'active' : ''}`;
+
+        if (m.id === 'all') {
+          btn.innerHTML = `<span style="font-weight:700;">Tous (8)</span>`;
+        } else {
+          btn.innerHTML = `
+            <span class="avatar-circle" style="background:${m.color}20; color:${m.color}; border:1.5px solid ${m.color};">${m.initials}</span>
+            <span>${m.label}</span>
+          `;
+        }
+
+        btn.onclick = () => {
+          state.filterPerson = (m.id === 'all') ? 'all' : m.id;
+          renderResidentAvatarFilter();
+          renderEvents();
+        };
+        container.appendChild(btn);
+      });
+    }
+
+    // 3. FAIXA DE 7 DIAS INTERATIVA
+    function renderCalendarWeekStrip() {
+      const container = document.getElementById('calendarWeekStrip');
+      if (!container) return;
+      container.innerHTML = '';
+
+      const today = new Date();
+      const todayIso = today.toISOString().split('T')[0];
+      const selectedIso = state.selectedCalDate || todayIso;
+
+      const currentDay = today.getDay();
+      const mondayOffset = (currentDay === 0) ? -6 : 1 - currentDay;
+      const monday = new Date(today);
+      monday.setDate(today.getDate() + mondayOffset);
+
+      for (let i = 0; i < 7; i++) {
+        const dayDate = new Date(monday);
+        dayDate.setDate(monday.getDate() + i);
+        const dateIso = dayDate.toISOString().split('T')[0];
+
+        const dayEvents = state.events.filter(ev => ev.date === dateIso);
+        const hasEvents = dayEvents.length > 0;
+
+        const cell = document.createElement('div');
+        cell.className = `cal-strip-day ${dateIso === selectedIso ? 'active' : ''}`;
+        cell.onclick = () => {
+          state.selectedCalDate = dateIso;
+          renderCalendarWeekStrip();
+          renderEvents();
+        };
+
+        cell.innerHTML = `
+          <div class="cal-strip-day-lbl">${DAY_SHORT[dayDate.getDay()]}</div>
+          <div class="cal-strip-day-num">${dayDate.getDate()}</div>
+          ${hasEvents ? '<div class="cal-strip-dot"></div>' : '<div style="height:5px; margin-top:4px;"></div>'}
+        `;
+        container.appendChild(cell);
+      }
+    }
+
+    // 4. LINHA DO TEMPO COM HORÁRIOS (08:00 À 20:00)
+    function renderCalendarTimeline() {
+      const container = document.getElementById('calendarTimelineView');
+      if (!container) return;
+      container.innerHTML = '';
+
+      const activeDate = state.selectedCalDate || new Date().toISOString().split('T')[0];
+      let dayEvents = state.events.filter(ev => ev.date === activeDate);
+
+      if (state.filterPerson && state.filterPerson !== 'all') {
+        const fp = state.filterPerson.toLowerCase();
+        dayEvents = dayEvents.filter(ev => {
+          const person = (ev.person_name || '').toLowerCase();
+          const title = (ev.title || '').toLowerCase();
+          return person.includes(fp) || title.includes(fp);
+        });
+      }
+
+      const hours = ["08:00", "09:00", "10:00", "11:00", "12:00", "13:00", "14:00", "15:00", "16:00", "17:00", "18:00", "19:00", "20:00"];
+
+      hours.forEach(h => {
+        const hourInt = parseInt(h.split(':')[0], 10);
+        const slot = document.createElement('div');
+        slot.className = 'timeline-hour-slot';
+
+        const matching = dayEvents.filter(ev => {
+          if (!ev.time) return false;
+          const evH = parseInt(ev.time.split(':')[0], 10);
+          return evH === hourInt;
+        });
+
+        // Événements toute la journée assignés à 08:00
+        const allDay = (h === "08:00") ? dayEvents.filter(ev => !ev.time || ev.time === '00:00') : [];
+
+        let cardsHtml = '';
+        allDay.forEach(ev => {
+          cardsHtml += `
+            <div class="timeline-event-card" onclick="openEditEventModal('${ev.id}')">
+              <div class="timeline-event-bar" style="background:#0071e3;"></div>
+              <div class="timeline-event-body">
+                <div class="timeline-event-title-row">
+                  <span class="timeline-event-title">${escapeHtml(ev.title)}</span>
+                  <span class="timeline-event-pill">${escapeHtml(ev.person_name || 'Famille')}</span>
+                </div>
+                <div class="timeline-event-time">Toute la journée ${ev.location ? '· 📍 ' + escapeHtml(ev.location) : ''}</div>
+              </div>
+            </div>
+          `;
+        });
+
+        matching.forEach(ev => {
+          const color = getPersonAccentColor(ev.person_name);
+          cardsHtml += `
+            <div class="timeline-event-card" onclick="openEditEventModal('${ev.id}')">
+              <div class="timeline-event-bar" style="background:${color};"></div>
+              <div class="timeline-event-body">
+                <div class="timeline-event-title-row">
+                  <span class="timeline-event-title">${escapeHtml(ev.title)}</span>
+                  <span class="timeline-event-pill">${escapeHtml(ev.person_name || 'Famille')}</span>
+                </div>
+                <div class="timeline-event-time">${ev.time} ${ev.location ? '· 📍 ' + escapeHtml(ev.location) : ''}</div>
+                ${ev.description ? `<div class="timeline-event-desc">${escapeHtml(ev.description)}</div>` : ''}
+              </div>
+            </div>
+          `;
+        });
+
+        slot.innerHTML = `
+          <div class="timeline-hour-label">${h}</div>
+          <div class="timeline-hour-content" onclick="if(event.target === this) openCreateForHour('${activeDate}', '${h}')" title="Cliquer pour ajouter un rendez-vous à ${h}">
+            ${cardsHtml || '<div class="timeline-empty-line"></div>'}
+          </div>
+        `;
+        container.appendChild(slot);
+      });
+    }
+
+    function openCreateForHour(dateIso, hour) {
+      document.getElementById('inEvDate').value = dateIso;
+      document.getElementById('inEvTime').value = hour;
+      openCreateModal('event');
+    }
+
+    // 5. RAPPELS DU JOUR DANS LA COLONNE MENOR
+    function renderSideTasks() {
+      const list = document.getElementById('sideTasksList');
+      const badge = document.getElementById('badgeSideTasks');
       if (!list) return;
       list.innerHTML = '';
+
+      const pending = state.tasks.filter(t => !t.done);
+      if (badge) badge.innerText = pending.length;
+
+      if (pending.length === 0) {
+        list.innerHTML = `
+          <div style="font-size:12.5px; color:var(--text-secondary); text-align:center; padding:12px 0;">
+            ✓ Tous les rappels sont traités pour aujourd'hui.
+          </div>
+        `;
+        return;
+      }
+
+      pending.slice(0, 5).forEach(tk => {
+        const item = document.createElement('div');
+        item.className = 'side-task-item';
+        const isUrgent = tk.priority === 'urgente';
+        item.innerHTML = `
+          <input type="checkbox" class="task-checkbox-sm" onchange="toggleTaskDone('${tk.id}')" title="Marquer comme fait">
+          <div class="side-task-text ${isUrgent ? 'urgent' : ''}">
+            ${escapeHtml(tk.title)}
+            ${isUrgent ? '<span class="urgent-dot" title="Urgent">●</span>' : ''}
+          </div>
+          <button type="button" class="btn-del-sm" onclick="deleteTask('${tk.id}')" title="Supprimer">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#ff3b30" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg>
+          </button>
+        `;
+        list.appendChild(item);
+      });
+    }
+
+
+    function renderEvents() {
+      // 1. Mettre à jour le Hero du prochain rendez-vous
+      renderHeroNextEvent();
+
+      // 2. Mettre à jour le filtre compact des avatars
+      renderResidentAvatarFilter();
+
+      // 3. Mettre à jour la bande des 7 jours
+      renderCalendarWeekStrip();
+
+      // 4. Mettre à jour la colonne latérale des rappels
+      renderSideTasks();
+
+      // 5. Affichage selon sous-vue Calendrier vs Liste
+      const calView = document.getElementById('calendarTimelineView');
+      const listView = document.getElementById('calendarListView');
+      const isCal = (state.agendaSubView !== 'list');
+
+      if (calView) calView.style.display = isCal ? 'flex' : 'none';
+      if (listView) listView.style.display = isCal ? 'none' : 'flex';
+
+      const btnCal = document.getElementById('btnAgendaCalendar');
+      const btnList = document.getElementById('btnAgendaList');
+      if (btnCal) btnCal.classList.toggle('active', isCal);
+      if (btnList) btnList.classList.toggle('active', !isCal);
+
+      if (isCal) {
+        renderCalendarTimeline();
+      }
+
+      // Rendu de la vue liste
+      const listContainer = listView || document.getElementById('eventsList');
+      if (!listContainer) return;
+      listContainer.innerHTML = '';
 
       const todayIso = new Date().toISOString().split('T')[0];
       const tomorrow = new Date();
