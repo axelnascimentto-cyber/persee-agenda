@@ -1546,22 +1546,20 @@
     /* TOAST */
     .toast-banner {
       position: fixed;
-      top: 12px;
+      top: 68px; /* Positionné sous le header (56px) pour ne jamais masquer les boutons */
       left: 50%;
-      transform: translateX(-50%) translateY(-100px);
-      background: rgba(255, 255, 255, 0.95);
-      backdrop-filter: blur(20px);
-      -webkit-backdrop-filter: blur(20px);
-      border: 1px solid var(--separator);
-      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
-      border-radius: var(--radius-full);
+      transform: translateX(-50%) translateY(-15px);
+      opacity: 0;
+      background: rgba(28, 28, 30, 0.95);
+      color: #ffffff;
+      border-radius: 20px;
       padding: 8px 18px;
       font-size: 13px;
       font-weight: 600;
-      color: var(--text-primary);
-      z-index: 300;
-      transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+      z-index: 9999;
       pointer-events: none;
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.25);
+      transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.25s ease;
     }
 
     .toast-banner.show {
@@ -2233,6 +2231,163 @@
       min-height: 38px;
     }
 
+    
+    /* GOOGLE AGENDA JEAN-ÉTIENNE (UNIQUEMENT QUAND JET EST SÉLECTIONNÉ) */
+    .jet-google-agenda-card {
+      background: #ffffff;
+      border-radius: 16px;
+      padding: 16px;
+      border: 1px solid var(--separator-subtle);
+      border-left: 5px solid #34c759;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.04);
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    .jet-gcal-header {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      gap: 10px;
+    }
+    .jet-gcal-header-left {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .jet-gcal-badge {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+    .jet-gcal-badge span {
+      white-space: nowrap;
+    }
+    @media (max-width: 480px) {
+      .jet-gcal-header {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+      .jet-gcal-controls {
+        width: 100%;
+        justify-content: space-between;
+      }
+      .jet-gcal-view-switch {
+        flex: 1;
+        justify-content: space-between;
+      }
+      .jet-view-btn {
+        padding: 5px 7px;
+        font-size: 11px;
+        flex: 1;
+        text-align: center;
+      }
+    }
+    .jet-gcal-pill {
+      font-size: 11px;
+      font-weight: 700;
+      color: #34c759;
+      background: rgba(52, 199, 89, 0.12);
+      padding: 3px 8px;
+      border-radius: 10px;
+      text-transform: uppercase;
+      letter-spacing: 0.4px;
+    }
+    .jet-gcal-controls {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 8px;
+    }
+    .jet-gcal-view-switch {
+      display: inline-flex;
+      background: #f2f2f7;
+      border-radius: 9px;
+      padding: 2px;
+      gap: 2px;
+    }
+    .jet-view-btn {
+      border: none;
+      background: transparent;
+      padding: 6px 11px;
+      border-radius: 7px;
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--text-secondary);
+      cursor: pointer;
+      transition: all 0.15s ease;
+    }
+    .jet-view-btn:hover {
+      color: var(--text-primary);
+    }
+    .jet-view-btn.active {
+      background: #ffffff;
+      color: var(--action-blue);
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+      font-weight: 700;
+    }
+    .btn-gcal-external {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      background: #f2f2f7;
+      color: var(--action-blue);
+      text-decoration: none;
+      font-size: 12px;
+      font-weight: 600;
+      padding: 6px 11px;
+      border-radius: 8px;
+      transition: background 0.15s ease;
+    }
+    .btn-gcal-external:hover {
+      background: #e5e5ea;
+    }
+    .jet-gcal-frame-wrapper {
+      position: relative;
+      width: 100%;
+      height: 600px;
+      border-radius: 12px;
+      overflow: hidden;
+      border: 1px solid var(--separator-subtle);
+      background: #fafafa;
+    }
+    @media (max-width: 768px) {
+      .jet-gcal-frame-wrapper {
+        height: 520px;
+      }
+    }
+    .jet-gcal-iframe {
+      width: 100%;
+      height: 100%;
+      border: none;
+      display: block;
+    }
+    .jet-gcal-spinner {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(255, 255, 255, 0.9);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      font-size: 13px;
+      color: var(--text-secondary);
+      z-index: 2;
+    }
+    .jet-maison-events {
+      background: #ffffff;
+      border-radius: 16px;
+      padding: 14px 16px;
+      border: 1px solid var(--separator-subtle);
+      box-shadow: 0 1px 4px rgba(0, 0, 0, 0.03);
+    }
+
     /* SIDE COLUMN (ACOMPANHAMENTOS & LEMBRETES) */
     .agenda-col-side {
       display: flex;
@@ -2532,6 +2687,9 @@
             <div id="calendarListView" class="calendar-list-view" style="display:none; flex-direction:column; gap:8px;">
               <!-- Rendu de la liste d'événements -->
             </div>
+
+            
+
             <div style="display:none;" id="eventsList"></div>
           </div>
 
@@ -3473,8 +3631,9 @@
       setupMentionAutocomplete('inNoteContent');
 
 
-      if (window.innerWidth < 900) {
-        document.getElementById('mobileAgentCard').style.display = 'flex';
+      const mobAgentCard = document.getElementById('mobileAgentCard');
+      if (mobAgentCard && window.innerWidth < 900) {
+        mobAgentCard.style.display = 'flex';
       }
 
       updateHeaderDate();
@@ -3745,7 +3904,9 @@
 
     // 5. MOBILE WEEK STRIP
     function renderMobileWeekStrip() {
+      renderCalendarWeekStrip();
       const strip = document.getElementById('mobileWeekStrip');
+      if (!strip) return;
       strip.innerHTML = '';
 
       const today = new Date();
@@ -3929,7 +4090,31 @@
         return false;
       }).sort((a, b) => (a.date + ' ' + (a.time || '00:00')).localeCompare(b.date + ' ' + (b.time || '00:00')));
 
-      if (upcoming.length === 0) {
+      // Filtrer par personne si un filtre est actif
+      let relevantUpcoming = upcoming;
+      if (state.filterPerson && state.filterPerson !== 'all') {
+        const fp = state.filterPerson.toLowerCase();
+        relevantUpcoming = upcoming.filter(ev => {
+          const person = (ev.person_name || '').toLowerCase();
+          const title = (ev.title || '').toLowerCase();
+          const desc = (ev.description || '').toLowerCase();
+          return person.includes(fp) || title.includes(fp) || desc.includes(fp);
+        });
+      }
+
+      if (relevantUpcoming.length === 0) {
+        if (isJeanEtienneSelected()) {
+          container.innerHTML = `
+            <div class="hero-card-empty" style="border-left: 5px solid #34c759;">
+              <div class="hero-empty-icon" style="background:rgba(52, 199, 89, 0.15); color:#34c759;">✓</div>
+              <div class="hero-empty-text">
+                <div class="hero-empty-title">Aucun autre rendez-vous aujourd'hui pour Jean-Étienne</div>
+                <div class="hero-empty-sub">Agenda synchronisé toutes les 30 min • Sérénité et temps libre.</div>
+              </div>
+            </div>
+          `;
+          return;
+        }
         container.innerHTML = `
           <div class="hero-card-empty">
             <div class="hero-empty-icon">✓</div>
@@ -3942,7 +4127,7 @@
         return;
       }
 
-      const nextEv = upcoming[0];
+      const nextEv = relevantUpcoming[0];
       let timeDiffText = "Aujourd'hui";
       if (nextEv.date === todayIso && nextEv.time) {
         const parts = nextEv.time.split(':');
@@ -4191,6 +4376,16 @@
     }
 
 
+    
+    // -------------------------------------------------------------
+    // INTÉGRATION GOOGLE AGENDA JEAN-ÉTIENNE (JET)
+    // -------------------------------------------------------------
+    function isJeanEtienneSelected() {
+      if (!state.filterPerson || state.filterPerson === 'all') return false;
+      const p = state.filterPerson.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '');
+      return p.includes('jean') || p.includes('etienne') || p === 'jet';
+    }
+
     function renderEvents() {
       // 1. Mettre à jour le Hero du prochain rendez-vous
       renderHeroNextEvent();
@@ -4204,10 +4399,17 @@
       // 4. Mettre à jour la colonne latérale des rappels
       renderSideTasks();
 
-      // 5. Affichage selon sous-vue Calendrier vs Liste
+            // 5. Affichage selon sous-vue Calendrier vs Liste
       const calView = document.getElementById('calendarTimelineView');
       const listView = document.getElementById('calendarListView');
       const isCal = (state.agendaSubView !== 'list');
+      const strip = document.getElementById('calendarWeekStrip');
+      const subviewSwitch = document.querySelector('.agenda-subview-switch');
+
+      if (strip) strip.style.display = 'flex';
+      if (subviewSwitch) subviewSwitch.style.display = 'inline-flex';
+      if (calView) calView.style.display = isCal ? 'flex' : 'none';
+      if (listView) listView.style.display = isCal ? 'none' : 'flex';
 
       if (calView) calView.style.display = isCal ? 'flex' : 'none';
       if (listView) listView.style.display = isCal ? 'none' : 'flex';
@@ -4224,6 +4426,7 @@
       // Rendu de la vue liste
       const listContainer = listView || document.getElementById('eventsList');
       if (!listContainer) return;
+      const list = listContainer;
       listContainer.innerHTML = '';
 
       const todayIso = new Date().toISOString().split('T')[0];
